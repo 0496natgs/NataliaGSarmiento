@@ -11,10 +11,14 @@
             "id": "e5bf59027ee1e83f",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/getting-started.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "getting-started"
             }
           }
         ]
@@ -183,5 +187,53 @@
     }
   },
   "active": "e5bf59027ee1e83f",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "content/growing-people.md",
+    "content/index.md",
+    "content/maintenance.md",
+    "content/superboosting-ideas.md",
+    "content/basics.md",
+    "README.md",
+    "content/images/brand/5.png",
+    "content/images/brand/3.png",
+    "content/images/brand/4.png",
+    "content/images/brand/1.png",
+    "content/images/brand/2.png",
+    "content/images/work-play-spiral.png",
+    "content/images/work-play-spectrum.png",
+    "content/images/work-play-loop.png",
+    "content/images/symposium-collage.png",
+    "content/images/soham-booth-demo-2.jpg",
+    "content/images/brand",
+    "content/images",
+    "content/icons",
+    "content/getting-started.md",
+    "content/demo-days.md",
+    "content/credits.md",
+    "docs/Canvas.canvas",
+    "tsconfig.json",
+    "quartz/static/giscus/light.css",
+    "quartz/static/giscus/dark.css",
+    "quartz/plugins/transformers/index.ts",
+    "quartz/plugins/pageTypes/matchers.ts",
+    "quartz/plugins/pageTypes/index.ts",
+    "quartz/plugins/pageTypes/dispatcher.ts",
+    "docs/tags/plugin.md",
+    "docs/tags/component.md",
+    "docs/plugins/index.md",
+    "docs/plugins/UnlistedPages.md",
+    "docs/plugins/TagPage.md",
+    "docs/plugins/TagList.md",
+    "docs/plugins/TableOfContents.md",
+    "docs/plugins/SyntaxHighlighting.md",
+    "docs/plugins/Static.md",
+    "docs/plugins/StackedPages.md",
+    "docs/plugins/Spacer.md",
+    "docs/plugins/Search.md",
+    "docs/plugins/RoamFlavoredMarkdown.md",
+    "docs/plugins/RemoveDrafts.md",
+    "docs/plugins/RecentNotes.md",
+    "docs/plugins/ReaderMode.md",
+    "docs/plugins/PageTitle.md"
+  ]
 }
