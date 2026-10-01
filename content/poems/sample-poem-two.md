@@ -1,11 +1,11 @@
 ---
 title: Sample poem, two
 date: 2026-08-14
-category: Poetry
+category: Poems
 form: poem
 description: Another placeholder, to show the previous and next arrows.
 tags:
-  - writing
+  - poems
 ---
 
 Replace these lines
@@ -15,4 +15,4 @@ The arrows at the edges
 move between pieces,
 newest to oldest.
 
-[[writing|← Writing]]
+[[poems|← Poems]]

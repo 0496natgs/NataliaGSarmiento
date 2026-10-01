@@ -5,23 +5,31 @@ import { Landing } from "../socratica/Landing"
 import { cardForSlug } from "../socratica/Cards"
 import landingStyle from "../styles/landing.scss"
 import sectionsStyle from "../styles/sections.scss"
+import siteStyle from "../styles/site.scss"
 import { SectionNav } from "../sections/SectionNav"
 import { renderSection } from "../sections/SectionLayouts"
-import { SITE_MARQUEE, isSectionSlug, sectionOfSlug } from "../sections/sectionsConfig"
+import { SITE_MARQUEE, isSectionSlug, sectionOfSlug, textOf } from "../sections/sectionsConfig"
+import { baseSlug, langOf } from "../sections/i18n"
 import { MARQUEE_PHRASES } from "../socratica/siteContent"
 
-// Fonts for the landing page and the sections (jzhao: DM Serif Display / Bricolage Grotesque / handwriting
-// dates, aek: EB Garamond). IBM Plex Mono is already loaded site-wide.
+// Fonts for the landing page and the sections: DM Serif Display for titles, EB Garamond and Caveat
+// for the manuscript voice (body text, handwritten dates and logo), Spline Sans Mono for the menu,
+// captions and small print (olhalazarieva.com, tour-kyrgyzstan.com), Bricolage Grotesque for UI text.
 const SITE_FONTS =
-  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Caveat:wght@500&family=DM+Serif+Display&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&display=swap"
+  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Caveat:wght@500;600&family=DM+Serif+Display:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Spline+Sans+Mono:wght@400;500&display=swap"
 
 const slug = (props: { componentData: { fileData: { slug?: string } } }) =>
   props.componentData.fileData.slug
 
+const isLanding = (slugValue?: string) => baseSlug(slugValue) === "index"
+/** Pages that belong to this site (landing, sections, their Spanish twins), as opposed to the Socratica guide. */
+const isSitePage = (slugValue?: string) => isLanding(slugValue) || isSectionSlug(slugValue)
+
 /** Marquee text: the site's own phrases on the landing page and sections, Socratica's on guide pages. */
 function marqueeFor(slugValue?: string) {
-  if (slugValue === "index") return SITE_MARQUEE
-  return sectionOfSlug(slugValue)?.marquee ?? MARQUEE_PHRASES
+  if (isLanding(slugValue)) return SITE_MARQUEE[langOf(slugValue)]
+  const section = sectionOfSlug(slugValue)
+  return section ? textOf(section, langOf(slugValue)).marquee : MARQUEE_PHRASES
 }
 
 /**
@@ -31,7 +39,7 @@ function marqueeFor(slugValue?: string) {
  */
 export const SocraticaFrame: PageFrame = {
   name: "socratica",
-  css: landingStyle + sectionsStyle,
+  css: landingStyle + sectionsStyle + siteStyle,
   prelude: (props) => (
     <>
       {/*
@@ -43,17 +51,15 @@ export const SocraticaFrame: PageFrame = {
           __html: `try{if(sessionStorage.getItem("explorerScrollTop")===null)sessionStorage.setItem("explorerScrollTop","0")}catch(e){}`,
         }}
       />
-      {(slug(props) === "index" || isSectionSlug(slug(props))) && (
-        <link rel="stylesheet" href={SITE_FONTS} />
-      )}
+      {isSitePage(slug(props)) && <link rel="stylesheet" href={SITE_FONTS} />}
       <Marquee phrases={marqueeFor(slug(props))} />
-      {isSectionSlug(slug(props)) && <SectionNav {...props.componentData} />}
+      {isSitePage(slug(props)) && <SectionNav {...props.componentData} />}
     </>
   ),
   render(props: PageFrameProps) {
     const { componentData, left } = props
     const slug = componentData.fileData.slug
-    if (slug === "index") {
+    if (isLanding(slug)) {
       return (
         <Landing
           componentData={componentData}

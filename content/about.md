@@ -17,6 +17,18 @@ At the core of everything I do is a commitment to teaching and learning. Whether
 
 My philosophy is simple: learn from others, learn from yourself, and share what you discover along the way.
 
-[Download my CV](/cv)
+## Timeline
 
-Explore: [[writing]], [[work]], [[design]], [[visual-notes]].
+<ol class="timeline">
+<li><span class="tl-year">2014 – 2019</span><div class="tl-body"><h3>Bachelor of Design</h3><p class="tl-where">UAM Cuajimalpa</p><p>Studied design at the Metropolitan Autonomous University, Cuajimalpa campus.</p></div></li>
+<li><span class="tl-year">2017</span><div class="tl-body"><h3>Visual notetaker</h3><p class="tl-where">SES International Student Energy Summit</p><p>Drew the conference sessions live, as they happened.</p></div></li>
+<li><span class="tl-year">2018</span><div class="tl-body"><h3>Exchange, audiovisual design</h3><p class="tl-where">Hochschule RheinMain, Germany</p><p>A year of audiovisual design abroad.</p></div></li>
+<li><span class="tl-year">2019 – 2020</span><div class="tl-body"><h3>Jr. Web &amp; Editorial Designer</h3><p class="tl-where">Tec de Monterrey</p><p>Web design, editorial and branding for a project: prototypes, icons and a new navigation system, backed by user research and usability testing.</p></div></li>
+<li><span class="tl-year">2020 – 2022</span><div class="tl-body"><h3>Salesforce Admin, Project Lead &amp; UX Designer</h3><p class="tl-where">Huitzi Solutions</p><p>Led all company projects and multidisciplinary teams of 3–10 people. Certified Salesforce admin for health and non-profit clients, delivering with Agile/Scrum and a behavior change design process (COM-B, logic model).</p></div></li>
+<li><span class="tl-year">2022 – 2023</span><div class="tl-body"><h3>Designer, Communication &amp; Design</h3><p class="tl-where">UAM Cuajimalpa</p><p>Editorial, branding, web and event design for the division's communication, including book covers.</p></div></li>
+<li><span class="tl-year">2023</span><div class="tl-body"><h3>Visual notetaker</h3><p class="tl-where">4th Global Business Anthropology Summit</p><p>Visual thinking to record the summit live. <a href="/visual-notes/gbas-summit">See the notes</a>.</p></div></li>
+<li class="now"><span class="tl-year">2023 – now</span><div class="tl-body"><h3>Digital Solutions Consultant, LATAM</h3><p class="tl-where">Valvoline Global Operations</p><p>Driving the adoption of Salesforce-powered transformation across global markets: strategy, technology, user experience, behavioral change design and organizational readiness.</p></div></li>
+<li class="now"><span class="tl-year">2026</span><div class="tl-body"><h3>Writing in public</h3><p class="tl-where">KHÔRA · Substack</p><p><a href="/work/khora-discovering-taste">Discovering Taste</a> appears in KHÔRA, Issue 54. Essays and poems go out through three newsletters: Materia prima, The Other Tongue and Cuartos Propios.</p></div></li>
+</ol>
+
+[Download my CV](/cv) · [[writing|Writing]] · [[work|Work]] · [[poems|Poems]] · [[visual-notes|Visual Notes]]

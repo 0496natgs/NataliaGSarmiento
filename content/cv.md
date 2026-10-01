@@ -23,4 +23,4 @@ Two versions, one for each way I work. Each is a single page.
   </a>
 </div>
 
-More about me in [[about]].
+More about me in [[about|About]].

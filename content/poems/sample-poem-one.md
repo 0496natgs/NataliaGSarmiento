@@ -1,12 +1,12 @@
 ---
 title: Sample poem, one
 date: 2026-09-20
-category: Poetry
+category: Poems
 form: poem
 badge: Sample
 description: A placeholder poem to show the poem layout. Replace with your own.
 tags:
-  - writing
+  - poems
 ---
 
 This is where a poem goes.
@@ -19,4 +19,4 @@ then the third,
 and let the page do
 the rest of the work.
 
-[[writing|← Writing]]
+[[poems|← Poems]]
