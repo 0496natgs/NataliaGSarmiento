@@ -295,7 +295,8 @@ footer {
 }
 
 /* The landing page is a full-width layout, not the three-column grid. */
-body[data-slug="index"] #quartz-body {
+body[data-slug="index"] #quartz-body,
+body[data-slug="es/index"] #quartz-body {
   display: block;
   padding: 0;
 }
@@ -341,12 +342,9 @@ body[data-slug="index"] #quartz-body {
 }
 
 /* v5's `.center { min-width: 100% }` otherwise overrides the landing page's centred width. */
-body[data-slug="index"] #quartz-body .content-container {
+body[data-slug="index"] #quartz-body .content-container,
+body[data-slug="es/index"] #quartz-body .content-container {
   min-width: 0;
-  width: 70%;
+  width: min(1240px, calc(100% - 2 * clamp(16px, 4vw, 48px)));
   margin: 0 auto;
-
-  @media screen and (max-width: 1200px) {
-    width: 95%;
-  }
 }

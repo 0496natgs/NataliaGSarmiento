@@ -1,0 +1,5 @@
+---
+title: Trabajo
+---
+
+Escritura publicada.

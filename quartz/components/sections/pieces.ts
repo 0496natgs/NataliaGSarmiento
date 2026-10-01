@@ -1,5 +1,6 @@
 import { QuartzComponentProps } from "../types"
 import { CATEGORY_ORDER, sectionOfSlug } from "./sectionsConfig"
+import { Lang, baseSlug, intlLocale, langOf, urlFor } from "./i18n"
 
 type Files = QuartzComponentProps["allFiles"]
 type FileData = Files[number]
@@ -26,24 +27,30 @@ export interface Piece {
   order?: number
   /** Extra images (e.g. a gallery of visual notes); each becomes a tile in photo grids. */
   images: string[]
+  /** Where the card links on this site (language-aware); `external` takes precedence. */
+  href: string
+  /** In a Spanish list: this piece has no Spanish version yet, so the English page is shown. */
+  untranslated: boolean
 }
 
 export const isSectionIndex = (slug?: string) => {
   const section = sectionOfSlug(slug)
-  return !!section && (slug === section.slug || slug === `${section.slug}/index`)
+  const base = baseSlug(slug)
+  return !!section && (base === section.slug || base === `${section.slug}/index`)
 }
 
-/** A single-page section such as Experience or About. */
+/** A single-page section such as CV or About. */
 export const isPageSection = (slug?: string) => {
   const section = sectionOfSlug(slug)
-  return section?.kind === "page" && slug === section.slug
+  const base = baseSlug(slug)
+  return section?.kind === "page" && (base === section.slug || base === `${section.slug}/index`)
 }
 
 export const categoryId = (category: string) => category.toLowerCase().replace(/[^a-z0-9]+/g, "-")
 
-export function formatPieceDate(date?: Date) {
+export function formatPieceDate(date?: Date, lang: Lang = "en") {
   return date
-    ? date.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" })
+    ? date.toLocaleDateString(intlLocale(lang), { month: "short", day: "2-digit", year: "numeric" })
     : ""
 }
 
@@ -55,23 +62,35 @@ function toDate(file: FileData): Date | undefined {
   return Number.isNaN(date.getTime()) ? undefined : date
 }
 
-/** Every page under a section folder except its index, newest first. Pass a slug to limit to one section. */
-export function getPieces(allFiles: Files, section?: string): Piece[] {
-  return allFiles
-    .filter((f) => {
-      const def = sectionOfSlug(f.slug)
-      return (
-        !!f.slug &&
-        !!def &&
-        f.slug !== def.slug &&
-        !f.slug.endsWith("/index") &&
-        def.kind === "collection" &&
-        (!section || def.slug === section)
-      )
-    })
+const isPiece = (f: FileData) => {
+  const def = sectionOfSlug(f.slug)
+  const base = baseSlug(f.slug)
+  return (
+    !!f.slug && !!def && def.kind === "collection" && base !== def.slug && !base.endsWith("/index")
+  )
+}
+
+/**
+ * Every page under a section folder except its index, newest first. Pass a slug to limit to one
+ * section. In Spanish, pieces without a Spanish page fall back to the English page.
+ */
+export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"): Piece[] {
+  const files = allFiles.filter(
+    (f) => isPiece(f) && (!section || sectionOfSlug(f.slug)!.slug === section),
+  )
+  const translated = new Set(
+    files.filter((f) => langOf(f.slug) === "es").map((f) => baseSlug(f.slug)),
+  )
+  const chosen = files.filter((f) =>
+    lang === "es"
+      ? langOf(f.slug) === "es" || !translated.has(baseSlug(f.slug))
+      : langOf(f.slug) === "en",
+  )
+  return chosen
     .map((f) => {
       const fm = f.frontmatter ?? ({} as NonNullable<FileData["frontmatter"]>)
       const def = sectionOfSlug(f.slug)!
+      const external = fm.external ? String(fm.external) : undefined
       return {
         slug: f.slug as string,
         section: def.slug,
@@ -83,13 +102,15 @@ export function getPieces(allFiles: Files, section?: string): Piece[] {
         cover: fm.cover ? String(fm.cover) : undefined,
         description: fm.description ? String(fm.description) : undefined,
         tags: Array.isArray(fm.tags) ? fm.tags.map(String) : [],
-        external: fm.external ? String(fm.external) : undefined,
+        external,
         year: fm.year ? String(fm.year) : undefined,
         role: fm.role ? String(fm.role) : undefined,
         publication: fm.publication ? String(fm.publication) : undefined,
         issue: fm.issue ? String(fm.issue) : undefined,
         order: typeof fm.order === "number" ? fm.order : undefined,
         images: Array.isArray(fm.images) ? fm.images.map(String) : [],
+        href: external ?? urlFor(f.slug as string, langOf(f.slug)),
+        untranslated: lang === "es" && !external && langOf(f.slug) === "en",
       }
     })
     .sort((a, b) => {

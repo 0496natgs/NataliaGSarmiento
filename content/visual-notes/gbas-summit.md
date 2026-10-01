@@ -16,7 +16,6 @@ images:
   - /static/notes/gbas-9.jpg
 tags:
   - visual-notes
-  - design
 ---
 
 Visual notetaker at the 4th Global Business Anthropology Summit, May 2023: using visual thinking to record the conference sessions as they happened.

@@ -5,17 +5,19 @@ import { SelectedPieces } from "./SelectedPieces"
 import { SectionIndex } from "./SectionIndex"
 import { formatPieceDate, getPieces, isPageSection, isSectionIndex } from "./pieces"
 import { SITE, sectionOfSlug } from "./sectionsConfig"
+import { categoryLabel, langOf, t } from "./i18n"
 
 /** Title, date, category chip, role/year and tags for a piece (dappled-light header). */
 function PieceHeader({ componentData }: Pick<PageFrameProps, "componentData">) {
   const slug = componentData.fileData.slug
-  const piece = getPieces(componentData.allFiles).find((p) => p.slug === slug)
+  const lang = langOf(slug)
+  const piece = getPieces(componentData.allFiles, undefined, lang).find((p) => p.slug === slug)
   return (
     <div class="s-piece-header">
       <h1 class="s-piece-title">{componentData.fileData.frontmatter?.title}</h1>
       <p class="s-piece-meta">
-        {piece?.date && <span class="s-script-date">{formatPieceDate(piece.date)}</span>}
-        {piece?.category && <span class="s-category">{piece.category}</span>}
+        {piece?.date && <span class="s-script-date">{formatPieceDate(piece.date, lang)}</span>}
+        {piece?.category && <span class="s-category">{categoryLabel(piece.category, lang)}</span>}
         {piece?.year && <span class="s-fact">{piece.year}</span>}
         {piece?.role && <span class="s-fact">{piece.role}</span>}
       </p>
@@ -32,14 +34,15 @@ function PieceHeader({ componentData }: Pick<PageFrameProps, "componentData">) {
 
 function PrevNext({ componentData }: Pick<PageFrameProps, "componentData">) {
   const section = sectionOfSlug(componentData.fileData.slug)
-  const pieces = getPieces(componentData.allFiles, section?.slug).filter((p) => !p.external)
+  const lang = langOf(componentData.fileData.slug)
+  const pieces = getPieces(componentData.allFiles, section?.slug, lang).filter((p) => !p.external)
   const i = pieces.findIndex((p) => p.slug === componentData.fileData.slug)
   const older = i >= 0 ? pieces[i + 1] : undefined
   const newer = i > 0 ? pieces[i - 1] : undefined
   return (
     <div class="s-prevnext">
-      {older ? <a href={`/${older.slug}`}>← {older.title}</a> : <span />}
-      {newer ? <a href={`/${newer.slug}`}>{newer.title} →</a> : <span />}
+      {older ? <a href={older.href}>← {older.title}</a> : <span />}
+      {newer ? <a href={newer.href}>{newer.title} →</a> : <span />}
     </div>
   )
 }
@@ -83,7 +86,9 @@ export function renderSection(props: PageFrameProps) {
   }
 
   if (form === "poem") {
-    const pieces = getPieces(componentData.allFiles, section.slug).filter((p) => !p.external)
+    const lang = langOf(slug)
+    const tt = t(lang)
+    const pieces = getPieces(componentData.allFiles, section.slug, lang).filter((p) => !p.external)
     const i = pieces.findIndex((p) => p.slug === slug)
     const older = i >= 0 ? pieces[i + 1] : undefined
     const newer = i > 0 ? pieces[i - 1] : undefined
@@ -92,8 +97,8 @@ export function renderSection(props: PageFrameProps) {
         {older && (
           <a
             class="s-arrow s-arrow-prev"
-            href={`/${older.slug}`}
-            aria-label={`Previous: ${older.title}`}
+            href={older.href}
+            aria-label={`${tt.previous}: ${older.title}`}
           >
             ←
           </a>
@@ -101,14 +106,14 @@ export function renderSection(props: PageFrameProps) {
         {newer && (
           <a
             class="s-arrow s-arrow-next"
-            href={`/${newer.slug}`}
-            aria-label={`Next: ${newer.title}`}
+            href={newer.href}
+            aria-label={`${tt.next}: ${newer.title}`}
           >
             →
           </a>
         )}
         <div class="center s-poem">
-          <p class="s-poem-date">{formatPieceDate(pieces[i]?.date)}</p>
+          <p class="s-poem-date">{formatPieceDate(pieces[i]?.date, lang)}</p>
           <p class="s-poem-author">{SITE.name}</p>
           <h1 class="s-poem-title">{componentData.fileData.frontmatter?.title}</h1>
           <div class="s-poem-body">

@@ -1,6 +1,7 @@
 import { QuartzComponent, QuartzComponentProps } from "../types"
 import { categoryId, getCategories, getPieces } from "./pieces"
-import { SectionDef, SITE } from "./sectionsConfig"
+import { SectionDef, SITE, textOf } from "./sectionsConfig"
+import { categoryLabel, langOf, t } from "./i18n"
 import { Tile } from "./Tile"
 import { WorkCard } from "./WorkCard"
 
@@ -19,7 +20,9 @@ export function SectionIndex({
   Content: QuartzComponent
   section: SectionDef
 }) {
-  const pieces = getPieces(componentData.allFiles, section.slug)
+  const lang = langOf(componentData.fileData.slug)
+  const tt = t(lang)
+  const pieces = getPieces(componentData.allFiles, section.slug, lang)
   const categories = getCategories(pieces)
   const tabs = section.tabs && categories.length > 1
   const filterCss = tabs
@@ -34,7 +37,9 @@ export function SectionIndex({
     <div class={`center s-index s-index-${section.grid}`}>
       {filterCss && <style dangerouslySetInnerHTML={{ __html: filterCss }} />}
       <p class="s-eyebrow">{SITE.name}</p>
-      <h1 class="s-index-title">{componentData.fileData.frontmatter?.title ?? section.title}</h1>
+      <h1 class="s-index-title">
+        {componentData.fileData.frontmatter?.title ?? textOf(section, lang).title}
+      </h1>
       <div class="s-index-intro">
         <Content {...componentData} />
       </div>
@@ -46,11 +51,11 @@ export function SectionIndex({
           ))}
           <div class="s-tabs">
             <a class="s-tab-all" href="#all" data-router-ignore>
-              All
+              {tt.all}
             </a>
             {categories.map((c) => (
               <a href={`#${categoryId(c)}`} data-router-ignore>
-                {c}
+                {categoryLabel(c, lang)}
               </a>
             ))}
           </div>
@@ -61,14 +66,19 @@ export function SectionIndex({
           ? // Photo grid: every image of every piece is its own tile (the piece's page shows them all).
             pieces.flatMap((piece, i) =>
               (piece.images.length > 0 ? piece.images : [piece.cover]).map((image, j) => (
-                <Tile piece={{ ...piece, cover: image }} index={i + j} caption={false} />
+                <Tile
+                  piece={{ ...piece, cover: image }}
+                  index={i + j}
+                  lang={lang}
+                  caption={false}
+                />
               )),
             )
           : section.grid === "work"
-            ? pieces.map((piece, i) => <WorkCard piece={piece} index={i} />)
-            : pieces.map((piece, i) => <Tile piece={piece} index={i} caption />)}
+            ? pieces.map((piece, i) => <WorkCard piece={piece} index={i} lang={lang} />)
+            : pieces.map((piece, i) => <Tile piece={piece} index={i} lang={lang} caption />)}
       </div>
-      {pieces.length === 0 && <p class="s-empty">Nothing here yet.</p>}
+      {pieces.length === 0 && <p class="s-empty">{tt.empty}</p>}
     </div>
   )
 }
