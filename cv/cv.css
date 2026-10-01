@@ -3,12 +3,12 @@
   margin: 0;
 }
 :root {
-  --ink: #16294e;
-  --body: #2d4673;
-  --accent: #c8482b;
-  --gray: #8a7f69;
-  --rule: #e3d9c0;
-  --cream: #f5eedd;
+  --ink: #17130f;
+  --body: #4a4239;
+  --accent: #a13842;
+  --gray: #8f8777;
+  --rule: #e4dfd2;
+  --cream: #f5f2ea;
 }
 * {
   box-sizing: border-box;
