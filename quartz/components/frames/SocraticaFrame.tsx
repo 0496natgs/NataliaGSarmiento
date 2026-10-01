@@ -54,7 +54,12 @@ export const SocraticaFrame: PageFrame = {
     const { componentData, left } = props
     const slug = componentData.fileData.slug
     if (slug === "index") {
-      return <Landing componentData={componentData} />
+      return (
+        <Landing
+          componentData={componentData}
+          graph={props.right.find((c) => c.name === "Graph")}
+        />
+      )
     }
     if (isSectionSlug(slug)) {
       return renderSection(props)

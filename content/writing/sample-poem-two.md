@@ -5,7 +5,7 @@ category: Poetry
 form: poem
 description: Another placeholder, to show the previous and next arrows.
 tags:
-  - sample
+  - writing
 ---
 
 Replace these lines
@@ -14,3 +14,5 @@ with something you mean.
 The arrows at the edges
 move between pieces,
 newest to oldest.
+
+[[writing|← Writing]]

@@ -19,6 +19,9 @@ export interface Piece {
   external?: string
   year?: string
   role?: string
+  /** For published work: the magazine or outlet, and the issue. */
+  publication?: string
+  issue?: string
   /** Manual position (1 = first). Pieces with an order come before those sorted by date. */
   order?: number
   /** Extra images (e.g. a gallery of visual notes); each becomes a tile in photo grids. */
@@ -83,6 +86,8 @@ export function getPieces(allFiles: Files, section?: string): Piece[] {
         external: fm.external ? String(fm.external) : undefined,
         year: fm.year ? String(fm.year) : undefined,
         role: fm.role ? String(fm.role) : undefined,
+        publication: fm.publication ? String(fm.publication) : undefined,
+        issue: fm.issue ? String(fm.issue) : undefined,
         order: typeof fm.order === "number" ? fm.order : undefined,
         images: Array.isArray(fm.images) ? fm.images.map(String) : [],
       }

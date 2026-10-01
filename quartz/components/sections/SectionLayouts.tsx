@@ -54,11 +54,12 @@ export function renderSection(props: PageFrameProps) {
   if (isPageSection(slug)) {
     const byName = (name: string) => left.find((c) => c.name === name)
     const toc = byName("DesktopOnly")
+    const graph = props.right.find((c) => c.name === "Graph")
     const sidebar = [byName("PageTitle"), byName("Flex")].filter(Boolean) as QuartzComponent[]
     return DefaultFrame.render({
       ...props,
       left: sidebar,
-      right: toc ? [toc] : [],
+      right: [graph, toc].filter(Boolean) as QuartzComponent[],
       beforeBody: [
         () => (
           <div class="s-piece-header">
@@ -125,11 +126,12 @@ export function renderSection(props: PageFrameProps) {
   // table of contents on the right (dappled-light).
   const byName = (name: string) => left.find((c) => c.name === name)
   const toc = byName("DesktopOnly")
+  const graph = props.right.find((c) => c.name === "Graph")
   const sidebar = [byName("PageTitle"), byName("Flex")].filter(Boolean) as QuartzComponent[]
   return DefaultFrame.render({
     ...props,
     left: [...sidebar, () => <SelectedPieces {...componentData} />],
-    right: toc ? [toc] : [],
+    right: [graph, toc].filter(Boolean) as QuartzComponent[],
     beforeBody: [() => <PieceHeader componentData={componentData} />],
     afterBody: [() => <PrevNext componentData={componentData} />, ...props.afterBody],
   })

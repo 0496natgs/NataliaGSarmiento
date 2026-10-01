@@ -2,10 +2,12 @@ import { QuartzComponent, QuartzComponentProps } from "../types"
 import { categoryId, getCategories, getPieces } from "./pieces"
 import { SectionDef, SITE } from "./sectionsConfig"
 import { Tile } from "./Tile"
+import { WorkCard } from "./WorkCard"
 
 /**
  * A section's index page. `tiles` (Writing, Design): category tabs + a grid of tiles with captions.
- * `photos` (Visual Notes): a tight photo grid with hover captions. Filtering is pure CSS (:target),
+ * `photos` (Visual Notes): a tight photo grid with hover captions. `work` (Work): Aekta-style image
+ * cards in two columns with category tabs. Filtering is pure CSS (:target),
  * so it needs no client JS and survives SPA navigation.
  */
 export function SectionIndex({
@@ -24,7 +26,7 @@ export function SectionIndex({
     ? categories
         .map((c) => {
           const id = categoryId(c)
-          return `.s-index:has(#${id}:target) .s-tile:not([data-category="${id}"]){display:none}.s-index:has(#${id}:target) .s-tabs a[href="#${id}"]{color:var(--dark);border-bottom-color:var(--dark)}`
+          return `.s-index:has(#${id}:target) :is(.s-tile,.s-work):not([data-category="${id}"]){display:none}.s-index:has(#${id}:target) .s-tabs a[href="#${id}"]{color:var(--dark);border-bottom-color:var(--dark)}`
         })
         .join("")
     : ""
@@ -62,7 +64,9 @@ export function SectionIndex({
                 <Tile piece={{ ...piece, cover: image }} index={i + j} caption={false} />
               )),
             )
-          : pieces.map((piece, i) => <Tile piece={piece} index={i} caption />)}
+          : section.grid === "work"
+            ? pieces.map((piece, i) => <WorkCard piece={piece} index={i} />)
+            : pieces.map((piece, i) => <Tile piece={piece} index={i} caption />)}
       </div>
       {pieces.length === 0 && <p class="s-empty">Nothing here yet.</p>}
     </div>

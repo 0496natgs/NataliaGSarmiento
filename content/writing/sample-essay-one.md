@@ -5,7 +5,7 @@ category: Nonfiction
 description: A placeholder essay to show the nonfiction category and the lime badge.
 badge: Sample
 tags:
-  - sample
+  - writing
   - essay
 ---
 
@@ -16,3 +16,5 @@ This is placeholder text for an essay. Tags appear as small chips under the titl
 ## Using it
 
 Add `cover: /static/your-image.png` to a piece's frontmatter to show an image on its card instead of the coloured poster.
+
+[[writing|← Writing]]
