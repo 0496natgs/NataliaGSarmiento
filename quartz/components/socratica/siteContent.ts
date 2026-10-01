@@ -12,20 +12,6 @@ export const MARQUEE_PHRASES = [
   "the resource repository",
 ]
 
-export const LANDING = {
-  header: "Welcome to Socratica",
-  subhead: "This is a guide",
-  links: [
-    { text: "Back to main site", href: "https://www.socratica.info/", external: true },
-    { text: "Writing", href: "/writing", external: false },
-    { text: "Contribute", href: "https://github.com/Socratica-Org/toolbox", external: true },
-    { text: "Credits", href: "/credits", external: false },
-  ],
-}
-
-// Number of card slots on the landing page; unused slots render "Coming Soon".
-export const TOTAL_CARDS = 8
-
 export interface Issue {
   slug: string
   title: string

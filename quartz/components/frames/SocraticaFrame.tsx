@@ -4,16 +4,25 @@ import { Marquee } from "../socratica/Marquee"
 import { Landing } from "../socratica/Landing"
 import { cardForSlug } from "../socratica/Cards"
 import landingStyle from "../styles/landing.scss"
-import writersStyle from "../styles/writers.scss"
-import { WritersNav } from "../writers/WritersNav"
-import { renderWriting } from "../writers/WritersLayouts"
-import { isWritingSlug } from "../writers/pieces"
-import { WRITING_MARQUEE } from "../writers/writerContent"
+import sectionsStyle from "../styles/sections.scss"
+import { SectionNav } from "../sections/SectionNav"
+import { renderSection } from "../sections/SectionLayouts"
+import { SITE_MARQUEE, isSectionSlug, sectionOfSlug } from "../sections/sectionsConfig"
+import { MARQUEE_PHRASES } from "../socratica/siteContent"
 
-// Fonts for the Writing section only (jzhao: DM Serif Display / Bricolage Grotesque / handwriting
+// Fonts for the landing page and the sections (jzhao: DM Serif Display / Bricolage Grotesque / handwriting
 // dates, aek: EB Garamond). IBM Plex Mono is already loaded site-wide.
-const WRITING_FONTS =
-  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Caveat:wght@500&family=DM+Serif+Display&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+const SITE_FONTS =
+  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Caveat:wght@500&family=DM+Serif+Display&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&display=swap"
+
+const slug = (props: { componentData: { fileData: { slug?: string } } }) =>
+  props.componentData.fileData.slug
+
+/** Marquee text: the site's own phrases on the landing page and sections, Socratica's on guide pages. */
+function marqueeFor(slugValue?: string) {
+  if (slugValue === "index") return SITE_MARQUEE
+  return sectionOfSlug(slugValue)?.marquee ?? MARQUEE_PHRASES
+}
 
 /**
  * Socratica-style frame: a scrolling marquee above the page, a card-grid
@@ -22,7 +31,7 @@ const WRITING_FONTS =
  */
 export const SocraticaFrame: PageFrame = {
   name: "socratica",
-  css: landingStyle + writersStyle,
+  css: landingStyle + sectionsStyle,
   prelude: (props) => (
     <>
       {/*
@@ -34,23 +43,21 @@ export const SocraticaFrame: PageFrame = {
           __html: `try{if(sessionStorage.getItem("explorerScrollTop")===null)sessionStorage.setItem("explorerScrollTop","0")}catch(e){}`,
         }}
       />
-      {isWritingSlug(props.componentData.fileData.slug) && (
-        <link rel="stylesheet" href={WRITING_FONTS} />
+      {(slug(props) === "index" || isSectionSlug(slug(props))) && (
+        <link rel="stylesheet" href={SITE_FONTS} />
       )}
-      <Marquee
-        phrases={isWritingSlug(props.componentData.fileData.slug) ? WRITING_MARQUEE : undefined}
-      />
-      {isWritingSlug(props.componentData.fileData.slug) && <WritersNav {...props.componentData} />}
+      <Marquee phrases={marqueeFor(slug(props))} />
+      {isSectionSlug(slug(props)) && <SectionNav {...props.componentData} />}
     </>
   ),
   render(props: PageFrameProps) {
     const { componentData, left } = props
     const slug = componentData.fileData.slug
     if (slug === "index") {
-      return <Landing />
+      return <Landing componentData={componentData} />
     }
-    if (isWritingSlug(slug)) {
-      return renderWriting(props)
+    if (isSectionSlug(slug)) {
+      return renderSection(props)
     }
 
     const card = cardForSlug(slug)
