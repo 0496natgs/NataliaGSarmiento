@@ -182,13 +182,13 @@
       "bases:Create new base": false
     }
   },
-  "active": "e5bf59027ee1e83f",
+  "active": "7c9c0dc418c6f3d0",
   "lastOpenFiles": [
     "content/demo-days.md",
     "content/superboosting-ideas.md",
     "content/maintenance.md",
-    "content/icons/arrow-right.svg",
     "content/icons/arrow-left.svg",
+    "content/icons/arrow-right.svg",
     "content/icons",
     "content/index.md",
     "content/getting-started.md",
@@ -206,17 +206,18 @@
     "content/images",
     "content/basics.md",
     "content",
+    "node_modules/@quartz-themes/default/README.md",
+    "node_modules/@quartz-themes/default/package.json",
+    "node_modules/@quartz-themes/default/theme.json",
+    "node_modules/@quartz-themes/default/LICENSE",
+    "node_modules/@quartz-themes/default",
     "quartz.config.yaml",
     "node_modules/@quartz-community/latex/README.md",
     "node_modules/@quartz-community/latex/CHANGELOG.md",
     "node_modules/@img/sharp-libvips-darwin-arm64/README.md",
     "node_modules/@img/sharp-libvips-darwin-arm64/versions.json",
-    "node_modules/@img/sharp-libvips-darwin-arm64/package.json",
     "node_modules/@esbuild/darwin-arm64/README.md",
-    "node_modules/@esbuild/darwin-arm64/package.json",
-    "node_modules/@myriaddreamin/typst-ts-node-compiler-darwin-arm64/typst-ts-node-compiler.darwin-arm64.node",
     "node_modules/@myriaddreamin/typst-ts-node-compiler-darwin-arm64/README.md",
-    "node_modules/@myriaddreamin/typst-ts-node-compiler-darwin-arm64/package.json",
     "node_modules/@img/colour/README.md",
     "node_modules/@img/colour/LICENSE.md",
     "node_modules/parse-entities/node_modules/@types/unist/README.md",
@@ -228,7 +229,6 @@
     "node_modules/@myriaddreamin/typst-ts-node-compiler/README.md",
     "node_modules/@quartz-community/alias-redirects/README.md",
     "node_modules/@quartz-community/alias-redirects/CHANGELOG.md",
-    "node_modules/@clack/core/README.md",
     "docs/Canvas.canvas"
   ]
 }
