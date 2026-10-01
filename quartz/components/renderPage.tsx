@@ -334,6 +334,17 @@ export function renderPage(
   } = components
   const Body = BodyConstructor()
   const frame = resolveFrame(frameName)
+  const framePropsForPage = {
+    componentData,
+    head: Head,
+    header,
+    beforeBody,
+    pageBody: Content,
+    afterBody,
+    left,
+    right,
+    footer,
+  }
 
   const lang = componentData.fileData.frontmatter?.lang ?? cfg.locale?.split("-")[0] ?? "en"
   const direction = i18n(cfg.locale).direction ?? "ltr"
@@ -348,22 +359,9 @@ export function renderPage(
       <Head {...componentData} />
       <body data-slug={slug} data-basepath={basePath}>
         {frame.css && <style dangerouslySetInnerHTML={{ __html: frame.css }} />}
+        {frame.prelude?.(framePropsForPage)}
         <div id="quartz-root" class="page" data-frame={frame.name}>
-          <Body {...componentData}>
-            {[
-              frame.render({
-                componentData,
-                head: Head,
-                header,
-                beforeBody,
-                pageBody: Content,
-                afterBody,
-                left,
-                right,
-                footer,
-              }),
-            ]}
-          </Body>
+          <Body {...componentData}>{[frame.render(framePropsForPage)]}</Body>
         </div>
       </body>
       {pageResources.js

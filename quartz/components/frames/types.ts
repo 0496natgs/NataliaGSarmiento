@@ -40,4 +40,6 @@ export interface PageFrame {
   render: (props: PageFrameProps) => JSX.Element
   /** Optional CSS string to include when this frame is active */
   css?: string
+  /** Optional content rendered inside <body> but above #quartz-root (e.g. a site-wide banner) */
+  prelude?: (props: PageFrameProps) => JSX.Element
 }

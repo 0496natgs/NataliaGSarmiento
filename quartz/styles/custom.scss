@@ -1,4 +1,4 @@
-@use "./base.scss";
+@use "./variables.scss" as *;
 
 // put your custom CSS here!
 body {
@@ -6,12 +6,9 @@ body {
   margin: 0;
 }
 
-@font-face {
-  font-family: "Tiempos";
-  src: url("/static/tiempos-light.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
+// Socratica uses Tiempos for headings. It is a commercial typeface (Klim Type Foundry) and is not
+// bundled in this repo, so headings use PT Serif (see quartz-fonts in quartz.config.yaml).
+// With a Tiempos license, add its @font-face here and set `html:root { --headerFont: "Tiempos", serif; }`.
 
 /* HEADER AT TOP OF WEBSITE */
 .marquee {
@@ -24,6 +21,9 @@ body {
 }
 
 .marquee p {
+  white-space: nowrap;
+  text-wrap: nowrap;
+  margin: 0;
   color: white;
   font-weight: 700;
   animation: loopText 15s infinite linear;
@@ -245,5 +245,97 @@ body[data-slug="demo-days"] .end-message {
 
   .cta-button {
     color: #e18fa7;
+  }
+}
+
+/* SOCRATICA OVERRIDES ON TOP OF QUARTZ v5 BASE STYLES */
+strong {
+  font-weight: 700;
+}
+
+table {
+  margin: 1rem 0;
+}
+
+th {
+  border-bottom: 2px solid var(--darkgray);
+}
+
+tr {
+  border-bottom: 1px solid var(--darkgray);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.intext-header {
+  background: black;
+}
+
+.breadcrumb-container {
+  font-family: var(--codeFont);
+  text-transform: uppercase;
+}
+
+footer {
+  text-align: left;
+  margin-bottom: 4rem;
+  opacity: 0.7;
+
+  & ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: -1rem;
+  }
+}
+
+/* The landing page is a full-width layout, not the three-column grid. */
+body[data-slug="index"] #quartz-body {
+  display: block;
+  padding: 0;
+}
+
+/* Issue card under the site title: desktop in the sidebar, mobile above the article title. */
+.header-card.mobile-only {
+  display: none;
+
+  @media all and ($mobile) {
+    display: inline-block;
+  }
+}
+
+.header-card.desktop-only {
+  @media all and ($mobile) {
+    display: none;
+  }
+}
+
+/* Reading time only, no date. */
+.content-meta time {
+  display: none;
+}
+
+/* Explorer ("Issues") in issue order rather than alphabetical.
+   Keep this list in sync with ISSUES in quartz/components/socratica/siteContent.ts. */
+.explorer-ul {
+  display: flex;
+  flex-direction: column;
+
+  > li {
+    order: 100;
+  }
+
+  $issue-order:
+    basics, getting-started, growing-people, superboosting-ideas, maintenance, demo-days, credits;
+
+  @each $slug in $issue-order {
+    > li:has(a[href$="/#{$slug}"]) {
+      order: index($issue-order, $slug);
+    }
   }
 }
