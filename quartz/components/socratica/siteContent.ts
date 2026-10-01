@@ -17,6 +17,7 @@ export const LANDING = {
   subhead: "This is a guide",
   links: [
     { text: "Back to main site", href: "https://www.socratica.info/", external: true },
+    { text: "Writing", href: "/writing", external: false },
     { text: "Contribute", href: "https://github.com/Socratica-Org/toolbox", external: true },
     { text: "Credits", href: "/credits", external: false },
   ],
