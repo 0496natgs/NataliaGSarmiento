@@ -4,9 +4,11 @@ date: 2026-06-18
 category: Nonfiction
 description: Another placeholder essay.
 tags:
-  - sample
+  - writing
 ---
 
 ## A heading
 
 Placeholder text. Replace or delete.
+
+[[writing|← Writing]]

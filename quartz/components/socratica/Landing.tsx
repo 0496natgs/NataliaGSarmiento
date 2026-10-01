@@ -1,4 +1,4 @@
-import { QuartzComponentProps } from "../types"
+import { QuartzComponent, QuartzComponentProps } from "../types"
 import { getPieces } from "../sections/pieces"
 import { ART, SECTIONS, SITE, SUBSTACK_URL } from "../sections/sectionsConfig"
 import { Tile } from "../sections/Tile"
@@ -34,7 +34,13 @@ function DivisionCard({ href, title, blurb, art, className, external }: Division
   )
 }
 
-export function Landing({ componentData }: { componentData: QuartzComponentProps }) {
+export function Landing({
+  componentData,
+  graph: Graph,
+}: {
+  componentData: QuartzComponentProps
+  graph?: QuartzComponent
+}) {
   // Mix the sections: take one from each in turn until there are eight.
   const bySection = SECTIONS.filter((s) => s.kind === "collection").map((s) =>
     getPieces(componentData.allFiles, s.slug),
@@ -64,15 +70,19 @@ export function Landing({ componentData }: { componentData: QuartzComponentProps
       </p>
 
       <div class="d-grid">
-        {SECTIONS.filter((s) => s.card).map((s) => (
-          <DivisionCard
-            href={`/${s.slug}`}
-            title={s.title}
-            blurb={s.blurb}
-            art={s.art}
-            className={`d-${s.slug}${s.featured ? " d-featured" : ""}`}
-          />
-        ))}
+        {/* Order matters: Writing and Work lead, Substack beside them, then Design / Visual Notes, CV last. */}
+        {["writing", "work"].map((slug) => {
+          const sec = SECTIONS.find((x) => x.slug === slug)!
+          return (
+            <DivisionCard
+              href={`/${sec.slug}`}
+              title={sec.title}
+              blurb={sec.blurb}
+              art={sec.art}
+              className={`d-${sec.slug}${sec.featured ? " d-featured" : ""}`}
+            />
+          )
+        })}
         <DivisionCard
           href={SUBSTACK_URL}
           title="Substack"
@@ -81,6 +91,18 @@ export function Landing({ componentData }: { componentData: QuartzComponentProps
           className="d-substack"
           external
         />
+        {["design", "visual-notes", "cv"].map((slug) => {
+          const sec = SECTIONS.find((x) => x.slug === slug)!
+          return (
+            <DivisionCard
+              href={`/${sec.slug}`}
+              title={sec.title}
+              blurb={sec.blurb}
+              art={sec.art}
+              className={`d-${sec.slug}`}
+            />
+          )
+        })}
       </div>
 
       {latest.length > 0 && (
@@ -90,6 +112,18 @@ export function Landing({ componentData }: { componentData: QuartzComponentProps
             {latest.map((p, i) => (
               <Tile piece={p} index={i} showSection />
             ))}
+          </div>
+        </>
+      )}
+
+      {Graph && (
+        <>
+          <h2 class="d-latest-title">Map</h2>
+          <p class="d-map-note">
+            How everything on this site connects. Drag, zoom, or open the full graph.
+          </p>
+          <div class="d-graph">
+            <Graph {...componentData} />
           </div>
         </>
       )}

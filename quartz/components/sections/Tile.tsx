@@ -33,7 +33,9 @@ export function Tile({
         }
       >
         {piece.badge && <span class="s-badge">{piece.badge}</span>}
-        {piece.external && <span class="s-badge s-badge-ext">Substack ↗</span>}
+        {piece.external && (
+          <span class="s-badge s-badge-ext">{piece.publication ?? "Substack"} ↗</span>
+        )}
         {!piece.cover && (
           <>
             <p class="s-poster-kicker">{kicker}</p>

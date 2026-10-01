@@ -6,7 +6,7 @@ form: poem
 badge: Sample
 description: A placeholder poem to show the poem layout. Replace with your own.
 tags:
-  - sample
+  - writing
 ---
 
 This is where a poem goes.
@@ -18,3 +18,5 @@ Put the second stanza here,
 then the third,
 and let the page do
 the rest of the work.
+
+[[writing|← Writing]]

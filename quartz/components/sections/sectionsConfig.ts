@@ -30,7 +30,9 @@ export const ART: Art[] = [
   { file: "the-other-tongue.png", color: "#095d6a", name: "The Other Tongue" },
 ]
 
-export type GridKind = "tiles" | "photos"
+// "tiles": square tiles; "photos": tight photo grid; "work": large image cards in two columns
+// with category tabs, like a writer's portfolio (aektakhubchandani.com/work).
+export type GridKind = "tiles" | "photos" | "work"
 
 // "collection": an index page plus a folder of pieces (Writing, Design, Visual Notes).
 // "page": a single page (Experience, About).
@@ -50,6 +52,8 @@ export interface SectionDef {
   featured?: boolean
   /** Show a card for this section on the landing page. */
   card: boolean
+  /** Show in the top navigation (default true). */
+  inNav?: boolean
   /** Text for the scrolling marquee while inside this section. */
   marquee: string[]
 }
@@ -68,15 +72,26 @@ export const SECTIONS: SectionDef[] = [
     marquee: ["poems", "essays", "stories", "notes", "work in progress", "read slowly"],
   },
   {
+    slug: "work",
+    kind: "collection",
+    card: true,
+    title: "Work",
+    blurb: "Published writing",
+    art: 3,
+    grid: "work",
+    tabs: true,
+    marquee: ["published work", "essays", "flash", "in print", "read it there"],
+  },
+  {
     slug: "design",
     kind: "collection",
     card: true,
     title: "Design",
-    blurb: "Branding, websites, systems",
+    blurb: "Identity and systems",
     art: 2,
     grid: "tiles",
-    tabs: true,
-    marquee: ["design", "projects", "identity", "layout", "typography", "process"],
+    tabs: false,
+    marquee: ["design", "identity", "systems", "signage", "logos"],
   },
   {
     slug: "visual-notes",
@@ -90,15 +105,16 @@ export const SECTIONS: SectionDef[] = [
     marquee: ["visual notes", "live drawing", "visual thinking", "conferences", "looking closely"],
   },
   {
-    slug: "experience",
+    slug: "cv",
     kind: "page",
     card: true,
-    title: "Experience",
-    blurb: "Work history and education",
-    art: 3,
+    inNav: false,
+    title: "CV",
+    blurb: "Download: transformation & behavioral change design · writing",
+    art: 0,
     grid: "tiles",
     tabs: false,
-    marquee: ["experience", "education", "transformation", "behavioral design", "salesforce"],
+    marquee: ["curriculum vitae", "transformation", "behavioral design", "writing"],
   },
   {
     slug: "about",
@@ -112,11 +128,6 @@ export const SECTIONS: SectionDef[] = [
     marquee: ["about", "learn from others", "learn from yourself", "share what you discover"],
   },
 ]
-
-// External links (portfolio, CV, contact form).
-export const CV_URL =
-  "https://www.dropbox.com/scl/fi/bao3h905bz2xe4ysf2jou/CV-Design-2026.pdf?rlkey=ymvnantxur0738dp2ixtjt9oz&st=yvgoegvn&dl=0"
-export const PORTFOLIO_URL = "https://natgsarmiento.myportfolio.com/work"
 
 export const SITE_MARQUEE = [
   "writing",

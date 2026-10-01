@@ -1,6 +1,10 @@
 ---
 title: About
 description: Transformation professional, behavioral change designer, writer and lifelong learner.
+tags:
+  - about
+  - writing
+  - behavioral-change
 ---
 
 I'm a transformation professional, behavioral change designer, writer, and lifelong learner who believes that technology is only valuable when it helps people grow, adapt, and connect.
@@ -13,4 +17,6 @@ At the core of everything I do is a commitment to teaching and learning. Whether
 
 My philosophy is simple: learn from others, learn from yourself, and share what you discover along the way.
 
-[CV / Resume](https://www.dropbox.com/scl/fi/bao3h905bz2xe4ysf2jou/CV-Design-2026.pdf?rlkey=ymvnantxur0738dp2ixtjt9oz&st=yvgoegvn&dl=0) · [Contact](https://natgsarmiento.myportfolio.com/contact) · [Portfolio](https://natgsarmiento.myportfolio.com/work)
+[Download my CV](/cv)
+
+Explore: [[writing]], [[work]], [[design]], [[visual-notes]].

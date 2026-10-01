@@ -4,7 +4,7 @@ date: 2026-09-02
 category: Fiction
 description: A placeholder short story, to show the article layout with the table of contents.
 tags:
-  - sample
+  - writing
   - fiction
 ---
 
@@ -19,3 +19,5 @@ Write your own scenes here. Headings become the table of contents automatically,
 ## An ending
 
 Replace this file, or delete it, when you add your own fiction.
+
+[[writing|← Writing]]
