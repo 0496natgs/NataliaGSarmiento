@@ -339,3 +339,14 @@ body[data-slug="index"] #quartz-body {
     }
   }
 }
+
+/* v5's `.center { min-width: 100% }` otherwise overrides the landing page's centred width. */
+body[data-slug="index"] #quartz-body .content-container {
+  min-width: 0;
+  width: 70%;
+  margin: 0 auto;
+
+  @media screen and (max-width: 1200px) {
+    width: 95%;
+  }
+}

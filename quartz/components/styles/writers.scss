@@ -1,0 +1,548 @@
+@use "../../styles/variables.scss" as *;
+
+// Writing section. Palette/type are taken from the reference sites:
+//   jzhao.xyz        cream #f5eedd, navy ink #16294e/#2d4673, accent #c8482b, DM Serif Display,
+//                    Bricolage Grotesque, handwritten dates, "Selected Writing" sidebar, TOC right
+//   aektakhubchandani lime #c1e401 badges, EB Garamond titles, category tabs, uppercase meta
+//   errr-magazine    IBM Plex Mono, 4-up grid, 8px-rounded media, 24px gaps
+//   rattle.com       paper grain, floating pill nav, centred poem with prev/next arrows
+// Everything is scoped to body[data-slug^="writing"] so the Socratica pages are untouched.
+
+$lime: #c1e401;
+$grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .2  0 0 0 .1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+
+body[data-slug^="writing"] {
+  --light: #f5eedd;
+  --lightgray: #e3d9c0;
+  --gray: #9a8e76;
+  --darkgray: #2d4673;
+  --dark: #16294e;
+  --secondary: #284d78;
+  --tertiary: #c8482b;
+  --highlight: #c8482b1a;
+  --textHighlight: #f4c84b88;
+  --headerFont: "DM Serif Display", serif;
+  --bodyFont: "Bricolage Grotesque", system-ui, sans-serif;
+  --codeFont: "IBM Plex Mono", monospace;
+  background-color: var(--light);
+  background-image: $grain !important;
+
+  .page-title a,
+  .page-title {
+    font-family: var(--headerFont);
+    color: var(--dark);
+  }
+
+  article a,
+  article a.internal {
+    color: var(--secondary);
+    background: none;
+    padding: 0;
+    text-decoration: underline;
+    text-decoration-color: var(--tertiary);
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: var(--tertiary) !important;
+    }
+  }
+
+  article h1,
+  article h2,
+  article h3 {
+    color: var(--dark);
+  }
+
+  // Index and poem pages are single full-width columns, not the three-column grid.
+  #quartz-body:has(> .w-index, > .w-poem) {
+    display: block;
+    padding: 0;
+  }
+
+  // v5's `.center { min-width: 100% }` would otherwise stop these columns from being narrow.
+  #quartz-body .w-poem {
+    min-width: 0;
+    width: 100%;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #quartz-body .w-index {
+    min-width: 0;
+    width: 100%;
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // The footer carries Socratica's links; on writing pages keep only the credit line.
+  #quartz-body:has(> .w-index, > .w-poem) footer {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 40px 3rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  footer ul {
+    display: none;
+  }
+}
+
+// The content renderer appends an auto-generated folder listing to index pages; the grid replaces it.
+.w-index-intro .page-listing {
+  display: none;
+}
+
+.w-script-date {
+  font-family: "Caveat", cursive;
+  font-size: 1.05rem;
+  color: var(--darkgray);
+  opacity: 0.85;
+}
+
+/* ---------- pill nav (rattle) ---------- */
+.w-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  margin: 14px 24px 0;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid rgba(22, 41, 78, 0.12);
+  border-radius: 16px;
+  background: rgba(245, 238, 221, 0.85);
+  box-shadow: 0 1px 6px rgba(22, 41, 78, 0.1);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  a {
+    color: var(--dark);
+    font-weight: 400;
+    background: none;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--tertiary);
+    }
+
+    &.active {
+      text-decoration: underline;
+      text-decoration-color: var(--tertiary);
+      text-underline-offset: 6px;
+    }
+  }
+
+  .w-logo {
+    font-family: "DM Serif Display", serif;
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .w-nav-spacer {
+    flex: 1;
+  }
+
+  .w-nav-button {
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--dark);
+    border-radius: 6px;
+  }
+}
+
+/* ---------- portfolio index (aek tabs + errr grid + socratica posters) ---------- */
+.w-index {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 3.5rem 40px 5rem;
+  box-sizing: border-box;
+
+  .w-eyebrow {
+    margin: 0 0 0.6rem;
+    font-family: var(--codeFont);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gray);
+  }
+
+  .w-index-title {
+    margin: 0;
+    font-family: var(--codeFont);
+    font-weight: 400;
+    font-size: 2.6rem;
+    color: var(--dark);
+  }
+
+  .w-index-intro {
+    max-width: 38rem;
+    margin: 1.5rem 0 2.5rem;
+    font-family: var(--codeFont);
+    font-size: 12px;
+    line-height: 1.7;
+
+    p,
+    article {
+      font-family: var(--codeFont);
+      font-size: 12px;
+      line-height: 1.7;
+      margin: 0 0 0.8rem;
+    }
+  }
+
+  .w-anchor {
+    display: block;
+    position: relative;
+    top: -2rem;
+    height: 0;
+  }
+
+  .w-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 3rem;
+    margin-bottom: 2.5rem;
+
+    a {
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      font-family: var(--bodyFont);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: rgba(22, 41, 78, 0.35);
+      background: none;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--dark);
+      }
+    }
+  }
+
+  // "All" is active unless a category is targeted.
+  &:not(:has(.w-anchor:target)) .w-tab-all,
+  &:has(#all:target) .w-tab-all {
+    color: var(--dark);
+    border-bottom-color: var(--dark);
+  }
+}
+
+.w-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3rem 24px;
+
+  @media all and (max-width: 1000px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media all and (max-width: 560px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.w-card {
+  display: block;
+  color: var(--dark);
+  background: none;
+  text-decoration: none;
+
+  &:hover .w-card-title {
+    color: var(--tertiary);
+  }
+
+  &:hover .w-card-media {
+    transform: translateY(-3px);
+  }
+
+  .w-card-media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.25s;
+    border: 2px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .w-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 5px 10px;
+    background: $lime;
+    color: #212121;
+    font-family: var(--bodyFont);
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+
+  .w-poster-title {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 14px 14px 0;
+    font-family: var(--headerFont);
+    font-size: 1.7rem;
+    line-height: 1.1;
+    color: #fff;
+  }
+
+  // Keep the title clear of the lime badge pinned to the top-right corner.
+  .w-badge + .w-poster-title {
+    padding-top: 2.4rem;
+  }
+
+  .w-poster-illo {
+    position: absolute;
+    right: -8px;
+    bottom: 0;
+    width: 58%;
+    transition: transform 0.3s;
+  }
+
+  &:hover .w-poster-illo {
+    transform: rotate(-12deg) scale(1.05);
+  }
+
+  .w-card-title {
+    margin: 1rem 0 0.25rem;
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: 1.45rem;
+    line-height: 1.15;
+    color: var(--dark);
+    transition: color 0.2s;
+  }
+
+  .w-card-meta {
+    margin: 0 0 0.6rem;
+    font-family: var(--codeFont);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--gray);
+  }
+
+  .w-card-desc {
+    margin: 0;
+    font-family: var(--codeFont);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--darkgray);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// Socratica card colours + noise textures for pieces without a cover image.
+$poster-colors: #649aea, #aab172, #bf7d1a, #ad7e95, #eb856f, #e18fa7;
+
+@for $i from 1 through 6 {
+  .w-card-media.poster-#{$i} {
+    background-color: nth($poster-colors, $i);
+    background-image: url("/static/#{$i}-noise.png");
+  }
+}
+
+/* ---------- prose piece (dappled-light) ---------- */
+.w-selected {
+  margin-top: 1.5rem;
+
+  h3 {
+    margin: 0 0 1rem;
+    font-family: var(--headerFont);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--dark);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 1.1rem;
+
+    a {
+      display: block;
+      font-family: var(--headerFont);
+      font-size: 1.2rem;
+      line-height: 1.2;
+      font-weight: 400;
+      color: var(--secondary);
+      background: none;
+    }
+
+    &.active a {
+      color: var(--tertiary);
+    }
+  }
+
+  .w-more {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--gray);
+    text-decoration: underline;
+    background: none;
+  }
+}
+
+.w-piece-header {
+  margin-top: 0;
+
+  .w-piece-title {
+    margin: 0;
+    font-family: var(--headerFont);
+    font-weight: 400;
+    font-size: 2.1rem;
+    line-height: 1.15;
+    color: var(--dark);
+  }
+
+  .w-piece-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.35rem 0 0.9rem;
+  }
+
+  .w-category {
+    padding: 2px 8px;
+    background: $lime;
+    color: #212121;
+    font-family: var(--codeFont);
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  .w-tags {
+    margin: 0 0 1rem;
+  }
+
+  .w-tag {
+    display: inline-block;
+    margin-right: 0.4rem;
+    padding: 3px 7px;
+    background: var(--highlight);
+    color: var(--tertiary);
+    font-weight: 600;
+  }
+}
+
+.w-prevnext {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  font-family: var(--codeFont);
+  font-size: 12px;
+
+  a {
+    color: var(--secondary);
+    background: none;
+  }
+}
+
+/* ---------- poem (rattle) ---------- */
+.w-poem {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 4.5rem 24px 4rem;
+  box-sizing: border-box;
+  text-align: center;
+
+  .w-poem-date {
+    margin: 0;
+    font-family: var(--bodyFont);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--darkgray);
+  }
+
+  .w-poem-author {
+    margin: 0.3rem 0 0;
+    font-family: "EB Garamond", serif;
+    font-style: italic;
+    font-size: 1.45rem;
+    color: var(--dark);
+  }
+
+  .w-poem-title {
+    margin: 0.4rem 0 3rem;
+    font-family: "EB Garamond", serif;
+    font-weight: 500;
+    font-size: 2.1rem;
+    color: var(--dark);
+  }
+
+  .w-poem-body {
+    text-align: left;
+
+    article,
+    p {
+      font-family: "EB Garamond", serif;
+      font-size: 1.3rem;
+      line-height: 1.55;
+      color: var(--dark);
+    }
+
+    p {
+      margin: 0 0 1.6rem;
+    }
+  }
+}
+
+.w-arrow {
+  position: fixed;
+  top: 12rem;
+  z-index: 5;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--dark);
+  background: none;
+
+  &:hover {
+    color: var(--tertiary);
+  }
+}
+
+.w-arrow-prev {
+  left: 2.5rem;
+}
+
+.w-arrow-next {
+  right: 2.5rem;
+}
+
+@media all and ($mobile) {
+  .w-nav {
+    margin: 10px 12px 0;
+    gap: 1.1rem;
+  }
+
+  .w-index {
+    padding: 2.5rem 20px 4rem;
+  }
+
+  .w-arrow {
+    top: auto;
+    bottom: 1.5rem;
+  }
+
+  .w-arrow-prev {
+    left: 1rem;
+  }
+
+  .w-arrow-next {
+    right: 1rem;
+  }
+}
