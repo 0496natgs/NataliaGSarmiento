@@ -18,7 +18,3 @@ export function cardForSlug(slug: string | undefined) {
   const index = ISSUES.findIndex((i) => i.slug === slug)
   return index === -1 ? null : <Card issue={ISSUES[index]} index={index} />
 }
-
-export function allCards() {
-  return ISSUES.map((issue, index) => <Card issue={issue} index={index} />)
-}
