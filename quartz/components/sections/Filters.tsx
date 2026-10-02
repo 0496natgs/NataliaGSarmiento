@@ -3,7 +3,7 @@ import { categoryId, Piece, pieceTags, pieceYear } from "./pieces"
 
 // The filter bar (after ssp.sh/posts): filter by categories or tags, find a tag or a piece, then by
 // year. It runs in the page, so it works with the list, the grid and the photo grids alike.
-const FILTER_JS = `if(!window.__fl){window.__fl=1;
+export const FILTER_JS = `if(!window.__fl){window.__fl=1;
 function apply(fl){var root=fl.closest(".s-index");var cat=fl.dataset.cat||"",tag=fl.dataset.tag||"",year=fl.dataset.year||"",q=(fl.dataset.q||"").toLowerCase();
 var seen={};root.querySelectorAll("[data-piece]").forEach(function(el){
 var ok=(!cat||el.dataset.category===cat)&&(!tag||("|"+el.dataset.tags+"|").indexOf("|"+tag+"|")>-1)&&(!year||el.dataset.year===year)&&(!q||(el.dataset.text||"").indexOf(q)>-1);
@@ -38,7 +38,6 @@ export function Filters({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
   const hasTags = tags.length > 0
   return (
     <div class="fl" data-mode="cats" data-cat="" data-tag="" data-year="" data-q="">
-      <script dangerouslySetInnerHTML={{ __html: FILTER_JS }} />
       <div class="fl-row">
         <span class="fl-label">{tt.filterBy}</span>
         <span class="fl-modes">

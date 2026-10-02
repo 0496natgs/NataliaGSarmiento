@@ -2,7 +2,7 @@ import { Lang, t } from "./i18n"
 
 // One click handler for every share button on every page (the page changes without a reload).
 // The share links are plain https links: nothing is loaded from the networks and nothing is tracked.
-const SHARE_JS = `if(!window.__share){window.__share=1;
+export const SHARE_JS = `if(!window.__share){window.__share=1;
 function show(){document.querySelectorAll(".share-native").forEach(function(b){if(navigator.share)b.hidden=false})}
 show();document.addEventListener("nav",show);
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-share]");if(!b)return;var box=b.closest(".share"),url=box.getAttribute("data-url"),title=box.getAttribute("data-title");
@@ -51,7 +51,6 @@ export function ShareBar({ url, title, lang = "en" }: { url: string; title: stri
   ]
   return (
     <div class="share" data-url={url} data-title={title}>
-      <script dangerouslySetInnerHTML={{ __html: SHARE_JS }} />
       <span class="share-label">{tt.share}</span>
       <button
         type="button"
