@@ -4,6 +4,7 @@ import { SectionDef, SITE, textOf } from "./sectionsConfig"
 import { categoryLabel, langOf, t } from "./i18n"
 import { Tile } from "./Tile"
 import { WorkCard } from "./WorkCard"
+import { ListRow } from "./ListRow"
 
 /**
  * A section's index page. `tiles` (Writing, Design): category tabs + a grid of tiles with captions.
@@ -29,7 +30,7 @@ export function SectionIndex({
     ? categories
         .map((c) => {
           const id = categoryId(c)
-          return `.s-index:has(#${id}:target) :is(.s-tile,.s-work):not([data-category="${id}"]){display:none}.s-index:has(#${id}:target) .s-tabs a[href="#${id}"]{color:var(--dark);border-bottom-color:var(--dark)}`
+          return `.s-index:has(#${id}:target) :is(.s-tile,.s-work,.s-row):not([data-category="${id}"]){display:none}.s-index:has(#${id}:target) .s-tabs a[href="#${id}"]{color:var(--dark);border-bottom-color:var(--dark)}`
         })
         .join("")
     : ""
@@ -76,7 +77,9 @@ export function SectionIndex({
             )
           : section.grid === "work"
             ? pieces.map((piece, i) => <WorkCard piece={piece} index={i} lang={lang} />)
-            : pieces.map((piece, i) => <Tile piece={piece} index={i} lang={lang} caption />)}
+            : section.grid === "list"
+              ? pieces.map((piece) => <ListRow piece={piece} lang={lang} />)
+              : pieces.map((piece, i) => <Tile piece={piece} index={i} lang={lang} caption />)}
       </div>
       {pieces.length === 0 && <p class="s-empty">{tt.empty}</p>}
     </div>

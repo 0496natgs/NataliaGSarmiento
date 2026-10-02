@@ -1,6 +1,8 @@
-// Editable configuration for the site's divisions (Writing, Work, Poems, Visual Notes), the
-// Substack link and the sketchbook strip. Change names, copy and colours here. Spanish
-// versions of every label sit next to the English ones.
+// Editable configuration for the site's two spaces and their sections:
+//   writer space:     Work, Writing, Photo & Video, Visual Notes, About (home is "/")
+//   consulting space: Profile, Experience, Projects, Insights (home is "/consulting")
+// plus the Substack and LinkedIn links and the sketchbook strip. Change names, copy and colours
+// here. Spanish versions of every label sit next to the English ones.
 
 import { Lang, baseSlug } from "./i18n"
 
@@ -15,6 +17,9 @@ import substackConfig from "../../../substack.config.json"
 // That one setting drives the Substack links here AND the build-time sync of your posts into the
 // Writing grid (scripts/sync-substack.mjs). Until it is set, links point to substack.com.
 export const SUBSTACK_URL: string = substackConfig.url || "https://substack.com"
+
+export const LINKEDIN_URL = "https://www.linkedin.com/in/natalia-garcia-sarmiento/"
+export const TLACUILOQUE_URL = "https://tlacuiloque.com/"
 
 // Colours taken from your Substack publication icons. They tint the typographic tiles and the
 // section frames; the icons' brush strokes are no longer used anywhere on the site.
@@ -80,12 +85,16 @@ export const SKETCHBOOK: { src: string; alt: string; href?: string }[] = [
 ]
 
 // "tiles": square tiles; "photos": tight photo grid; "work": large image cards in two columns
-// with category tabs, like a writer's portfolio (aektakhubchandani.com/work).
-export type GridKind = "tiles" | "photos" | "work"
+// with category tabs, like a writer's portfolio (aektakhubchandani.com/work); "list": rows with a
+// date, title and topic, like aimforbehavior.com/insights.
+export type GridKind = "tiles" | "photos" | "work" | "list"
 
-// "collection": an index page plus a folder of pieces (Writing, Work, Poems, Visual Notes).
-// "page": a single page (CV, About).
+// "collection": an index page plus a folder of pieces (Work, Writing, Photo & Video, Visual Notes,
+// Projects, Insights). "page": a single page (About, Profile, Experience).
 export type SectionKind = "collection" | "page"
+
+/** The two sites inside this one. Each has its own menu. */
+export type Space = "writer" | "consulting"
 
 interface SectionText {
   title: string
@@ -97,6 +106,7 @@ interface SectionText {
 export interface SectionDef extends SectionText {
   slug: string
   kind: SectionKind
+  space: Space
   /** Index into PALETTE used for this section's colour. */
   art: number
   grid: GridKind
@@ -108,37 +118,24 @@ export interface SectionDef extends SectionText {
   card: boolean
   /** Show in the top menu (default true). */
   inNav?: boolean
+  /** Leave the menu item out until the section has at least one piece. */
+  hideWhenEmpty?: boolean
   /** Photos that cross-fade inside this section's landing card (your own images). */
   images?: string[]
   es: SectionText
 }
 
 export const SECTIONS: SectionDef[] = [
-  {
-    slug: "writing",
-    kind: "collection",
-    numeral: "I",
-    card: true,
-    title: "Writing",
-    blurb: "Essays, stories and my newsletters",
-    art: 0,
-    grid: "tiles",
-    tabs: true,
-    marquee: ["essays", "stories", "newsletters", "notes", "work in progress", "read slowly"],
-    es: {
-      title: "Escritura",
-      blurb: "Ensayos, cuentos y mis boletines",
-      marquee: ["ensayos", "cuentos", "boletines", "notas", "obra en proceso", "lee despacio"],
-    },
-  },
+  // ---------- writer space ----------
   {
     slug: "work",
     kind: "collection",
-    numeral: "II",
+    space: "writer",
+    numeral: "I",
     card: true,
     title: "Work",
     blurb: "Published writing",
-    art: 1,
+    art: 0,
     grid: "work",
     tabs: true,
     images: ["/static/work/khora-discovering-taste.jpg"],
@@ -150,37 +147,57 @@ export const SECTIONS: SectionDef[] = [
     },
   },
   {
-    slug: "poems",
+    slug: "writing",
     kind: "collection",
-    numeral: "III",
+    space: "writer",
+    numeral: "II",
     card: true,
-    title: "Poems",
-    blurb: "One poem, one page",
+    title: "Writing",
+    blurb: "Essays, stories, poems and my newsletters",
     art: 4,
     grid: "tiles",
-    tabs: false,
-    marquee: ["poems", "one page each", "read aloud", "slow down"],
+    tabs: true,
+    marquee: ["essays", "stories", "poems", "newsletters", "work in progress", "read slowly"],
     es: {
-      title: "Poemas",
-      blurb: "Un poema, una página",
-      marquee: ["poemas", "una página cada uno", "lee en voz alta", "despacio"],
+      title: "Escritura",
+      blurb: "Ensayos, cuentos, poemas y mis boletines",
+      marquee: ["ensayos", "cuentos", "poemas", "boletines", "obra en proceso", "lee despacio"],
+    },
+  },
+  {
+    slug: "photo-video",
+    kind: "collection",
+    space: "writer",
+    numeral: "III",
+    card: true,
+    title: "Photo & Video",
+    blurb: "Photography, film and moving image",
+    art: 2,
+    grid: "work",
+    tabs: true,
+    marquee: ["photography", "video", "film", "moving image", "looking closely"],
+    es: {
+      title: "Foto y video",
+      blurb: "Fotografía, cine e imagen en movimiento",
+      marquee: ["fotografía", "video", "cine", "imagen en movimiento", "mirar de cerca"],
     },
   },
   {
     slug: "visual-notes",
     kind: "collection",
+    space: "writer",
     numeral: "IV",
     card: true,
     title: "Visual Notes",
-    blurb: "Live notes from conferences",
+    blurb: "Live notes from conferences, one card per event",
     art: 3,
-    grid: "photos",
+    grid: "tiles",
     tabs: false,
     images: ["/static/notes/gbas-1.jpg", "/static/notes/gbas-3.jpg", "/static/notes/gbas-5.jpg"],
     marquee: ["visual notes", "live drawing", "visual thinking", "conferences", "looking closely"],
     es: {
       title: "Notas visuales",
-      blurb: "Notas en vivo de conferencias",
+      blurb: "Notas en vivo de conferencias, una tarjeta por evento",
       marquee: [
         "notas visuales",
         "dibujo en vivo",
@@ -191,58 +208,154 @@ export const SECTIONS: SectionDef[] = [
     },
   },
   {
-    slug: "cv",
-    kind: "page",
-    numeral: "",
-    card: false,
-    inNav: false,
-    title: "CV",
-    blurb: "Two one-page PDFs",
-    art: 2,
-    grid: "tiles",
-    tabs: false,
-    marquee: ["curriculum vitae", "transformation", "behavioral design", "writing"],
-    es: {
-      title: "CV",
-      blurb: "Dos PDF de una página",
-      marquee: ["currículum", "transformación", "diseño conductual", "escritura"],
-    },
-  },
-  {
     slug: "about",
     kind: "page",
+    space: "writer",
     numeral: "",
     card: false,
     title: "About",
-    blurb: "Bio and timeline",
+    blurb: "Bio",
     art: 0,
     grid: "tiles",
     tabs: false,
     marquee: ["about", "learn from others", "learn from yourself", "share what you discover"],
     es: {
       title: "Sobre mí",
-      blurb: "Bio y línea del tiempo",
+      blurb: "Bio",
       marquee: ["sobre mí", "aprende de otros", "aprende de ti", "comparte lo que descubras"],
+    },
+  },
+
+  // ---------- consulting space: digital transformation, behavioral science, service design ----------
+  {
+    slug: "consulting",
+    kind: "page",
+    space: "consulting",
+    numeral: "",
+    card: false,
+    title: "Profile",
+    blurb: "Digital transformation, behavioral science and service design",
+    art: 4,
+    grid: "tiles",
+    tabs: false,
+    marquee: [
+      "digital transformation",
+      "behavioral science",
+      "service design",
+      "adoption",
+      "readiness",
+    ],
+    es: {
+      title: "Perfil",
+      blurb: "Transformación digital, ciencia conductual y diseño de servicios",
+      marquee: [
+        "transformación digital",
+        "ciencia conductual",
+        "diseño de servicios",
+        "adopción",
+        "preparación",
+      ],
+    },
+  },
+  {
+    slug: "consulting/experience",
+    kind: "page",
+    space: "consulting",
+    numeral: "",
+    card: false,
+    title: "Experience",
+    blurb: "Roles and education",
+    art: 4,
+    grid: "tiles",
+    tabs: false,
+    marquee: ["experience", "salesforce", "change management", "ux research", "service design"],
+    es: {
+      title: "Experiencia",
+      blurb: "Roles y formación",
+      marquee: [
+        "experiencia",
+        "salesforce",
+        "gestión del cambio",
+        "investigación ux",
+        "diseño de servicios",
+      ],
+    },
+  },
+  {
+    slug: "consulting/projects",
+    kind: "collection",
+    space: "consulting",
+    numeral: "",
+    card: false,
+    title: "Projects",
+    blurb: "Selected projects",
+    art: 4,
+    grid: "work",
+    tabs: false,
+    marquee: ["projects", "data model", "service design", "ux", "design systems"],
+    es: {
+      title: "Proyectos",
+      blurb: "Proyectos seleccionados",
+      marquee: ["proyectos", "modelo de datos", "diseño de servicios", "ux", "sistemas de diseño"],
+    },
+  },
+  {
+    slug: "consulting/insights",
+    kind: "collection",
+    space: "consulting",
+    numeral: "",
+    card: false,
+    hideWhenEmpty: true,
+    title: "Insights",
+    blurb: "Notes on behavior change in practice",
+    art: 4,
+    grid: "list",
+    tabs: true,
+    marquee: ["insights", "behavior change", "adoption", "in practice"],
+    es: {
+      title: "Ideas",
+      blurb: "Notas sobre el cambio conductual en la práctica",
+      marquee: ["ideas", "cambio conductual", "adopción", "en la práctica"],
     },
   },
 ]
 
 export const SITE_MARQUEE: Record<Lang, string[]> = {
-  en: ["writing", "work", "poems", "visual notes", "substack", "read slowly"],
-  es: ["escritura", "trabajo", "poemas", "notas visuales", "substack", "lee despacio"],
+  en: ["work", "writing", "photo & video", "visual notes", "substack", "read slowly"],
+  es: ["trabajo", "escritura", "foto y video", "notas visuales", "substack", "lee despacio"],
 }
 
 /** A section's text in a language. */
 export const textOf = (section: SectionDef, lang: Lang): SectionText =>
   lang === "es" ? section.es : section
 
-// Tab / nav order for categories. Any other category is added after these, alphabetically.
-export const CATEGORY_ORDER = ["Poems", "Fiction", "Nonfiction", "Substack"]
+// Tab order for categories (writing: your own pieces first, then one tab per Substack section).
+// Any other category is added after these, alphabetically.
+export const CATEGORY_ORDER = [
+  "Nonfiction",
+  "Fiction",
+  "Poems",
+  "Materia prima",
+  "The Other Tongue",
+  "Cuartos Propios",
+]
 
-/** The section a page belongs to. Spanish pages (es/...) belong to the same section as English. */
+/** The section a page belongs to (the most specific match). Spanish pages (es/...) belong to the same section as English. */
 export const sectionOfSlug = (slug?: string): SectionDef | undefined => {
   const s = baseSlug(slug)
-  return SECTIONS.find((x) => s === x.slug || s.startsWith(`${x.slug}/`))
+  let best: SectionDef | undefined
+  for (const x of SECTIONS) {
+    if (
+      (s === x.slug || s.startsWith(`${x.slug}/`)) &&
+      (!best || x.slug.length > best.slug.length)
+    ) {
+      best = x
+    }
+  }
+  return best
 }
 
 export const isSectionSlug = (slug?: string) => !!sectionOfSlug(slug)
+
+/** Which of the two sites a page belongs to. The landing page and anything unknown is the writer space. */
+export const spaceOfSlug = (slug?: string): Space => sectionOfSlug(slug)?.space ?? "writer"

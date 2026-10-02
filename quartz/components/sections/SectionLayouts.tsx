@@ -5,6 +5,8 @@ import { SelectedPieces } from "./SelectedPieces"
 import { SectionIndex } from "./SectionIndex"
 import { formatPieceDate, getPieces, isPageSection, isSectionIndex } from "./pieces"
 import { SITE, sectionOfSlug } from "./sectionsConfig"
+import { AboutFacts } from "./AboutFacts"
+import { ConsultingPage, ConsultingProfile } from "./ConsultingLayouts"
 import { categoryLabel, langOf, t } from "./i18n"
 
 /** Title, date, category chip, role/year and tags for a piece (dappled-light header). */
@@ -54,14 +56,25 @@ export function renderSection(props: PageFrameProps) {
   if (!section) return DefaultFrame.render(props)
   const form = componentData.fileData.frontmatter?.form
 
+  if (isPageSection(slug) && section.slug === "consulting") {
+    return <ConsultingProfile componentData={componentData} Content={Content} footer={footer} />
+  }
+
+  if (isPageSection(slug) && section.space === "consulting") {
+    return <ConsultingPage componentData={componentData} Content={Content} footer={footer} />
+  }
+
+  // Spanish pages are not in the graph (they are unlisted so each page shows once), so no graph there.
+  const showGraph = langOf(slug) === "en"
+
   if (isPageSection(slug)) {
     const byName = (name: string) => left.find((c) => c.name === name)
     const toc = byName("DesktopOnly")
-    const graph = props.right.find((c) => c.name === "Graph")
+    const graph = showGraph ? props.right.find((c) => c.name === "Graph") : undefined
     const sidebar = [byName("PageTitle"), byName("Flex")].filter(Boolean) as QuartzComponent[]
     return DefaultFrame.render({
       ...props,
-      left: sidebar,
+      left: [...sidebar, AboutFacts],
       right: [graph, toc].filter(Boolean) as QuartzComponent[],
       beforeBody: [
         () => (
@@ -88,7 +101,9 @@ export function renderSection(props: PageFrameProps) {
   if (form === "poem") {
     const lang = langOf(slug)
     const tt = t(lang)
-    const pieces = getPieces(componentData.allFiles, section.slug, lang).filter((p) => !p.external)
+    const pieces = getPieces(componentData.allFiles, section.slug, lang).filter(
+      (p) => !p.external && p.form === "poem",
+    )
     const i = pieces.findIndex((p) => p.slug === slug)
     const older = i >= 0 ? pieces[i + 1] : undefined
     const newer = i > 0 ? pieces[i - 1] : undefined
@@ -131,7 +146,7 @@ export function renderSection(props: PageFrameProps) {
   // table of contents on the right (dappled-light).
   const byName = (name: string) => left.find((c) => c.name === name)
   const toc = byName("DesktopOnly")
-  const graph = props.right.find((c) => c.name === "Graph")
+  const graph = showGraph ? props.right.find((c) => c.name === "Graph") : undefined
   const sidebar = [byName("PageTitle"), byName("Flex")].filter(Boolean) as QuartzComponent[]
   return DefaultFrame.render({
     ...props,
