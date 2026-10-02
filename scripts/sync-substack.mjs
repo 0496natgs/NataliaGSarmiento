@@ -19,8 +19,9 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
 const outDir = path.join(root, "content", "writing")
 const MAX_POSTS = 60
 
-// Substack section slug -> label shown on the card's badge. Posts outside any section are the
-// main newsletter. Edit the labels to match your publications.
+// Substack section slug -> label. The label is the post's category on the Writing page (one tab per
+// Substack section) and the text of its badge. Posts outside any section are the main newsletter.
+// Edit the labels to match your publications.
 const SECTION_LABELS = {
   "the-other-tongue": "The Other Tongue",
   "cuartos-propios": "Cuartos Propios",
@@ -142,13 +143,16 @@ async function main() {
       .replace(/[^a-z0-9-]/gi, "-")
       .slice(0, 60)
     const label = SECTION_LABELS[p.section] ?? MAIN_LABEL
+    // Paid posts stay on Substack; the card carries a "Paid" badge and links there.
+    const paid = p.audience === "only_paid" || p.audience === "founding"
     const desc = stripHtml(p.desc).slice(0, 180)
     const lines = [
       "---",
       `title: ${JSON.stringify(decode(p.title))}`,
       iso ? `date: ${iso}` : null,
-      "category: Substack",
+      `category: ${JSON.stringify(label)}`,
       `publication: ${JSON.stringify(label)}`,
+      paid ? 'badge: "Paid"' : null,
       `external: ${JSON.stringify(p.link)}`,
       p.cover ? `cover: ${JSON.stringify(p.cover)}` : null,
       desc ? `description: ${JSON.stringify(desc)}` : null,

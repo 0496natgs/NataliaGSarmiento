@@ -10,6 +10,7 @@ import { SectionNav } from "../sections/SectionNav"
 import { renderSection } from "../sections/SectionLayouts"
 import { SITE_MARQUEE, isSectionSlug, sectionOfSlug, textOf } from "../sections/sectionsConfig"
 import { baseSlug, langOf } from "../sections/i18n"
+import { SpaceLink } from "../sections/SpaceLink"
 import { MARQUEE_PHRASES } from "../socratica/siteContent"
 
 // Fonts for the landing page and the sections: DM Serif Display for titles, EB Garamond and Caveat
@@ -61,14 +62,22 @@ export const SocraticaFrame: PageFrame = {
     const slug = componentData.fileData.slug
     if (isLanding(slug)) {
       return (
-        <Landing
-          componentData={componentData}
-          graph={props.right.find((c) => c.name === "Graph")}
-        />
+        <>
+          <Landing
+            componentData={componentData}
+            graph={props.right.find((c) => c.name === "Graph")}
+          />
+          <SpaceLink slug={slug} />
+        </>
       )
     }
     if (isSectionSlug(slug)) {
-      return renderSection(props)
+      return (
+        <>
+          {renderSection(props)}
+          <SpaceLink slug={slug} />
+        </>
+      )
     }
 
     const card = cardForSlug(slug)

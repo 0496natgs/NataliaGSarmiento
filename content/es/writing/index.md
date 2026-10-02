@@ -1,5 +1,6 @@
 ---
 title: Escritura
+unlisted: true
 ---
 
-Ensayos y cuentos, y las publicaciones de mis boletines en Substack. Mis poemas están en [[es/poems|Poemas]]; lo publicado en otras revistas, en [[es/work|Trabajo]].
+Todo lo que escribo, en un solo lugar. Los ensayos y cuentos viven aquí en el sitio, y cada poema tiene su propia página. Las pestañas de boletines reflejan mi Substack: **Materia prima** (ensayos, sobre todo en español), **The Other Tongue** (poesía y ensayos en inglés) y **Cuartos Propios** (cómo se hace el trabajo). Las publicaciones marcadas como _Paid_ se abren en Substack. Lo publicado en otras revistas está en [[es/work|Trabajo]].

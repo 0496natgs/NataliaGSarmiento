@@ -5,6 +5,7 @@ category: Poems
 form: poem
 description: Another placeholder, to show the previous and next arrows.
 tags:
+  - writing
   - poems
 ---
 
@@ -15,4 +16,4 @@ The arrows at the edges
 move between pieces,
 newest to oldest.
 
-[[poems|← Poems]]
+[[writing|← Writing]]

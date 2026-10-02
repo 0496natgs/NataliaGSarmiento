@@ -6,6 +6,7 @@ form: poem
 badge: Sample
 description: A placeholder poem to show the poem layout. Replace with your own.
 tags:
+  - writing
   - poems
 ---
 
@@ -19,4 +20,4 @@ then the third,
 and let the page do
 the rest of the work.
 
-[[poems|← Poems]]
+[[writing|← Writing]]

@@ -109,7 +109,7 @@ export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"):
         issue: fm.issue ? String(fm.issue) : undefined,
         order: typeof fm.order === "number" ? fm.order : undefined,
         images: Array.isArray(fm.images) ? fm.images.map(String) : [],
-        href: external ?? urlFor(f.slug as string, langOf(f.slug)),
+        href: external ?? urlFor(baseSlug(f.slug), langOf(f.slug)),
         untranslated: lang === "es" && !external && langOf(f.slug) === "en",
       }
     })

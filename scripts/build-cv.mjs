@@ -1,4 +1,4 @@
-// Renders cv/*.html to PDFs in quartz/static/cv/ using Chromium.
+// Renders cv/*.html to PDFs in cv/pdf/ using Chromium.
 // File names are lowercase on purpose: Quartz lowercases link URLs, and GitHub Pages is case-sensitive.
 // Needs playwright-core and a Chromium install (not part of the site build; the PDFs are committed):
 //   npm i --no-save playwright-core && CHROMIUM=/path/to/chromium node scripts/build-cv.mjs
@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url"
 import { mkdir } from "node:fs/promises"
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
-const outDir = path.join(root, "quartz", "static", "cv")
+const outDir = path.join(root, "cv", "pdf")
 const jobs = [
   ["transformation.html", "natalia-g-sarmiento-cv-transformation.pdf"],
   ["writing.html", "natalia-g-sarmiento-cv-writing.pdf"],

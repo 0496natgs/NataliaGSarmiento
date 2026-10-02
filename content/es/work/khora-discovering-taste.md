@@ -11,6 +11,7 @@ tags:
   - work
   - writing
   - flash
+unlisted: true
 ---
 
 > The first tongue was a woman. Not her name. Not her story. Barely a laugh in my ear. A nape. The vapor of a body passing beside mine. The way something in me salivated…

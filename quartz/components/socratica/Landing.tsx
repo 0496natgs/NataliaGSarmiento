@@ -77,14 +77,14 @@ export function Landing({
 }) {
   const lang: Lang = langOf(componentData.fileData.slug)
   const tt = t(lang)
-  const cards = SECTIONS.filter((s) => s.card)
+  const cards = SECTIONS.filter((s) => s.card && s.space === "writer")
   const substackRow: { n: string; title: string; href: string }[] = [
     { n: "V", title: tt.substack, href: SUBSTACK_URL },
   ]
 
   // Mix the sections: take one from each in turn until there are eight.
-  const bySection = SECTIONS.filter((s) => s.kind === "collection").map((s) =>
-    getPieces(componentData.allFiles, s.slug, lang),
+  const bySection = SECTIONS.filter((s) => s.kind === "collection" && s.space === "writer").map(
+    (s) => getPieces(componentData.allFiles, s.slug, lang),
   )
   const latest = []
   for (let i = 0; latest.length < 8 && bySection.some((list) => i < list.length); i++) {
@@ -182,7 +182,7 @@ export function Landing({
         </>
       )}
 
-      {Graph && (
+      {Graph && lang === "en" && (
         <>
           <h2 class="d-section-title">{tt.map}</h2>
           <p class="d-section-note">{tt.mapNote}</p>

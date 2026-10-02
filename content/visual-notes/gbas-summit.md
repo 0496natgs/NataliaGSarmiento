@@ -2,7 +2,8 @@
 title: "4th Global Business Anthropology Summit"
 date: 2023-05-01
 category: Conference
-cover: /static/notes/gbas-1.jpg
+publication: "Colectivo Tlacuiloque"
+cover: /static/notes/gbas-cover.png
 description: "Live visual notes taken across the conference."
 images:
   - /static/notes/gbas-1.jpg
@@ -18,7 +19,7 @@ tags:
   - visual-notes
 ---
 
-Visual notetaker at the 4th Global Business Anthropology Summit, May 2023: using visual thinking to record the conference sessions as they happened.
+Visual notes taken at the 4th Global Business Anthropology Summit (Mexico, May 2023) with [Colectivo Tlacuiloque](https://tlacuiloque.com/): using visual thinking to record the conference sessions as they happened.
 
 ![Visual note from the summit](/static/notes/gbas-1.jpg)
 ![Visual note from the summit](/static/notes/gbas-2.jpg)

@@ -19,7 +19,7 @@ export function WorkCard({
 }) {
   const tt = t(lang)
   const color = PALETTE[(index + 1) % PALETTE.length].color
-  const meta = [piece.publication, piece.issue, piece.date?.getFullYear()]
+  const meta = [piece.publication, piece.issue, piece.year ?? piece.date?.getFullYear()]
     .filter((x) => x !== undefined && x !== "")
     .join(", ")
   return (
