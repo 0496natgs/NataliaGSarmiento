@@ -46,7 +46,7 @@ A page can show every image and PDF in a folder. Put the folder name in the page
 
 ## Your photographs
 
-Photos in `quartz/static/writing_photos/` fill the "Selected work" strip on the home page (the first six). To put one on a sample piece, add `photo: 1` (the first photo, `photo: 2` the second…) to that piece's front matter.
+Photos in `quartz/static/writing_photos/` are picked by name for the "Selected work" strip (edit `PHOTO_ITEMS` in `sectionsConfig.ts`). To put one on a piece, add `photo: Rome.JPG` (file name) or `photo: 2` (the second photo) to its front matter. Use plain file names without accents or spaces.
 
 ## Logo
 

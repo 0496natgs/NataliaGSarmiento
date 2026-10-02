@@ -2,7 +2,7 @@
 title: Sample essay, one
 date: 2026-09-10
 category: Nonfiction
-photo: 1
+photo: Wiesbaden.JPG
 description: A placeholder essay to show the nonfiction category and the lime badge.
 badge: Sample
 tags:

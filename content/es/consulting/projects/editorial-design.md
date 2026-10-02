@@ -1,7 +1,7 @@
 ---
 title: "Diseño editorial"
 category: Editorial
-order: 5
+order: 6
 gallery: consulting-design/editorial-design
 description: "Una portada de libro e infografías para Granados Chapa."
 tags:

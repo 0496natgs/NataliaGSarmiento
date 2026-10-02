@@ -60,9 +60,9 @@ export function Tile({
           {piece.cover && <h2 class="s-caption-title">{piece.title}</h2>}
           <p class="s-caption-meta">
             {piece.cover ? kicker : ""}
-            {piece.cover && piece.date ? " · " : ""}
-            {piece.date ? formatPieceDate(piece.date, lang) : ""}
-            {!piece.cover && !piece.date ? kicker : ""}
+            {piece.cover && (piece.date || piece.year) ? " · " : ""}
+            {piece.date ? formatPieceDate(piece.date, lang) : (piece.year ?? "")}
+            {!piece.cover && !piece.date && !piece.year ? kicker : ""}
           </p>
           {piece.description && <p class="s-caption-desc">{piece.description}</p>}
         </div>

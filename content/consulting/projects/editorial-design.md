@@ -1,7 +1,7 @@
 ---
 title: "Editorial design"
 category: Editorial
-order: 5
+order: 6
 gallery: consulting-design/editorial-design
 description: "A book cover and infographics for Granados Chapa."
 tags:
