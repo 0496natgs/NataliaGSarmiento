@@ -2,6 +2,7 @@
 title: "Granados Chapa: identidad"
 category: Branding
 publication: "UAM Cuajimalpa"
+year: 2023
 order: 5
 cover: /static/consulting-design/granados-chapa/01-programa-general.png
 gallery: consulting-design/granados-chapa

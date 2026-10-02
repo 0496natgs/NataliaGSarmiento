@@ -28,11 +28,11 @@ export const TLACUILOQUE_URL = "https://tlacuiloque.com/"
 // Colours taken from your Substack publication icons. They tint the typographic tiles and the
 // section frames; the icons' brush strokes are no longer used anywhere on the site.
 export const PALETTE = [
-  { name: "Materia prima", color: "#a13842" }, // burgundy
-  { name: "Lectura Corporal", color: "#402320" }, // brown
-  { name: "Cuartos Propios", color: "#c28c2e" }, // mustard
-  { name: "Pliegues", color: "#90772f" }, // olive
-  { name: "The Other Tongue", color: "#095d6a" }, // teal
+  { name: "Rust", color: "#a8402a" }, // terracotta
+  { name: "Cobalt", color: "#1f3fd0" }, // electric blue
+  { name: "Olive", color: "#6f7a2a" }, // leaf olive
+  { name: "Violet", color: "#4b2fa0" }, // mushroom purple
+  { name: "Teal", color: "#095d6a" }, // consulting turquoise
 ]
 
 /** Your Substack publications, shown on the landing page and linked to their own pages. */

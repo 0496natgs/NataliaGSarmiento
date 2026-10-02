@@ -1284,9 +1284,9 @@ body[data-slug^="es/visual-notes/"] {
 
 // Tag pages (the chips on every project) in the site's colours.
 body[data-slug^="tags/"] {
-  --secondary: #a13842;
-  --tertiary: #a13842;
-  --highlight: rgba(161, 56, 66, 0.1);
+  --secondary: #a8402a;
+  --tertiary: #a8402a;
+  --highlight: rgba(168, 64, 42, 0.1);
 }
 
 body[data-slug^="tags/"]:has(.space-consulting),
@@ -1894,5 +1894,222 @@ article a:hover,
 
   @media all and (max-width: 700px) {
     grid-template-columns: 3rem minmax(0, 1fr);
+  }
+}
+
+// ---------- filter bar (after ssp.sh/posts) ----------
+.is-hidden {
+  display: none !important;
+}
+
+.fl {
+  margin: 1.8rem 0 1.4rem;
+  font-family: $mono;
+
+  .fl-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem 0.9rem;
+  }
+
+  .fl-label {
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .fl-modes {
+    display: inline-flex;
+    gap: 0.35rem;
+
+    button {
+      padding: 0.25rem 0.8rem;
+      border: 1px solid var(--dark);
+      border-radius: 999px;
+      background: none;
+      font-family: $mono;
+      font-size: 11px;
+      color: var(--dark);
+      cursor: pointer;
+
+      &.is-on {
+        background: var(--tertiary);
+        border-color: var(--tertiary);
+        color: #fff;
+      }
+    }
+  }
+
+  .fl-find {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.8rem;
+    border: 1px solid var(--dark);
+    border-radius: 999px;
+    color: var(--gray);
+
+    input {
+      width: 11rem;
+      border: 0;
+      outline: 0;
+      background: none;
+      font-family: $mono;
+      font-size: 11px;
+      color: var(--dark);
+
+      &::-webkit-search-cancel-button {
+        display: none;
+      }
+    }
+
+    &:focus-within {
+      border-color: #c1e401;
+      box-shadow: 0 0 0 3px #c1e40199;
+    }
+  }
+
+  .fl-showing {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--gray);
+
+    b {
+      color: var(--tertiary);
+    }
+  }
+
+  .fl-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.8rem 0 0;
+  }
+
+  .fl-yearrow {
+    margin-top: 1rem;
+
+    .fl-pills {
+      margin: 0;
+    }
+  }
+
+  .fl-pill {
+    padding: 0.2rem 0.75rem;
+    border: 1px solid var(--dark);
+    border-radius: 999px;
+    background: none;
+    font-family: $mono;
+    font-size: 11px;
+    color: var(--dark);
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      transform 0.2s;
+
+    sup {
+      margin-left: 0.3rem;
+      font-size: 9px;
+      color: var(--gray);
+    }
+
+    &:hover {
+      background: #c1e401;
+      color: #212121;
+      transform: translateY(-2px);
+
+      sup {
+        color: #212121;
+      }
+    }
+
+    &.is-on {
+      background: #c1e401;
+      border-color: #c1e401;
+      color: #212121;
+
+      sup {
+        color: #212121;
+      }
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+}
+
+.s-empty-filter {
+  padding: 2rem 0;
+}
+
+// An arrow for pieces that open somewhere else (Substack).
+.s-ext {
+  color: var(--tertiary);
+}
+
+// ---------- cards: no crop marks; a colour border, a light shadow and a small lift ----------
+.s-work {
+  --card-accent: var(--tertiary);
+
+  &:nth-child(5n + 1) {
+    --card-accent: #a8402a;
+  }
+
+  &:nth-child(5n + 2) {
+    --card-accent: #1f3fd0;
+  }
+
+  &:nth-child(5n + 3) {
+    --card-accent: #6f7a2a;
+  }
+
+  &:nth-child(5n + 4) {
+    --card-accent: #4b2fa0;
+  }
+
+  &:nth-child(5n) {
+    --card-accent: #095d6a;
+  }
+
+  .s-frame {
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    box-shadow: 0 0 0 rgba(23, 19, 15, 0);
+    transition:
+      border-color 0.35s,
+      box-shadow 0.35s,
+      transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  &:hover .s-frame {
+    border-color: var(--card-accent);
+    box-shadow: 0 10px 26px rgba(23, 19, 15, 0.1);
+    transform: translateY(-4px);
+  }
+}
+
+// Tag chips in the palette's colours.
+.s-tags .s-tag {
+  background: var(--sky);
+  color: #17130f;
+
+  &:nth-child(4n + 2) {
+    background: var(--pink);
+  }
+
+  &:nth-child(4n + 3) {
+    background: var(--lilac);
+  }
+
+  &:nth-child(4n) {
+    background: #dfe9b9;
   }
 }

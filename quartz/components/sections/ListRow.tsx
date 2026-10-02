@@ -1,4 +1,4 @@
-import { categoryId, formatPieceDate, Piece } from "./pieces"
+import { filterAttrs, formatPieceDate, Piece } from "./pieces"
 import { Lang, categoryLabel, t } from "./i18n"
 
 /**
@@ -11,7 +11,7 @@ export function ListRow({ piece, lang = "en" }: { piece: Piece; lang?: Lang }) {
     <a
       class="s-row"
       href={piece.href}
-      data-category={categoryId(piece.category)}
+      {...filterAttrs(piece, lang)}
       {...(piece.external
         ? { target: "_blank", rel: "noopener noreferrer", "data-router-ignore": true }
         : {})}
@@ -25,7 +25,10 @@ export function ListRow({ piece, lang = "en" }: { piece: Piece; lang?: Lang }) {
       )}
       <time class="s-row-date">{piece.date ? formatPieceDate(piece.date, lang) : ""}</time>
       <span class="s-row-main">
-        <span class="s-row-title">{piece.title}</span>
+        <span class="s-row-title">
+          {piece.title}
+          {piece.external ? " ↗" : ""}
+        </span>
         {piece.description && <span class="s-row-desc">{piece.description}</span>}
       </span>
       <span class="s-row-topic">

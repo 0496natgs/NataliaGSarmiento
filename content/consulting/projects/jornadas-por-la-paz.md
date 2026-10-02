@@ -2,6 +2,7 @@
 title: "Jornadas por la Paz UAM: event branding"
 category: Branding
 publication: "UAM"
+year: 2023
 order: 4
 gallery: consulting-design/jornadas
 description: "Visual identity and communication pieces for the first Jornadas por la Paz at UAM, September 2023."

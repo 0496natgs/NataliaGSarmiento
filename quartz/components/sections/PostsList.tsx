@@ -1,4 +1,4 @@
-import { categoryId, formatPieceDate, Piece } from "./pieces"
+import { filterAttrs, formatPieceDate, pieceYear, Piece } from "./pieces"
 import { Lang, categoryLabel, t } from "./i18n"
 
 /**
@@ -29,7 +29,7 @@ export function PostsList({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
               <a
                 class={`s-post${piece.cover ? " has-thumb" : ""}`}
                 href={piece.href}
-                data-category={categoryId(piece.category)}
+                {...filterAttrs(piece, lang)}
               >
                 {piece.cover && (
                   <span
@@ -38,7 +38,10 @@ export function PostsList({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
                     aria-hidden="true"
                   />
                 )}
-                <span class="s-post-title">{piece.title}</span>
+                <span class="s-post-title">
+                  {piece.title}
+                  {piece.external ? <span class="s-ext"> ↗</span> : null}
+                </span>
                 <span class="s-post-meta">
                   <span class="s-post-cat">
                     {piece.publication ?? categoryLabel(piece.category, lang)}

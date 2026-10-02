@@ -1,5 +1,5 @@
 import { PALETTE, sectionOfSlug, textOf } from "./sectionsConfig"
-import { categoryId, formatPieceDate, Piece } from "./pieces"
+import { filterAttrs, formatPieceDate, Piece } from "./pieces"
 import { Lang, categoryLabel, t } from "./i18n"
 
 /**
@@ -29,7 +29,7 @@ export function Tile({
   const kicker =
     showSection && section ? textOf(section, lang).title : categoryLabel(piece.category, lang)
   return (
-    <a class="s-tile" href={piece.href} data-category={categoryId(piece.category)} {...external}>
+    <a class="s-tile" href={piece.href} {...filterAttrs(piece, lang)} {...external}>
       <div
         class={`s-tile-media ${piece.cover ? "has-cover" : "is-poster"}`}
         style={piece.cover ? `background-image:url(${piece.cover})` : `background-color:${color}`}
