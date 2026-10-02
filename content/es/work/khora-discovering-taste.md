@@ -18,7 +18,7 @@ unlisted: true
 
 _Discovering Taste_ (en inglés) apareció en [KHÔRA](https://khoramagazine.com/issue/54/discovering-taste), número 54, en la sección Flash (agosto de 2026).
 
-[Leerlo en KHÔRA ↗](https://khoramagazine.com/issue/54/discovering-taste)
+[Leerlo en KHÔRA<span class="ext" aria-hidden="true"></span>](https://khoramagazine.com/issue/54/discovering-taste)
 
 Imagen: René Rivas, _Untitled_, fotografía analógica, 2013. Cortesía del artista.
 

@@ -41,7 +41,10 @@ export function Tile({
       >
         {piece.badge && <span class="s-badge">{piece.badge}</span>}
         {piece.external && (
-          <span class="s-badge s-badge-ext">{piece.publication ?? "Substack"} ↗</span>
+          <span class="s-badge s-badge-ext">
+            {piece.publication ?? "Substack"}
+            <span class="ext" aria-hidden="true" />
+          </span>
         )}
         {piece.untranslated && <span class="s-badge s-badge-lang">{tt.notTranslated}</span>}
         {!piece.cover && (

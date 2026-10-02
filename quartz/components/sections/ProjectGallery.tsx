@@ -44,7 +44,8 @@ export function ProjectGallery({ fileData }: QuartzComponentProps) {
               rel="noopener noreferrer"
               data-router-ignore
             >
-              PDF · {p.label} ↗
+              PDF · {p.label}
+              <span class="ext" aria-hidden="true" />
             </a>
           ))}
         </div>

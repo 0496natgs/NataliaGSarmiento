@@ -40,7 +40,11 @@ export function PostsList({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
                 )}
                 <span class="s-post-title">
                   {piece.title}
-                  {piece.external ? <span class="s-ext"> ↗</span> : null}
+                  {piece.external ? (
+                    <span class="s-ext">
+                      <span class="ext" aria-hidden="true" />
+                    </span>
+                  ) : null}
                 </span>
                 <span class="s-post-meta">
                   <span class="s-post-cat">

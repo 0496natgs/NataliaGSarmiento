@@ -93,8 +93,8 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
   const switchTo = otherLanguageHref(allFiles, fileData.slug, other)
   const cta =
     space === "consulting"
-      ? { href: LINKEDIN_URL, label: `${tt.linkedin} ↗` }
-      : { href: SUBSTACK_URL, label: `${tt.substack} ↗` }
+      ? { href: LINKEDIN_URL, label: tt.linkedin }
+      : { href: SUBSTACK_URL, label: tt.substack }
   return (
     <header class={`site-nav space-${space}`}>
       <script dangerouslySetInnerHTML={{ __html: CLOSE_ON_NAV }} />
@@ -144,6 +144,7 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
             data-router-ignore
           >
             {cta.label}
+            <span class="ext" aria-hidden="true" />
           </a>
         </span>
       </nav>

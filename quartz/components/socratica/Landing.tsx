@@ -65,7 +65,7 @@ function FrameCard({
         </span>
         <span class="s-figcap">
           {numeral} — {title}
-          {external ? " ↗" : ""}
+          {external ? <span class="ext" aria-hidden="true" /> : null}
         </span>
       </span>
       <span class="d-frame-title">{title}</span>
@@ -117,7 +117,10 @@ export function Landing({
         {substackRow.map((r) => (
           <a href={r.href} target="_blank" rel="noopener noreferrer" data-router-ignore>
             <span class="d-index-n">{r.n}.</span>
-            <span class="d-index-w">{r.title} ↗</span>
+            <span class="d-index-w">
+              {r.title}
+              <span class="ext" aria-hidden="true" />
+            </span>
           </a>
         ))}
       </nav>
