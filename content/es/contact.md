@@ -14,4 +14,5 @@ Si el botón no hace nada, escribe a **sarmiento [arroba] gmail [punto] com**: l
 
 - [LinkedIn](https://www.linkedin.com/in/natalia-garcia-sarmiento/): para mi trabajo en transformación digital, ciencia conductual y diseño de servicios.
 - [Substack](https://nataliagsarmiento.substack.com/): mis boletines.
+- [Linktree](https://linktr.ee/sarmiento.nat): todos mis enlaces en un solo lugar.
 - [Colectivo Tlacuiloque](https://tlacuiloque.com/): el colectivo de notas visuales con el que dibujo.

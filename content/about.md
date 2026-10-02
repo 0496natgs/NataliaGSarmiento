@@ -6,6 +6,8 @@ tags:
   - writing
   - behavioral-change
 facts:
+  - text: Published poem, KHÔRA (Issue 54)
+    href: /work/khora-discovering-taste
   - text: Designer, UAM Cuajimalpa
   - text: Editorial work, UAM Cuajimalpa
   - text: Visual notetaker, Colectivo Tlacuiloque

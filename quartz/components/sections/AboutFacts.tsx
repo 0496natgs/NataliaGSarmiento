@@ -22,7 +22,9 @@ export function AboutFacts({ fileData }: QuartzComponentProps) {
       <ul>
         {facts.map((f) => (
           <li>
-            {f.href ? (
+            {f.href && String(f.href).startsWith("/") ? (
+              <a href={String(f.href)}>{f.text}</a>
+            ) : f.href ? (
               <a href={String(f.href)} target="_blank" rel="noopener noreferrer" data-router-ignore>
                 {f.text} ↗
               </a>

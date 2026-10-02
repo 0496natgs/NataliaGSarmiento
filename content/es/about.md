@@ -7,6 +7,8 @@ tags:
   - behavioral-change
 unlisted: true
 facts:
+  - text: Poema publicado, KHÔRA (número 54)
+    href: /es/work/khora-discovering-taste
   - text: Diseño, UAM Cuajimalpa
   - text: Trabajo editorial, UAM Cuajimalpa
   - text: Notas visuales, Colectivo Tlacuiloque

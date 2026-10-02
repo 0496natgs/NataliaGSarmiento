@@ -13,4 +13,5 @@ If the button does nothing, write to **sarmiento [at] gmail [dot] com**: the add
 
 - [LinkedIn](https://www.linkedin.com/in/natalia-garcia-sarmiento/): for work in digital transformation, behavioral science and service design.
 - [Substack](https://nataliagsarmiento.substack.com/): my newsletters.
+- [Linktree](https://linktr.ee/sarmiento.nat): all my links in one place.
 - [Colectivo Tlacuiloque](https://tlacuiloque.com/): the visual-notes collective I draw with.

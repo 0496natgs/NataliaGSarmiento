@@ -16,6 +16,13 @@ export function ListRow({ piece, lang = "en" }: { piece: Piece; lang?: Lang }) {
         ? { target: "_blank", rel: "noopener noreferrer", "data-router-ignore": true }
         : {})}
     >
+      {piece.cover && (
+        <span
+          class="s-post-thumb"
+          style={`background-image:url(${piece.cover})`}
+          aria-hidden="true"
+        />
+      )}
       <time class="s-row-date">{piece.date ? formatPieceDate(piece.date, lang) : ""}</time>
       <span class="s-row-main">
         <span class="s-row-title">{piece.title}</span>
