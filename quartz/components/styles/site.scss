@@ -101,11 +101,11 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
     overflow: hidden;
     height: 1.4em;
     padding: 0;
-    font-family: $mono;
+    font-family: "EB Garamond", serif;
     font-weight: 500;
-    font-size: 12.5px;
+    font-size: 14px;
     line-height: 1.4;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     white-space: nowrap;
     color: var(--dark);
@@ -1706,9 +1706,10 @@ article a:hover,
   padding: 0;
   border: 0;
   background: none;
-  font-family: $mono;
-  font-size: 12px;
-  letter-spacing: 0.09em;
+  font-family: "EB Garamond", serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--dark);
   cursor: pointer;
@@ -2212,4 +2213,9 @@ body[data-slug^="es/consulting/"] {
 a:hover > .s-frame::before,
 a:hover .s-frame::before {
   display: none;
+}
+
+// The full stop in the name is the lime green.
+.logo-dot {
+  color: #c1e401;
 }

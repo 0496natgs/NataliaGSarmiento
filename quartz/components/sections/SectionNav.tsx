@@ -20,6 +20,17 @@ import { SIDENOTES_JS } from "./Sidenotes"
 const PAGE_SCRIPTS = [FILTER_JS, SHARE_JS, SIDENOTES_JS].join(";\n")
 import { Lang, baseSlug, langOf, t, urlFor } from "./i18n"
 
+/** The name with the full stop after the G in lime green. */
+function NameWithDot() {
+  const [first, rest] = SITE.name.split(". ")
+  return (
+    <>
+      {first}
+      <span class="logo-dot">.</span> {rest}
+    </>
+  )
+}
+
 /** Text split into letters so each one can roll on hover (olhalazarieva.com). */
 function Roll({ text }: { text: string }) {
   const letters = [...text]
@@ -101,7 +112,7 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
       <script dangerouslySetInnerHTML={{ __html: PAGE_SCRIPTS }} />
       <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label={tt.menu} />
       <a class="nav-logo" href={home} aria-label={`${SITE.name} — ${tt.home}`}>
-        {LOGO ? <img src={LOGO} alt={SITE.name} /> : SITE.name}
+        {LOGO ? <img src={LOGO} alt={SITE.name} /> : <NameWithDot />}
       </a>
       {space === "consulting" && <span class="nav-space">{tt.consultingTag}</span>}
       <label class="nav-burger" for="nav-toggle">

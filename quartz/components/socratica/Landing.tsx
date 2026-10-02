@@ -202,7 +202,16 @@ export function Landing({
           </div>
         </>
       )}
-      <p class="d-signoff">{LOGO ? <img src={LOGO} alt={SITE.name} /> : SITE.name}</p>
+      <p class="d-signoff">
+        {LOGO ? (
+          <img src={LOGO} alt={SITE.name} />
+        ) : (
+          <>
+            {SITE.name.split(". ")[0]}
+            <span class="logo-dot">.</span> {SITE.name.split(". ")[1]}
+          </>
+        )}
+      </p>
     </div>
   )
 }
