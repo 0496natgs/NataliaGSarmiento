@@ -915,7 +915,12 @@ body[data-slug$="consulting/projects/index"] .s-grid-work {
   }
 
   .s-work {
+    text-align: center;
     animation: pg-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+    .s-frame {
+      max-width: none;
+    }
 
     @for $i from 1 through 12 {
       &:nth-child(#{$i}) {
@@ -973,8 +978,23 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
     text-transform: uppercase;
   }
 
+  .exp-date {
+    margin: 2.4rem 0 0;
+    font-family: $script;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    color: var(--script);
+
+    span {
+      font-family: $mono;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--gray);
+    }
+  }
+
   h3 {
-    margin: 2.2rem 0 0;
+    margin: 0.1rem 0 0;
     font-family: $serif;
     font-weight: 400;
     font-size: 1.6rem;
@@ -982,10 +1002,12 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
   }
 
   h3 + p > em:first-child {
-    font-family: $script;
+    font-family: $mono;
     font-style: normal;
-    font-size: 1.25rem;
-    color: var(--script);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gray);
   }
 
   ul {
@@ -1176,74 +1198,45 @@ body[data-slug^="es/visual-notes/"] {
 .pg {
   margin: 2.5rem 0 1rem;
 
-  .pg-slider {
-    position: relative;
-  }
+  // A tight, centered gallery (after littleplains.com): no frames, just a staggered rise-in.
+  .pg-masonry {
+    columns: 2;
+    column-gap: 10px;
+    margin: 0 auto;
 
-  .pg-track {
-    display: flex;
-    gap: 1.4rem;
-    overflow-x: auto;
-    padding: 1rem 0.2rem 2.2rem;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    outline: none;
+    @media all and (max-width: 560px) {
+      columns: 1;
+    }
+
+    &.is-single {
+      columns: 1;
+      max-width: 30rem;
+    }
   }
 
   .pg-fig {
-    flex: 0 0 auto;
-    margin: 0;
-    scroll-snap-align: start;
-    animation: pg-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    margin: 0 0 10px;
+    break-inside: avoid;
+    overflow: hidden;
+    border-radius: 2px;
+    animation: pg-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 
-    @for $i from 1 through 8 {
+    @for $i from 1 through 12 {
       &:nth-child(#{$i}) {
-        animation-delay: #{$i * 0.07}s;
+        animation-delay: #{$i * 0.06}s;
       }
     }
 
     img {
       display: block;
-      width: auto;
-      height: min(62vh, 520px);
-      max-width: min(38rem, 82vw);
-      object-fit: contain;
+      width: 100%;
+      height: auto;
       margin: 0;
-      border-radius: 2px;
-      transition: transform 0.4s;
+      transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     &:hover img {
-      transform: scale(1.02);
-    }
-  }
-
-  .pg-nav {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: flex-end;
-    margin-top: -0.4rem;
-  }
-
-  .pg-btn {
-    width: 2.6rem;
-    height: 2.6rem;
-    border: 1px solid var(--dark);
-    border-radius: 50%;
-    background: none;
-    color: var(--dark);
-    font-family: $mono;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition:
-      background 0.2s,
-      color 0.2s,
-      transform 0.2s;
-
-    &:hover {
-      background: var(--dark);
-      color: var(--light);
-      transform: translateY(-2px);
+      transform: scale(1.04);
     }
   }
 
@@ -1264,4 +1257,40 @@ body[data-slug^="es/visual-notes/"] {
 
 .cp-btn {
   background: none;
+}
+
+// Work and project cards: the image sits in the middle of its column.
+.s-work .s-frame {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.s-work.is-portrait {
+  text-align: center;
+}
+
+.s-tag {
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s;
+
+  &:hover {
+    background: var(--tertiary);
+    color: #fff;
+  }
+}
+
+// Tag pages (the chips on every project) in the site's colours.
+body[data-slug^="tags/"] {
+  --secondary: #a13842;
+  --tertiary: #a13842;
+  --highlight: rgba(161, 56, 66, 0.1);
+}
+
+body[data-slug^="tags/"]:has(.space-consulting),
+body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
+  --secondary: #095d6a;
+  --tertiary: #095d6a;
+  --highlight: rgba(9, 93, 106, 0.1);
 }

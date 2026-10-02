@@ -24,7 +24,9 @@ const slug = (props: { componentData: { fileData: { slug?: string } } }) =>
 
 const isLanding = (slugValue?: string) => baseSlug(slugValue) === "index"
 /** Pages that belong to this site (landing, sections, their Spanish twins), as opposed to the Socratica guide. */
-const isSitePage = (slugValue?: string) => isLanding(slugValue) || isSectionSlug(slugValue)
+const isTagPage = (slugValue?: string) => baseSlug(slugValue).startsWith("tags/")
+const isSitePage = (slugValue?: string) =>
+  isLanding(slugValue) || isSectionSlug(slugValue) || isTagPage(slugValue)
 
 /** Marquee text: the site's own phrases on the landing page and sections, Socratica's on guide pages. */
 function marqueeFor(slugValue?: string) {
@@ -78,6 +80,11 @@ export const SocraticaFrame: PageFrame = {
           <SpaceLink slug={slug} />
         </>
       )
+    }
+
+    // Tag pages (the chips on every project): the site menu, without the guide's sidebar.
+    if (isTagPage(slug)) {
+      return DefaultFrame.render({ ...props, left: [], right: [] })
     }
 
     const card = cardForSlug(slug)

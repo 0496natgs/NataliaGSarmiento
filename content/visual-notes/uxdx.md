@@ -1,6 +1,6 @@
 ---
 title: "UXDX"
-date: 2026-05-12
+date: 2025-05-12
 order: 0
 category: Conference
 description: "Live visual notes from UXDX: strategy, design as a strategic asset, and AI-driven workflows."

@@ -1,6 +1,6 @@
 ---
 title: "UXDX"
-date: 2026-05-12
+date: 2025-05-12
 order: 0
 category: Conference
 description: "Notas visuales en vivo de UXDX: estrategia, el diseño como activo estratégico y flujos de trabajo con IA."

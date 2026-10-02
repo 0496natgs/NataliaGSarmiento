@@ -27,7 +27,9 @@ function PieceHeader({ componentData }: Pick<PageFrameProps, "componentData">) {
       {piece && piece.tags.length > 0 && (
         <p class="s-tags">
           {piece.tags.map((t) => (
-            <span class="s-tag">#{t}</span>
+            <a class="s-tag" href={`/tags/${encodeURIComponent(t)}`}>
+              #{t}
+            </a>
           ))}
         </p>
       )}

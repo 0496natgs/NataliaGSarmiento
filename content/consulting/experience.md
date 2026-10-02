@@ -5,15 +5,19 @@ tags:
   - consulting
 ---
 
+<p class="exp-date">Oct 2023 – present <span>(3 yrs)</span></p>
+
 ### Digital Solutions Consultant, LATAM
 
-_Valvoline Global Operations · Oct 2023 – present_
+_Valvoline Global Operations_
 
 I lead cross-functional programs that support the deployment and adoption of Salesforce solutions across global markets. I partner with business leaders, sales teams, customer service, supply chain, and technology stakeholders to design scalable experiences that drive operational excellence and lasting behavioral change.
 
+<p class="exp-date">Jun 2020 – Oct 2022 <span>(2 yrs 4 mos)</span></p>
+
 ### Salesforce Admin, Project Lead & UX Designer
 
-_Huitzi Solutions · Jun 2020 – Oct 2022_
+_Huitzi Solutions_
 
 - Project lead for all of the company's projects, managing development, admin, design and multidisciplinary teams.
 - Worked with non-profit organizations designing systems to report to the SBA with Salesforce.
@@ -22,31 +26,39 @@ _Huitzi Solutions · Jun 2020 – Oct 2022_
 - Designed UX, content and strategies using Behavioral Change Design (COM-B model, logic model).
 - Worked on the company's operational processes, documentation (Vuepress) and design system.
 
+<p class="exp-date">Jun 2020 – Sep 2021 <span>(1 yr 3 mos)</span></p>
+
 ### UX/UI Developer & UX Lead
 
-_IEXE Tec · Jun 2020 – Sep 2021_
+_IEXE Tec_
 
 - Front-end development and project UX lead, using user-centered design principles, service design, design thinking and analytical UX methods.
 - Conducted UX research and user interviews.
 - Responsible for the UX/UI redesign of the e-learning platform.
 - Designed the user experience (user flows, visual styles, wireframes and prototypes) and a design system for IEXE Tec.
 
+<p class="exp-date">Oct 2019 – Jun 2020 (project-based) <span>(8 mos)</span></p>
+
 ### Jr. Web & Editorial Designer
 
-_Tec de Monterrey · Oct 2019 – Jun 2020 (project-based)_
+_Tec de Monterrey_
 
 - Created visual design prototypes and icons, and developed solutions for a new navigation system.
 - Conducted user research through targeted interviews and extensive usability testing before and after the redesign.
 
 ## Education
 
+<p class="exp-date">2014 – 2019 <span>(5 yrs)</span></p>
+
 ### Bachelor of Design
 
-_UAM Cuajimalpa (Metropolitan Autonomous University) · 2014 – 2019_
+_UAM Cuajimalpa (Metropolitan Autonomous University)_
+
+<p class="exp-date">2020</p>
 
 ### Salesforce Administrator Certification
 
-_Salesforce · 2020 · [Trailblazer profile](https://trailblazer.me/id/ngs0496)_
+_Salesforce · [Trailblazer profile](https://trailblazer.me/id/ngs0496)_
 
 ## Languages
 

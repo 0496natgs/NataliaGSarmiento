@@ -61,7 +61,17 @@ const CLOSE_ON_NAV = `if(!window.__navClose){window.__navClose=1;document.addEve
 export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
   const lang = langOf(fileData.slug)
   const tt = t(lang)
-  const space = spaceOfSlug(fileData.slug)
+  const tag = baseSlug(fileData.slug).match(/^tags\/(.+)$/)?.[1]
+  // A tag page belongs to the consulting space when any page with that tag does.
+  const space = tag
+    ? allFiles.some(
+        (f) =>
+          baseSlug(f.slug).startsWith("consulting") &&
+          ((f.frontmatter?.tags as string[] | undefined) ?? []).includes(decodeURIComponent(tag)),
+      )
+      ? "consulting"
+      : "writer"
+    : spaceOfSlug(fileData.slug)
   const current = sectionOfSlug(fileData.slug)
   const other: Lang = lang === "es" ? "en" : "es"
   // Sections that are still empty (e.g. Insights) stay out of the menu until they have a piece.
