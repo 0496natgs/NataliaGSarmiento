@@ -581,7 +581,8 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
 /* ---------- Work (after aektakhubchandani.com/work) ---------- */
 .s-grid-work {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 420px));
+  justify-content: center;
   gap: 4rem 5rem;
   align-items: start;
 

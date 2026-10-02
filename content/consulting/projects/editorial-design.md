@@ -1,14 +1,14 @@
 ---
-title: "Editorial design"
+title: "Revolución y Diseño"
 category: Editorial
 order: 6
 gallery: consulting-design/editorial-design
-description: "A book cover and infographics for Granados Chapa."
+description: "Book cover design for Revolución y Diseño, by Aarón José Caballero Quiroz."
 tags:
   - consulting
   - design
 ---
 
-Editorial design: the cover of _Revolución y Diseño: Discusiones en torno a procesos sociales de transformación que derivan en diseño_, by Aarón José Caballero Quiroz, and infographics for Granados Chapa.
+Cover design for _Revolución y Diseño: Discusiones en torno a procesos sociales de transformación que derivan en diseño_, a book coordinated by Aarón José Caballero Quiroz.
 
 [[consulting/projects|← Projects]]
