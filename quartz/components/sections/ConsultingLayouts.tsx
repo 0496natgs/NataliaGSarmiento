@@ -30,10 +30,6 @@ export function ConsultingProfile({
   return (
     <div class="center cp">
       <section class="cp-banner">
-        <span class="s-field" aria-hidden="true">
-          <i />
-          <i />
-        </span>
         <p class="cp-banner-tag">{tt.consultingTag}</p>
         <h1 class="cp-banner-line">{fm.tagline as string}</h1>
       </section>
@@ -49,7 +45,8 @@ export function ConsultingProfile({
             rel="noopener noreferrer"
             data-router-ignore
           >
-            {tt.linkedin} ↗
+            {tt.linkedin}
+            <span class="ext" aria-hidden="true" />
           </a>
           <a class="cp-btn" href={urlFor("consulting/experience", lang)}>
             {tt.viewExperience}
@@ -110,7 +107,8 @@ export function ConsultingProfile({
           rel="noopener noreferrer"
           data-router-ignore
         >
-          {tt.linkedin} ↗
+          {tt.linkedin}
+          <span class="ext" aria-hidden="true" />
         </a>
       </section>
       {footer.map((F) => (

@@ -9,34 +9,41 @@
 //   errr-magazine    tight photo grid, 24px gaps
 //   rattle.com       paper grain, centred poem with prev/next arrows
 //   tour-kyrgyzstan  paper white and ink black with one accent, mono captions, crop-mark frames
-// The accent and the tile colours come from your Substack publication icons (burgundy #a8402a,
+// The accent and the tile colours come from your Substack publication icons (brick #a63e26,
 // brown, mustard, olive, teal). Everything is scoped so the Socratica guide pages (Basics, etc.)
 // are untouched.
 
 $lime: #c1e401;
-$cream-text: #f6ecd6;
+$cream-text: #f0f2bd;
 $grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .2  0 0 0 .1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 
 $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es/'], body[data-slug^='writing/'], body[data-slug^='photo-video/'], body[data-slug^='visual-notes/'], body[data-slug^='work/'], body[data-slug='about'], body[data-slug='contact'], body[data-slug='ai'], body[data-slug^='tags/'], body[data-slug='consulting'], body[data-slug^='consulting/']";
 
 #{$in-section} {
-  --light: #f5f2ea;
-  --lightgray: #e4dfd2;
-  --gray: #8f8777;
+  --light: #fcfbf6;
+  --lightgray: #e3e1dd;
+  --gray: #736b5d;
   --darkgray: #4a4239;
   --dark: #17130f;
-  --secondary: #a8402a;
-  --tertiary: #a8402a;
-  --highlight: #a8402a1a;
+  --secondary: #a63e26;
+  --tertiary: #a63e26;
+  --highlight: #a63e261a;
   // Colour of the handwriting (dates, notes). Change it here to recolour every handwritten line.
-  --script: #a8402a;
+  --script: #a63e26;
   --textHighlight: #c1e40199;
-  // The wider palette (illustrations): sky, pink, lilac, cream and the hummingbird's green.
-  --sky: #9fc8ec;
-  --pink: #f4a3c1;
-  --lilac: #cdc3ee;
-  --cream: #fff7d1;
-  --leaf: #3dbb4f;
+  // Tile grounds, used in turn (Brick, Chartreuse, Royal blue, Khaki, Oxblood, Orange).
+  --tile-1: #a63e26;
+  --tile-2: #c9ae17;
+  --tile-3: #1154d9;
+  --tile-4: #b19c41;
+  --tile-5: #590202;
+  --tile-6: #d9753b;
+  // Tag chips, used in turn, and the lettering on a filled chip.
+  --chip-1: #a63e26;
+  --chip-2: #1154d9;
+  --chip-3: #6b6f2e;
+  --chip-4: #590202;
+  --chip-text-on: #f0f2bd;
   --headerFont: "EB Garamond", serif;
   --bodyFont: "EB Garamond", "PT Serif", serif;
   --uiFont: "Bricolage Grotesque", system-ui, sans-serif;
@@ -299,7 +306,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     top: auto;
     bottom: 0;
     right: 0;
-    background: #f5f2ea;
+    background: #fcfbf6;
     font-size: 12px;
   }
 

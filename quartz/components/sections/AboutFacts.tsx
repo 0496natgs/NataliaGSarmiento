@@ -26,7 +26,8 @@ export function AboutFacts({ fileData }: QuartzComponentProps) {
               <a href={String(f.href)}>{f.text}</a>
             ) : f.href ? (
               <a href={String(f.href)} target="_blank" rel="noopener noreferrer" data-router-ignore>
-                {f.text} ↗
+                {f.text}
+                <span class="ext" aria-hidden="true" />
               </a>
             ) : (
               f.text

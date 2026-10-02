@@ -11,6 +11,13 @@ import {
 import { getPieces } from "./pieces"
 import { LOGO } from "./gallery"
 import { SiteSearch } from "./SiteSearch"
+import { FILTER_JS } from "./Filters"
+import { SHARE_JS } from "./ShareBar"
+import { SIDENOTES_JS } from "./Sidenotes"
+
+// Scripts the pages rely on. They live in the menu, which is on every page, so they are loaded
+// once whichever page the visitor lands on and keep working when pages change without a reload.
+const PAGE_SCRIPTS = [FILTER_JS, SHARE_JS, SIDENOTES_JS].join(";\n")
 import { Lang, baseSlug, langOf, t, urlFor } from "./i18n"
 
 /** Text split into letters so each one can roll on hover (olhalazarieva.com). */
@@ -86,11 +93,12 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
   const switchTo = otherLanguageHref(allFiles, fileData.slug, other)
   const cta =
     space === "consulting"
-      ? { href: LINKEDIN_URL, label: `${tt.linkedin} ↗` }
-      : { href: SUBSTACK_URL, label: `${tt.substack} ↗` }
+      ? { href: LINKEDIN_URL, label: tt.linkedin }
+      : { href: SUBSTACK_URL, label: tt.substack }
   return (
     <header class={`site-nav space-${space}`}>
       <script dangerouslySetInnerHTML={{ __html: CLOSE_ON_NAV }} />
+      <script dangerouslySetInnerHTML={{ __html: PAGE_SCRIPTS }} />
       <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label={tt.menu} />
       <a class="nav-logo" href={home} aria-label={`${SITE.name} — ${tt.home}`}>
         {LOGO ? <img src={LOGO} alt={SITE.name} /> : SITE.name}
@@ -136,6 +144,7 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
             data-router-ignore
           >
             {cta.label}
+            <span class="ext" aria-hidden="true" />
           </a>
         </span>
       </nav>

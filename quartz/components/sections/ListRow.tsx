@@ -27,7 +27,7 @@ export function ListRow({ piece, lang = "en" }: { piece: Piece; lang?: Lang }) {
       <span class="s-row-main">
         <span class="s-row-title">
           {piece.title}
-          {piece.external ? " ↗" : ""}
+          {piece.external ? <span class="ext" aria-hidden="true" /> : null}
         </span>
         {piece.description && <span class="s-row-desc">{piece.description}</span>}
       </span>

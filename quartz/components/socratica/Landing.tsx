@@ -21,6 +21,7 @@ function FrameCard({
   title,
   blurb,
   color,
+  light = false,
   images = [],
   external,
 }: {
@@ -29,6 +30,7 @@ function FrameCard({
   title: string
   blurb: string
   color: string
+  light?: boolean
   images?: string[]
   external?: boolean
 }) {
@@ -41,7 +43,10 @@ function FrameCard({
         : {})}
     >
       <span class="s-frame">
-        <span class="d-frame-media" style={`background-color:${color}`}>
+        <span
+          class={`d-frame-media${light ? " is-light" : ""}`}
+          style={`background-color:${color}`}
+        >
           {images.length > 0 ? (
             <span class={`d-slides n${Math.min(images.length, 4)}`}>
               {images.slice(0, 4).map((src, i) => (
@@ -60,7 +65,7 @@ function FrameCard({
         </span>
         <span class="s-figcap">
           {numeral} — {title}
-          {external ? " ↗" : ""}
+          {external ? <span class="ext" aria-hidden="true" /> : null}
         </span>
       </span>
       <span class="d-frame-title">{title}</span>
@@ -112,7 +117,10 @@ export function Landing({
         {substackRow.map((r) => (
           <a href={r.href} target="_blank" rel="noopener noreferrer" data-router-ignore>
             <span class="d-index-n">{r.n}.</span>
-            <span class="d-index-w">{r.title} ↗</span>
+            <span class="d-index-w">
+              {r.title}
+              <span class="ext" aria-hidden="true" />
+            </span>
           </a>
         ))}
       </nav>
@@ -125,6 +133,7 @@ export function Landing({
             title={textOf(s, lang).title}
             blurb={textOf(s, lang).blurb}
             color={PALETTE[s.art % PALETTE.length].color}
+            light={PALETTE[s.art % PALETTE.length].light}
             images={s.images}
           />
         ))}
