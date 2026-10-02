@@ -17,7 +17,7 @@ _Huitzi Solutions · Jun 2020 – Oct 2022_
 
 - Project lead for all of the company's projects, managing development, admin, design and multidisciplinary teams.
 - Worked with non-profit organizations designing systems to report to the SBA with Salesforce.
-- Certified Salesforce Admin, working with clients that included health organizations (HIPAA compliance) and non-profits such as Mi Casa Resource Center in Denver, Colorado. See [[consulting/projects/mcrc-salesforce-migration|the MCRC project]].
+- Certified Salesforce Admin, working with clients that included health organizations (HIPAA compliance) and non-profits such as Mi Casa Resource Center in Denver, Colorado.
 - Led Salesforce projects with Agile and Scrum and a behavior change design process for small teams.
 - Designed UX, content and strategies using Behavioral Change Design (COM-B model, logic model).
 - Worked on the company's operational processes, documentation (Vuepress) and design system.
@@ -28,7 +28,7 @@ _IEXE Tec · Jun 2020 – Sep 2021_
 
 - Front-end development and project UX lead, using user-centered design principles, service design, design thinking and analytical UX methods.
 - Conducted UX research and user interviews.
-- Responsible for the UX/UI redesign of the e-learning platform. See [[consulting/projects/iexe-tec-elearning|the IEXE Tec project]].
+- Responsible for the UX/UI redesign of the e-learning platform.
 - Designed the user experience (user flows, visual styles, wireframes and prototypes) and a design system for IEXE Tec.
 
 ### Jr. Web & Editorial Designer

@@ -39,3 +39,19 @@ List them in `SKETCHBOOK` in `quartz/components/sections/sectionsConfig.ts`.
 ## CV PDFs
 
 The two PDFs are in `cv/pdf/` (not published on the site, for uploading to LinkedIn). Rebuild them with `scripts/build-cv.mjs` after editing `cv/*.html`.
+
+## Project and event galleries
+
+A page can show every image and PDF in a folder. Put the folder name in the page's front matter, for example `gallery: consulting-design/covid-signage`, then drop images and PDFs into `quartz/static/consulting-design/covid-signage/`. Images appear in file-name order (`01-…`, `02-…`), PDFs become download buttons, and the first image is the card's cover. The consulting projects use one folder each: `cse-school-services`, `covid-signage`, `cultura-de-paz`, `granados-chapa`, `editorial-design`, `mondiacult`. The same works for Visual Notes events.
+
+## Your photographs
+
+Photos in `quartz/static/writing_photos/` fill the "Selected work" strip on the home page (the first six). To put one on a sample piece, add `photo: 1` (the first photo, `photo: 2` the second…) to that piece's front matter.
+
+## Logo
+
+Put your logo at `quartz/static/logo/logo.svg` (or `logo.png`). It replaces the handwritten name in the menu and at the foot of the home page.
+
+## Colour of the handwriting
+
+`--script` in `quartz/components/styles/sections.scss` (burgundy) and `site.scss` (teal in the consulting space) sets the colour of every handwritten line.

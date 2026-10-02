@@ -36,8 +36,8 @@ export const UI = {
     newsletters: "Newsletters",
     newslettersNote: "Three places to read me on Substack.",
     readOnSubstack: "Read on Substack",
-    sketchbook: "Visual Notes",
-    sketchbookNote: "Visual notes and drawings. Hover to pause.",
+    sketchbook: "Selected work",
+    sketchbookNote: "Work, photographs and visual notes. Hover to pause.",
     latest: "Latest",
     map: "Map",
     mapNote: "How everything on this site connects. Drag, zoom, or open the full graph.",
@@ -86,8 +86,8 @@ export const UI = {
     newsletters: "Boletines",
     newslettersNote: "Tres lugares para leerme en Substack.",
     readOnSubstack: "Leer en Substack",
-    sketchbook: "Notas visuales",
-    sketchbookNote: "Notas visuales y dibujos. Pasa el cursor para pausar.",
+    sketchbook: "Selección",
+    sketchbookNote: "Trabajo, fotografías y notas visuales. Pasa el cursor para pausar.",
     latest: "Reciente",
     map: "Mapa",
     mapNote: "Cómo se conecta todo en este sitio. Arrastra, haz zoom o abre el gráfico completo.",
@@ -137,6 +137,8 @@ const CATEGORY_ES: Record<string, string> = {
   Salesforce: "Salesforce",
   "Service design": "Diseño de servicios",
   "UX & design systems": "UX y sistemas de diseño",
+  Branding: "Identidad",
+  Editorial: "Editorial",
 }
 export const categoryLabel = (category: string, lang: Lang) =>
   lang === "es" ? (CATEGORY_ES[category] ?? category) : category

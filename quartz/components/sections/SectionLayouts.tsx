@@ -6,6 +6,7 @@ import { SectionIndex } from "./SectionIndex"
 import { formatPieceDate, getPieces, isPageSection, isSectionIndex } from "./pieces"
 import { SITE, sectionOfSlug } from "./sectionsConfig"
 import { AboutFacts } from "./AboutFacts"
+import { ProjectGallery } from "./ProjectGallery"
 import { ConsultingPage, ConsultingProfile } from "./ConsultingLayouts"
 import { categoryLabel, langOf, t } from "./i18n"
 
@@ -153,6 +154,10 @@ export function renderSection(props: PageFrameProps) {
     left: [...sidebar, () => <SelectedPieces {...componentData} />],
     right: [graph, toc].filter(Boolean) as QuartzComponent[],
     beforeBody: [() => <PieceHeader componentData={componentData} />],
-    afterBody: [() => <PrevNext componentData={componentData} />, ...props.afterBody],
+    afterBody: [
+      ProjectGallery,
+      () => <PrevNext componentData={componentData} />,
+      ...props.afterBody,
+    ],
   })
 }

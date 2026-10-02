@@ -3,4 +3,4 @@ title: Proyectos
 unlisted: true
 ---
 
-Proyectos seleccionados en transformación digital, diseño de datos y diseño de servicios.
+Diseño de servicios, identidad y diseño editorial.

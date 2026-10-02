@@ -28,6 +28,8 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   --secondary: #a13842;
   --tertiary: #a13842;
   --highlight: #a138421a;
+  // Colour of the handwriting (dates, notes). Change it here to recolour every handwritten line.
+  --script: #a13842;
   --textHighlight: #f4c84b88;
   --headerFont: "DM Serif Display", serif;
   --bodyFont: "EB Garamond", "PT Serif", serif;
@@ -112,8 +114,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 .s-script-date {
   font-family: "Caveat", cursive;
   font-size: 1.05rem;
-  color: var(--darkgray);
-  opacity: 0.85;
+  color: var(--script, var(--darkgray));
 }
 
 /* ---------- section index (aek tabs + errr grid) ---------- */

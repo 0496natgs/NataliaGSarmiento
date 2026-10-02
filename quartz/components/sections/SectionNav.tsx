@@ -9,6 +9,7 @@ import {
   textOf,
 } from "./sectionsConfig"
 import { getPieces } from "./pieces"
+import { LOGO } from "./gallery"
 import { Lang, baseSlug, langOf, t, urlFor } from "./i18n"
 
 /** Text split into letters so each one can roll on hover (olhalazarieva.com). */
@@ -81,7 +82,7 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
       <script dangerouslySetInnerHTML={{ __html: CLOSE_ON_NAV }} />
       <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label={tt.menu} />
       <a class="nav-logo" href={home} aria-label={`${SITE.name} — ${tt.home}`}>
-        {SITE.name}
+        {LOGO ? <img src={LOGO} alt={SITE.name} /> : SITE.name}
       </a>
       {space === "consulting" && <span class="nav-space">{tt.consultingTag}</span>}
       <label class="nav-burger" for="nav-toggle">

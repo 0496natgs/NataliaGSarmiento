@@ -62,6 +62,13 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
     }
   }
 
+  .nav-logo img {
+    display: block;
+    height: 34px;
+    width: auto;
+    margin: 0;
+  }
+
   .nav-burger {
     display: none;
   }
@@ -625,7 +632,14 @@ a:hover .s-frame::before {
   font-family: $script;
   font-weight: 600;
   font-size: 2rem;
-  color: var(--darkgray);
+  color: var(--script);
+
+  img {
+    display: inline-block;
+    height: 46px;
+    width: auto;
+    margin: 0;
+  }
 }
 
 // Tiles with no photo: a serif title over the drifting colour field.
@@ -668,6 +682,7 @@ body[data-slug^="es/consulting/"] {
   --secondary: #095d6a;
   --tertiary: #095d6a;
   --highlight: #095d6a1a;
+  --script: #095d6a;
 }
 
 #quartz-body .cp {
@@ -932,7 +947,7 @@ body[data-slug$="consulting/projects"] .s-work-media.has-cover {
     font-family: $script;
     font-style: normal;
     font-size: 1.25rem;
-    color: var(--darkgray);
+    color: var(--script);
   }
 
   ul {
@@ -1117,4 +1132,48 @@ body[data-slug^="es/visual-notes/"] {
       display: none;
     }
   }
+}
+
+/* ---------- project / event galleries (images and PDFs from a static folder) ---------- */
+.pg {
+  margin: 2.5rem 0 1rem;
+
+  .pg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.4rem 1.6rem;
+    align-items: start;
+
+    @media all and (max-width: 700px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .pg-fig {
+    margin: 0;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0;
+      border-radius: 2px;
+    }
+  }
+
+  .pg-pdfs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 2rem;
+  }
+}
+
+body[data-slug^="visual-notes/"] .pg .pg-grid,
+body[data-slug^="es/visual-notes/"] .pg .pg-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.cp-btn {
+  background: none;
 }
