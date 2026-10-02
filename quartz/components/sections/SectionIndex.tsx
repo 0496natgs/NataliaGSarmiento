@@ -1,7 +1,8 @@
 import { QuartzComponent, QuartzComponentProps } from "../types"
-import { categoryId, getCategories, getPieces } from "./pieces"
+import { getPieces } from "./pieces"
 import { SectionDef, SITE, textOf } from "./sectionsConfig"
-import { categoryLabel, langOf, t } from "./i18n"
+import { langOf, t } from "./i18n"
+import { Filters } from "./Filters"
 import { Tile } from "./Tile"
 import { WorkCard } from "./WorkCard"
 import { ListRow } from "./ListRow"
@@ -26,22 +27,11 @@ export function SectionIndex({
   const lang = langOf(componentData.fileData.slug)
   const tt = t(lang)
   const pieces = getPieces(componentData.allFiles, section.slug, lang)
-  const categories = getCategories(pieces)
-  const tabs = section.tabs && categories.length > 1
   // Writing and Work: a List view (the default) and a Grid view.
   const hasViews = (section.grid === "tiles" || section.grid === "work") && pieces.length > 0
-  const filterCss = tabs
-    ? categories
-        .map((c) => {
-          const id = categoryId(c)
-          return `.s-index:has(#${id}:target) :is(.s-tile,.s-work,.s-row):not([data-category="${id}"]){display:none}.s-index:has(#${id}:target) .s-year:not(:has([data-category="${id}"])){display:none}.s-index:has(#${id}:target) .s-tabs a[href="#${id}"]{color:var(--dark);border-bottom-color:var(--dark)}`
-        })
-        .join("")
-    : ""
   return (
     <div class={`center s-index s-index-${section.grid}`}>
       <Crumbs slug={componentData.fileData.slug} />
-      {filterCss && <style dangerouslySetInnerHTML={{ __html: filterCss }} />}
       <p class="s-eyebrow">{SITE.name}</p>
       <h1 class="s-index-title">
         {componentData.fileData.frontmatter?.title ?? textOf(section, lang).title}
@@ -49,23 +39,8 @@ export function SectionIndex({
       <div class="s-index-intro">
         <Content {...componentData} />
       </div>
-      {tabs && (
-        <>
-          <span id="all" class="s-anchor" />
-          {categories.map((c) => (
-            <span id={categoryId(c)} class="s-anchor" />
-          ))}
-          <div class="s-tabs">
-            <a class="s-tab-all" href="#all" data-router-ignore>
-              {tt.all}
-            </a>
-            {categories.map((c) => (
-              <a href={`#${categoryId(c)}`} data-router-ignore>
-                {categoryLabel(c, lang)}
-              </a>
-            ))}
-          </div>
-        </>
+      {section.kind === "collection" && pieces.length > 1 && (
+        <Filters pieces={pieces} lang={lang} />
       )}
       {hasViews && (
         <>
@@ -98,6 +73,9 @@ export function SectionIndex({
               : pieces.map((piece, i) => <Tile piece={piece} index={i} lang={lang} caption />)}
       </div>
       {pieces.length === 0 && <p class="s-empty">{tt.empty}</p>}
+      <p class="s-empty s-empty-filter" hidden>
+        {tt.nothingMatches}
+      </p>
     </div>
   )
 }

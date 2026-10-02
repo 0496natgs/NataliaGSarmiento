@@ -9,7 +9,7 @@
 //   errr-magazine    tight photo grid, 24px gaps
 //   rattle.com       paper grain, centred poem with prev/next arrows
 //   tour-kyrgyzstan  paper white and ink black with one accent, mono captions, crop-mark frames
-// The accent and the tile colours come from your Substack publication icons (burgundy #a13842,
+// The accent and the tile colours come from your Substack publication icons (burgundy #a8402a,
 // brown, mustard, olive, teal). Everything is scoped so the Socratica guide pages (Basics, etc.)
 // are untouched.
 
@@ -25,12 +25,18 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   --gray: #8f8777;
   --darkgray: #4a4239;
   --dark: #17130f;
-  --secondary: #a13842;
-  --tertiary: #a13842;
-  --highlight: #a138421a;
+  --secondary: #a8402a;
+  --tertiary: #a8402a;
+  --highlight: #a8402a1a;
   // Colour of the handwriting (dates, notes). Change it here to recolour every handwritten line.
-  --script: #a13842;
+  --script: #a8402a;
   --textHighlight: #c1e40199;
+  // The wider palette (illustrations): sky, pink, lilac, cream and the hummingbird's green.
+  --sky: #9fc8ec;
+  --pink: #f4a3c1;
+  --lilac: #cdc3ee;
+  --cream: #fff7d1;
+  --leaf: #3dbb4f;
   --headerFont: "EB Garamond", serif;
   --bodyFont: "EB Garamond", "PT Serif", serif;
   --uiFont: "Bricolage Grotesque", system-ui, sans-serif;

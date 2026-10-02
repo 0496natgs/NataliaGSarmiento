@@ -1,5 +1,5 @@
 import { PALETTE } from "./sectionsConfig"
-import { categoryId, Piece } from "./pieces"
+import { filterAttrs, Piece } from "./pieces"
 import { Lang, categoryLabel, t } from "./i18n"
 
 /**
@@ -26,7 +26,7 @@ export function WorkCard({
     <a
       class={`s-work ${index % 2 === 0 ? "is-portrait" : "is-landscape"}`}
       href={piece.href}
-      data-category={categoryId(piece.category)}
+      {...filterAttrs(piece, lang)}
       {...(piece.external
         ? { target: "_blank", rel: "noopener noreferrer", "data-router-ignore": true }
         : {})}

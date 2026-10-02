@@ -2,6 +2,7 @@
 title: "Jornadas por la Paz UAM: identidad del evento"
 category: Branding
 publication: "UAM"
+year: 2023
 order: 4
 gallery: consulting-design/jornadas
 description: "Identidad visual y piezas de comunicación para las primeras Jornadas por la Paz de la UAM, septiembre de 2023."

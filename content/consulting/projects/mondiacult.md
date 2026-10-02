@@ -1,6 +1,7 @@
 ---
 title: "MONDIACULT"
 category: Branding
+year: 2022
 order: 7
 gallery: consulting-design/mondiacult
 description: "Visual identity, posters, programs and badges for UAM's side event at MONDIACULT 2022 (UNESCO)."

@@ -144,3 +144,25 @@ export function getCategories(pieces: Piece[]): string[] {
   }
   return present.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b))
 }
+
+// Tags that only say which part of the site a piece is on; they are not useful as filters.
+const GENERIC_TAGS = new Set(["writing", "consulting", "visual-notes", "work", "photo-video"])
+
+export const pieceTags = (piece: Piece): string[] =>
+  piece.tags.filter((t) => !GENERIC_TAGS.has(t)).map(String)
+
+export const pieceYear = (piece: Piece, lang: Lang = "en"): string =>
+  piece.date
+    ? String(piece.date.getFullYear())
+    : (piece.year ?? (lang === "es" ? "Sin fecha" : "Undated"))
+
+/** The data attributes that let the filter bar (Filters.tsx) show or hide a card, tile or row. */
+export function filterAttrs(piece: Piece, lang: Lang = "en") {
+  return {
+    "data-piece": piece.slug,
+    "data-category": categoryId(piece.category),
+    "data-tags": pieceTags(piece).join("|"),
+    "data-year": pieceYear(piece, lang),
+    "data-text": `${piece.title} ${piece.description ?? ""} ${piece.category} ${pieceTags(piece).join(" ")}`.toLowerCase(),
+  }
+}
