@@ -19,6 +19,9 @@ import substackConfig from "../../../substack.config.json"
 // Writing grid (scripts/sync-substack.mjs). Until it is set, links point to substack.com.
 export const SUBSTACK_URL: string = substackConfig.url || "https://substack.com"
 
+/** The address on the Contact page. It is encoded in the HTML so scrapers do not collect it. */
+export const CONTACT_EMAIL = "sarmiento.natns@gmail.com"
+
 export const LINKEDIN_URL = "https://www.linkedin.com/in/natalia-garcia-sarmiento/"
 export const TLACUILOQUE_URL = "https://tlacuiloque.com/"
 
@@ -269,6 +272,45 @@ export const SECTIONS: SectionDef[] = [
       title: "Sobre mí",
       blurb: "Bio",
       marquee: ["sobre mí", "aprende de otros", "aprende de ti", "comparte lo que descubras"],
+    },
+  },
+
+  {
+    slug: "contact",
+    kind: "page",
+    space: "writer",
+    numeral: "",
+    card: false,
+    inNav: false,
+    title: "Contact",
+    blurb: "Get in touch",
+    art: 0,
+    grid: "tiles",
+    tabs: false,
+    marquee: ["contact", "say hello"],
+    es: {
+      title: "Contacto",
+      blurb: "Escríbeme",
+      marquee: ["contacto", "di hola"],
+    },
+  },
+  {
+    slug: "ai",
+    kind: "page",
+    space: "writer",
+    numeral: "",
+    card: false,
+    inNav: false,
+    title: "AI usage",
+    blurb: "How AI is, and is not, used here",
+    art: 0,
+    grid: "tiles",
+    tabs: false,
+    marquee: ["written by a person", "no AI writing"],
+    es: {
+      title: "Uso de IA",
+      blurb: "Cómo se usa, y cómo no, la IA aquí",
+      marquee: ["escrito por una persona", "sin IA para escribir"],
     },
   },
 

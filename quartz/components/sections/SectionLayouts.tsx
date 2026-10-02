@@ -9,6 +9,12 @@ import { AboutFacts } from "./AboutFacts"
 import { ProjectGallery } from "./ProjectGallery"
 import { ConsultingPage, ConsultingProfile } from "./ConsultingLayouts"
 import { categoryLabel, langOf, t } from "./i18n"
+import { Crumbs } from "./Crumbs"
+import { ShareBar } from "./ShareBar"
+import { Sidenotes } from "./Sidenotes"
+
+const pageUrl = (baseUrl: string | undefined, slug: string | undefined) =>
+  `https://${baseUrl ?? "nataliagsarmiento.com"}/${(slug ?? "").replace(/\/index$/, "").replace(/^index$/, "")}`
 
 /** Title, date, category chip, role/year and tags for a piece (dappled-light header). */
 function PieceHeader({ componentData }: Pick<PageFrameProps, "componentData">) {
@@ -17,6 +23,7 @@ function PieceHeader({ componentData }: Pick<PageFrameProps, "componentData">) {
   const piece = getPieces(componentData.allFiles, undefined, lang).find((p) => p.slug === slug)
   return (
     <div class="s-piece-header">
+      <Crumbs slug={slug} title={String(componentData.fileData.frontmatter?.title ?? "")} />
       <h1 class="s-piece-title">{componentData.fileData.frontmatter?.title}</h1>
       <p class="s-piece-meta">
         {piece?.date && <span class="s-script-date">{formatPieceDate(piece.date, lang)}</span>}
@@ -63,7 +70,7 @@ export function renderSection(props: PageFrameProps) {
     return <ConsultingProfile componentData={componentData} Content={Content} footer={footer} />
   }
 
-  if (isPageSection(slug) && section.space === "consulting") {
+  if (isPageSection(slug) && (section.space === "consulting" || section.slug === "contact")) {
     return <ConsultingPage componentData={componentData} Content={Content} footer={footer} />
   }
 
@@ -82,6 +89,7 @@ export function renderSection(props: PageFrameProps) {
       beforeBody: [
         () => (
           <div class="s-piece-header">
+            <Crumbs slug={slug} title={String(componentData.fileData.frontmatter?.title ?? "")} />
             <h1 class="s-piece-title">{componentData.fileData.frontmatter?.title}</h1>
           </div>
         ),
@@ -101,7 +109,7 @@ export function renderSection(props: PageFrameProps) {
     )
   }
 
-  if (form === "poem") {
+  if (form === "poem" && !componentData.fileData.frontmatter?.collection) {
     const lang = langOf(slug)
     const tt = t(lang)
     const pieces = getPieces(componentData.allFiles, section.slug, lang).filter(
@@ -131,12 +139,18 @@ export function renderSection(props: PageFrameProps) {
           </a>
         )}
         <div class="center s-poem">
+          <Crumbs slug={slug} title={String(componentData.fileData.frontmatter?.title ?? "")} />
           <p class="s-poem-date">{formatPieceDate(pieces[i]?.date, lang)}</p>
           <p class="s-poem-author">{SITE.name}</p>
           <h1 class="s-poem-title">{componentData.fileData.frontmatter?.title}</h1>
           <div class="s-poem-body">
             <Content {...componentData} />
           </div>
+          <ShareBar
+            url={pageUrl(componentData.cfg.baseUrl, slug)}
+            title={String(componentData.fileData.frontmatter?.title ?? "")}
+            lang={lang}
+          />
         </div>
         {footer.map((F) => (
           <F {...componentData} />
@@ -149,15 +163,25 @@ export function renderSection(props: PageFrameProps) {
   // table of contents on the right (dappled-light).
   const byName = (name: string) => left.find((c) => c.name === name)
   const toc = byName("DesktopOnly")
-  const graph = showGraph ? props.right.find((c) => c.name === "Graph") : undefined
   const sidebar = [byName("PageTitle"), byName("Flex")].filter(Boolean) as QuartzComponent[]
   return DefaultFrame.render({
     ...props,
-    left: [...sidebar, () => <SelectedPieces {...componentData} />],
-    right: [graph, toc].filter(Boolean) as QuartzComponent[],
+    // The contents sit on the left so the right margin is free for footnotes (see Sidenotes).
+    left: [...sidebar, toc, () => <SelectedPieces {...componentData} />].filter(
+      Boolean,
+    ) as QuartzComponent[],
+    right: [],
     beforeBody: [() => <PieceHeader componentData={componentData} />],
     afterBody: [
       ProjectGallery,
+      () => (
+        <ShareBar
+          url={pageUrl(componentData.cfg.baseUrl, slug)}
+          title={String(componentData.fileData.frontmatter?.title ?? "")}
+          lang={langOf(slug)}
+        />
+      ),
+      Sidenotes,
       () => <PrevNext componentData={componentData} />,
       ...props.afterBody,
     ],

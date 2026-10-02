@@ -10,6 +10,7 @@ import {
 } from "./sectionsConfig"
 import { getPieces } from "./pieces"
 import { LOGO } from "./gallery"
+import { SiteSearch } from "./SiteSearch"
 import { Lang, baseSlug, langOf, t, urlFor } from "./i18n"
 
 /** Text split into letters so each one can roll on hover (olhalazarieva.com). */
@@ -109,6 +110,10 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
           </a>
         ))}
         <span class="nav-end">
+          <SiteSearch lang={lang} />
+          <a class="nav-link" href={urlFor("contact", lang)}>
+            <Roll text={tt.contact} />
+          </a>
           <a
             class="nav-lang"
             href={switchTo}
