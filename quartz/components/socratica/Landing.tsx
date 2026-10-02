@@ -21,6 +21,7 @@ function FrameCard({
   title,
   blurb,
   color,
+  light = false,
   images = [],
   external,
 }: {
@@ -29,6 +30,7 @@ function FrameCard({
   title: string
   blurb: string
   color: string
+  light?: boolean
   images?: string[]
   external?: boolean
 }) {
@@ -41,7 +43,10 @@ function FrameCard({
         : {})}
     >
       <span class="s-frame">
-        <span class="d-frame-media" style={`background-color:${color}`}>
+        <span
+          class={`d-frame-media${light ? " is-light" : ""}`}
+          style={`background-color:${color}`}
+        >
           {images.length > 0 ? (
             <span class={`d-slides n${Math.min(images.length, 4)}`}>
               {images.slice(0, 4).map((src, i) => (
@@ -125,6 +130,7 @@ export function Landing({
             title={textOf(s, lang).title}
             blurb={textOf(s, lang).blurb}
             color={PALETTE[s.art % PALETTE.length].color}
+            light={PALETTE[s.art % PALETTE.length].light}
             images={s.images}
           />
         ))}

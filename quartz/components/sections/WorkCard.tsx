@@ -18,7 +18,8 @@ export function WorkCard({
   lang?: Lang
 }) {
   const tt = t(lang)
-  const color = PALETTE[(index + 1) % PALETTE.length].color
+  const tile = ((index + 1) % PALETTE.length) + 1
+  const light = PALETTE[(index + 1) % PALETTE.length].light
   const meta = [piece.publication, piece.issue, piece.year ?? piece.date?.getFullYear()]
     .filter((x) => x !== undefined && x !== "")
     .join(", ")
@@ -33,8 +34,12 @@ export function WorkCard({
     >
       <div class="s-frame">
         <div
-          class={`s-work-media ${piece.cover ? "has-cover" : "is-poster"}`}
-          style={piece.cover ? `background-image:url(${piece.cover})` : `background-color:${color}`}
+          class={`s-work-media ${piece.cover ? "has-cover" : `is-poster${light ? " tone-light" : ""}`}`}
+          style={
+            piece.cover
+              ? `background-image:url(${piece.cover})`
+              : `background-color:var(--tile-${tile})`
+          }
         >
           {piece.badge && <span class="s-badge">{piece.badge}</span>}
           {piece.untranslated && <span class="s-badge s-badge-lang">{tt.notTranslated}</span>}

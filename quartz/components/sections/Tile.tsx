@@ -21,7 +21,8 @@ export function Tile({
   caption?: boolean
 }) {
   const tt = t(lang)
-  const color = PALETTE[index % PALETTE.length].color
+  const tile = (index % PALETTE.length) + 1
+  const light = PALETTE[index % PALETTE.length].light
   const external = piece.external
     ? { target: "_blank", rel: "noopener noreferrer", "data-router-ignore": true }
     : {}
@@ -31,8 +32,12 @@ export function Tile({
   return (
     <a class="s-tile" href={piece.href} {...filterAttrs(piece, lang)} {...external}>
       <div
-        class={`s-tile-media ${piece.cover ? "has-cover" : "is-poster"}`}
-        style={piece.cover ? `background-image:url(${piece.cover})` : `background-color:${color}`}
+        class={`s-tile-media ${piece.cover ? "has-cover" : `is-poster${light ? " tone-light" : ""}`}`}
+        style={
+          piece.cover
+            ? `background-image:url(${piece.cover})`
+            : `background-color:var(--tile-${tile})`
+        }
       >
         {piece.badge && <span class="s-badge">{piece.badge}</span>}
         {piece.external && (
