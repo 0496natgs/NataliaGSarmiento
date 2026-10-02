@@ -17,4 +17,6 @@ El sistema se diseñó para atraer la atención de las personas, hacer visible e
 
 El enfoque fue usar el _Marco de riesgo_ del toolkit para identificar qué información necesita la gente a lo largo de su recorrido por la universidad. Se diseñaron dos tipos de señales: información rápida e información lenta. El sistema también requirió un conjunto de íconos diseñados según los lineamientos de señalética de la universidad.
 
+**Íconos adicionales.** Se diseñaron nuevos íconos para complementar el sistema de información con las regulaciones de COVID-19: sana distancia, cubrebocas, lavado de manos, síntomas, aforo y orientación, entre otros.
+
 [[es/consulting/projects|← Proyectos]]
