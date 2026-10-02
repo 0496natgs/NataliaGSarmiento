@@ -84,13 +84,13 @@ const WORK_ITEMS: Highlight[] = [
 ]
 
 const NOTE_ITEMS: Highlight[] = [
-  { src: "/static/notes/UXDX/UXDX_2025.jpg", href: "/visual-notes/uxdx" },
-  { src: "/static/notes/GBAs/gbas-1.jpg", href: "/visual-notes/gbas-summit" },
+  { src: "/static/notes/uxdx/uxdx-1.jpg", href: "/visual-notes/uxdx" },
+  { src: "/static/notes/gbas/gbas-1.jpg", href: "/visual-notes/gbas-summit" },
   {
-    src: "/static/notes/Meta-Manuales_MuseoExperimentalEco/meta-manuales.jpg",
+    src: "/static/notes/meta-manuales/notes.jpg",
     href: "/visual-notes/meta-manuales",
   },
-  { src: "/static/notes/GBAs/gbas-5.jpg", href: "/visual-notes/gbas-summit" },
+  { src: "/static/notes/gbas/gbas-5.jpg", href: "/visual-notes/gbas-summit" },
 ].map((n) => ({
   ...n,
   alt: "Visual notes",
@@ -239,9 +239,9 @@ export const SECTIONS: SectionDef[] = [
     grid: "tiles",
     tabs: false,
     images: [
-      "/static/notes/GBAs/gbas-1.jpg",
-      "/static/notes/GBAs/gbas-3.jpg",
-      "/static/notes/GBAs/gbas-5.jpg",
+      "/static/notes/gbas/gbas-1.jpg",
+      "/static/notes/gbas/gbas-3.jpg",
+      "/static/notes/gbas/gbas-5.jpg",
     ],
     marquee: ["visual notes", "live drawing", "visual thinking", "conferences", "looking closely"],
     es: {
