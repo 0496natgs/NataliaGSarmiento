@@ -2,7 +2,8 @@
 title: "Granados Chapa: identidad"
 category: Branding
 publication: "UAM Cuajimalpa"
-order: 4
+order: 5
+cover: /static/consulting-design/granados-chapa/05-patron.png
 gallery: consulting-design/granados-chapa
 description: "Diseño de logotipo e identidad de evento para la Semana Granados Chapa, y el logotipo del Archivo Granados Chapa."
 tags:

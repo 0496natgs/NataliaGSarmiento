@@ -59,8 +59,8 @@ export const SUBSTACK_PUBLICATIONS = [
 
 /**
  * The strip of images that drifts past on the home page: a mix of your work, photographs and visual
- * notes. Photographs come from the folder quartz/static/writing_photos/ automatically (the first
- * six, in file-name order); the rest are listed here. Each item links to its page.
+ * notes. Photographs are picked by name from quartz/static/writing_photos/ (the list
+ * is in PHOTO_ITEMS below); the rest are listed here. Each item links to its page.
  */
 export interface Highlight {
   src: string
@@ -80,28 +80,46 @@ const WORK_ITEMS: Highlight[] = [
   },
 ]
 
-const NOTE_ITEMS: Highlight[] = ["gbas-1", "gbas-3", "gbas-5", "gbas-7"].map((f) => ({
-  src: `/static/notes/${f}.jpg`,
+const NOTE_ITEMS: Highlight[] = [
+  { src: "/static/notes/UXDX/UXDX_2025.jpg", href: "/visual-notes/uxdx" },
+  { src: "/static/notes/GBAs/gbas-1.jpg", href: "/visual-notes/gbas-summit" },
+  {
+    src: "/static/notes/Meta-Manuales_MuseoExperimentalEco/meta-manuales.jpg",
+    href: "/visual-notes/meta-manuales",
+  },
+  { src: "/static/notes/GBAs/gbas-5.jpg", href: "/visual-notes/gbas-summit" },
+].map((n) => ({
+  ...n,
   alt: "Visual notes",
   label: "Visual notes",
   label_es: "Notas visuales",
-  href: "/visual-notes/gbas-summit",
 }))
 
-const PHOTO_ITEMS: Highlight[] = galleryFiles("writing_photos")
-  .images.slice(0, 6)
-  .map((src) => ({
-    src,
+// A hand-picked handful of the photographs in static/writing_photos.
+const PHOTO_ITEMS: Highlight[] = ["Prague.JPG", "Florencia.JPG", "Utah.jpg", "Switzerland.JPG"].map(
+  (f) => ({
+    src: `/static/writing_photos/${f}`,
     alt: "Photograph",
     label: "Photo",
     label_es: "Foto",
-    href: "/writing",
-  }))
+    href: "/photo-video",
+  }),
+)
+
+const ILLUSTRATION_ITEMS: Highlight[] = [
+  {
+    src: "/static/Illustration-art/drawing.jpeg",
+    alt: "Illustration",
+    label: "Illustration",
+    label_es: "Ilustración",
+    href: "/photo-video",
+  },
+]
 
 // Interleave so no two neighbours are the same kind: work, photo, note, photo, note, ...
 export const SKETCHBOOK: Highlight[] = (() => {
   const out: Highlight[] = []
-  const lists = [WORK_ITEMS, PHOTO_ITEMS, NOTE_ITEMS]
+  const lists = [WORK_ITEMS, PHOTO_ITEMS, NOTE_ITEMS, ILLUSTRATION_ITEMS]
   for (let i = 0; lists.some((l) => i < l.length); i++) {
     for (const l of lists) if (i < l.length) out.push(l[i])
   }
@@ -217,7 +235,11 @@ export const SECTIONS: SectionDef[] = [
     art: 3,
     grid: "tiles",
     tabs: false,
-    images: ["/static/notes/gbas-1.jpg", "/static/notes/gbas-3.jpg", "/static/notes/gbas-5.jpg"],
+    images: [
+      "/static/notes/GBAs/gbas-1.jpg",
+      "/static/notes/GBAs/gbas-3.jpg",
+      "/static/notes/GBAs/gbas-5.jpg",
+    ],
     marquee: ["visual notes", "live drawing", "visual thinking", "conferences", "looking closely"],
     es: {
       title: "Notas visuales",

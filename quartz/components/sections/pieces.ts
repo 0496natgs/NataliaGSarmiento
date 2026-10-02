@@ -49,6 +49,14 @@ export const isPageSection = (slug?: string) => {
 
 export const categoryId = (category: string) => category.toLowerCase().replace(/[^a-z0-9]+/g, "-")
 
+/** `photo: 2` (nth image) or `photo: Rome.JPG` (by file name) picks a cover from static/writing_photos. */
+function photoCover(photo: unknown): string | undefined {
+  const images = galleryFiles("writing_photos").images
+  if (typeof photo === "number") return images[photo - 1]
+  const name = encodeURI(String(photo)).toLowerCase()
+  return images.find((src) => src.toLowerCase().endsWith(`/${name}`))
+}
+
 export function formatPieceDate(date?: Date, lang: Lang = "en") {
   return date
     ? date.toLocaleDateString(intlLocale(lang), { month: "short", day: "2-digit", year: "numeric" })
@@ -103,8 +111,8 @@ export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"):
         badge: fm.badge ? String(fm.badge) : undefined,
         cover: fm.cover
           ? String(fm.cover)
-          : typeof fm.photo === "number"
-            ? galleryFiles("writing_photos").images[fm.photo - 1]
+          : fm.photo !== undefined
+            ? photoCover(fm.photo)
             : gallery[0],
         description: fm.description ? String(fm.description) : undefined,
         tags: Array.isArray(fm.tags) ? fm.tags.map(String) : [],
@@ -121,7 +129,8 @@ export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"):
     })
     .sort((a, b) => {
       if (a.order !== undefined || b.order !== undefined) {
-        return (a.order ?? Infinity) - (b.order ?? Infinity)
+        const diff = (a.order ?? 1e9) - (b.order ?? 1e9)
+        if (diff !== 0) return diff
       }
       return (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0)
     })
