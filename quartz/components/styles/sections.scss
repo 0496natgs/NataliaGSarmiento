@@ -17,7 +17,7 @@ $lime: #c1e401;
 $cream-text: #f6ecd6;
 $grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .2  0 0 0 .1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 
-$in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es/'], body[data-slug^='writing/'], body[data-slug^='photo-video/'], body[data-slug^='visual-notes/'], body[data-slug^='work/'], body[data-slug='about'], body[data-slug='consulting'], body[data-slug^='consulting/']";
+$in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es/'], body[data-slug^='writing/'], body[data-slug^='photo-video/'], body[data-slug^='visual-notes/'], body[data-slug^='work/'], body[data-slug='about'], body[data-slug='contact'], body[data-slug='ai'], body[data-slug^='tags/'], body[data-slug='consulting'], body[data-slug^='consulting/']";
 
 #{$in-section} {
   --light: #f5f2ea;
@@ -30,8 +30,8 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   --highlight: #a138421a;
   // Colour of the handwriting (dates, notes). Change it here to recolour every handwritten line.
   --script: #a13842;
-  --textHighlight: #f4c84b88;
-  --headerFont: "DM Serif Display", serif;
+  --textHighlight: #c1e40199;
+  --headerFont: "EB Garamond", serif;
   --bodyFont: "EB Garamond", "PT Serif", serif;
   --uiFont: "Bricolage Grotesque", system-ui, sans-serif;
   --codeFont: "Spline Sans Mono", "IBM Plex Mono", monospace;
@@ -41,6 +41,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   .page-title a,
   .page-title {
     font-family: var(--headerFont);
+    font-weight: 400;
     color: var(--dark);
   }
 
@@ -350,7 +351,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
   .s-caption-title {
     margin: 0 0 0.25rem;
-    font-family: "DM Serif Display", serif;
+    font-family: "EB Garamond", serif;
     font-weight: 400;
     font-size: 1.45rem;
     line-height: 1.15;
@@ -692,7 +693,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   }
 
   .cv-title {
-    font-family: "DM Serif Display", serif;
+    font-family: "EB Garamond", serif;
     font-weight: 400;
     font-size: 1.7rem;
     line-height: 1.1;

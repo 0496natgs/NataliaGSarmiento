@@ -4,6 +4,7 @@ import { LINKEDIN_URL, SITE } from "./sectionsConfig"
 import { Lang, langOf, t, urlFor } from "./i18n"
 import { WorkCard } from "./WorkCard"
 import { ListRow } from "./ListRow"
+import { Crumbs } from "./Crumbs"
 
 /**
  * The consulting space's home: a LinkedIn-style profile (robertcmeza on LinkedIn, aimforbehavior.com).
@@ -194,6 +195,10 @@ export function ConsultingPage({
   const es = lang === "es"
   return (
     <div class="center s-index cp-page">
+      <Crumbs
+        slug={componentData.fileData.slug}
+        title={String(componentData.fileData.frontmatter?.title ?? "")}
+      />
       <p class="s-eyebrow">{SITE.name}</p>
       <h1 class="s-index-title">{componentData.fileData.frontmatter?.title}</h1>
       {Array.isArray(fm?.timeline) ? (

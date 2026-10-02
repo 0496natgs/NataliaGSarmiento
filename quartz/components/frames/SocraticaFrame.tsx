@@ -1,6 +1,5 @@
 import { PageFrame, PageFrameProps } from "./types"
 import { DefaultFrame } from "./DefaultFrame"
-import { Marquee } from "../socratica/Marquee"
 import { Landing } from "../socratica/Landing"
 import { cardForSlug } from "../socratica/Cards"
 import landingStyle from "../styles/landing.scss"
@@ -28,13 +27,6 @@ const isTagPage = (slugValue?: string) => baseSlug(slugValue).startsWith("tags/"
 const isSitePage = (slugValue?: string) =>
   isLanding(slugValue) || isSectionSlug(slugValue) || isTagPage(slugValue)
 
-/** Marquee text: the site's own phrases on the landing page and sections, Socratica's on guide pages. */
-function marqueeFor(slugValue?: string) {
-  if (isLanding(slugValue)) return SITE_MARQUEE[langOf(slugValue)]
-  const section = sectionOfSlug(slugValue)
-  return section ? textOf(section, langOf(slugValue)).marquee : MARQUEE_PHRASES
-}
-
 /**
  * Socratica-style frame: a scrolling marquee above the page, a card-grid
  * landing page at `/`, and an issue "card" under the site title (desktop)
@@ -55,7 +47,6 @@ export const SocraticaFrame: PageFrame = {
         }}
       />
       {isSitePage(slug(props)) && <link rel="stylesheet" href={SITE_FONTS} />}
-      <Marquee phrases={marqueeFor(slug(props))} />
       {isSitePage(slug(props)) && <SectionNav {...props.componentData} />}
     </>
   ),

@@ -15,6 +15,10 @@ export function SpaceLink({ slug }: { slug?: string }) {
       <a href={toConsulting ? urlFor("consulting", lang) : urlFor("index", lang)}>
         {lang === "es" ? "Ir" : "Go"} →
       </a>
+      <span class="space-link-more">
+        <a href={urlFor("contact", lang)}>{tt.contact}</a> ·{" "}
+        <a href={urlFor("ai", lang)}>{tt.aiUsage}</a>
+      </span>
     </p>
   )
 }
