@@ -12,6 +12,7 @@ import {
 } from "../sections/sectionsConfig"
 import { Lang, langOf, t, urlFor } from "../sections/i18n"
 import { Tile } from "../sections/Tile"
+import { LOGO } from "../sections/gallery"
 
 /** A framed card: crop marks around a photo (cross-fading if there are several) or a drifting colour field. */
 function FrameCard({
@@ -129,20 +130,16 @@ export function Landing({
         ))}
       </div>
 
-      <h2 class="d-section-title">{tt.newsletters}</h2>
-      <p class="d-section-note">{tt.newslettersNote}</p>
-      <div class="d-frames d-frames-3">
-        {SUBSTACK_PUBLICATIONS.map((p, i) => (
-          <FrameCard
-            href={`${SUBSTACK_URL.replace(/\/+$/, "")}${p.path}`}
-            numeral={["a", "b", "c"][i]}
-            title={p.name}
-            blurb={lang === "es" ? p.blurb_es : p.blurb}
-            color={p.color}
-            external
-          />
-        ))}
-      </div>
+      {latest.length > 0 && (
+        <>
+          <h2 class="d-section-title">{tt.latest}</h2>
+          <div class="s-grid s-grid-tiles d-latest">
+            {latest.map((p, i) => (
+              <Tile piece={p} index={i} lang={lang} showSection />
+            ))}
+          </div>
+        </>
+      )}
 
       {SKETCHBOOK.length > 0 && (
         <>
@@ -161,7 +158,8 @@ export function Landing({
                   <span class="s-frame">
                     <img src={p.src} alt={i < SKETCHBOOK.length ? p.alt : ""} loading="lazy" />
                     <span class="s-figcap">
-                      {tt.figure} {String((i % SKETCHBOOK.length) + 1).padStart(2, "0")}
+                      {String((i % SKETCHBOOK.length) + 1).padStart(2, "0")} —{" "}
+                      {lang === "es" ? p.label_es : p.label}
                     </span>
                   </span>
                 </a>
@@ -171,16 +169,20 @@ export function Landing({
         </>
       )}
 
-      {latest.length > 0 && (
-        <>
-          <h2 class="d-section-title">{tt.latest}</h2>
-          <div class="s-grid s-grid-tiles d-latest">
-            {latest.map((p, i) => (
-              <Tile piece={p} index={i} lang={lang} showSection />
-            ))}
-          </div>
-        </>
-      )}
+      <h2 class="d-section-title">{tt.newsletters}</h2>
+      <p class="d-section-note">{tt.newslettersNote}</p>
+      <div class="d-frames d-frames-3">
+        {SUBSTACK_PUBLICATIONS.map((p, i) => (
+          <FrameCard
+            href={`${SUBSTACK_URL.replace(/\/+$/, "")}${p.path}`}
+            numeral={["a", "b", "c"][i]}
+            title={p.name}
+            blurb={lang === "es" ? p.blurb_es : p.blurb}
+            color={p.color}
+            external
+          />
+        ))}
+      </div>
 
       {Graph && lang === "en" && (
         <>
@@ -191,7 +193,7 @@ export function Landing({
           </div>
         </>
       )}
-      <p class="d-signoff">{SITE.name}</p>
+      <p class="d-signoff">{LOGO ? <img src={LOGO} alt={SITE.name} /> : SITE.name}</p>
     </div>
   )
 }

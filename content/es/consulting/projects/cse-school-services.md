@@ -1,10 +1,10 @@
 ---
 title: "CSE: rediseño de la experiencia de los servicios escolares"
 category: Service design
-publication: UAM Cuajimalpa
-order: 3
-cover: /static/consulting/cse-poster.jpg
-description: Un rediseño de servicio de los servicios escolares para estudiantes en la UAM Cuajimalpa (UAM-C).
+publication: "UAM Cuajimalpa"
+order: 1
+gallery: consulting-design/cse-school-services
+description: "Un rediseño de servicio de los servicios escolares para estudiantes en la UAM Cuajimalpa (UAM-C)."
 tags:
   - consulting
   - service-design

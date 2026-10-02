@@ -2,4 +2,4 @@
 title: Projects
 ---
 
-Selected projects in digital transformation, data design and service design.
+Service design, branding and editorial design.

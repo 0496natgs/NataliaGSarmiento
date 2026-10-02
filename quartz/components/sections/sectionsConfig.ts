@@ -5,6 +5,7 @@
 // here. Spanish versions of every label sit next to the English ones.
 
 import { Lang, baseSlug } from "./i18n"
+import { galleryFiles } from "./gallery"
 
 export const SITE = {
   name: "Natalia G. Sarmiento",
@@ -57,32 +58,55 @@ export const SUBSTACK_PUBLICATIONS = [
 ]
 
 /**
- * Your own photos and illustrations. They drift past on the landing page ("Sketchbook"). Add files
- * to quartz/static/photos/ and list them here; nothing else needs to change.
+ * The strip of images that drifts past on the home page: a mix of your work, photographs and visual
+ * notes. Photographs come from the folder quartz/static/writing_photos/ automatically (the first
+ * six, in file-name order); the rest are listed here. Each item links to its page.
  */
-export const SKETCHBOOK: { src: string; alt: string; href?: string }[] = [
+export interface Highlight {
+  src: string
+  alt: string
+  label: string
+  label_es: string
+  href?: string
+}
+
+const WORK_ITEMS: Highlight[] = [
   {
-    src: "/static/notes/gbas-1.jpg",
-    alt: "Visual notes: Pure game",
-    href: "/visual-notes/gbas-summit",
+    src: "/static/work/khora-discovering-taste.jpg",
+    alt: "Discovering Taste, KHÔRA",
+    label: "Work",
+    label_es: "Trabajo",
+    href: "/work",
   },
-  {
-    src: "/static/notes/gbas-3.jpg",
-    alt: "Visual notes: Lessons from the pandemic",
-    href: "/visual-notes/gbas-summit",
-  },
-  {
-    src: "/static/notes/gbas-5.jpg",
-    alt: "Visual notes: Impro-narratives",
-    href: "/visual-notes/gbas-summit",
-  },
-  {
-    src: "/static/notes/gbas-7.jpg",
-    alt: "Visual notes: The future is now",
-    href: "/visual-notes/gbas-summit",
-  },
-  { src: "/static/notes/gbas-9.jpg", alt: "Visual notes", href: "/visual-notes/gbas-summit" },
 ]
+
+const NOTE_ITEMS: Highlight[] = ["gbas-1", "gbas-3", "gbas-5", "gbas-7"].map((f) => ({
+  src: `/static/notes/${f}.jpg`,
+  alt: "Visual notes",
+  label: "Visual notes",
+  label_es: "Notas visuales",
+  href: "/visual-notes/gbas-summit",
+}))
+
+const PHOTO_ITEMS: Highlight[] = galleryFiles("writing_photos")
+  .images.slice(0, 6)
+  .map((src) => ({
+    src,
+    alt: "Photograph",
+    label: "Photo",
+    label_es: "Foto",
+    href: "/writing",
+  }))
+
+// Interleave so no two neighbours are the same kind: work, photo, note, photo, note, ...
+export const SKETCHBOOK: Highlight[] = (() => {
+  const out: Highlight[] = []
+  const lists = [WORK_ITEMS, PHOTO_ITEMS, NOTE_ITEMS]
+  for (let i = 0; lists.some((l) => i < l.length); i++) {
+    for (const l of lists) if (i < l.length) out.push(l[i])
+  }
+  return out
+})()
 
 // "tiles": square tiles; "photos": tight photo grid; "work": large image cards in two columns
 // with category tabs, like a writer's portfolio (aektakhubchandani.com/work); "list": rows with a
@@ -288,15 +312,15 @@ export const SECTIONS: SectionDef[] = [
     numeral: "",
     card: false,
     title: "Projects",
-    blurb: "Selected projects",
+    blurb: "Service design, branding and editorial work",
     art: 4,
     grid: "work",
-    tabs: false,
-    marquee: ["projects", "data model", "service design", "ux", "design systems"],
+    tabs: true,
+    marquee: ["projects", "service design", "branding", "editorial", "signage"],
     es: {
       title: "Proyectos",
-      blurb: "Proyectos seleccionados",
-      marquee: ["proyectos", "modelo de datos", "diseño de servicios", "ux", "sistemas de diseño"],
+      blurb: "Diseño de servicios, identidad y trabajo editorial",
+      marquee: ["proyectos", "diseño de servicios", "identidad", "editorial", "señalética"],
     },
   },
   {

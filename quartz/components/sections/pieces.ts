@@ -1,6 +1,7 @@
 import { QuartzComponentProps } from "../types"
 import { CATEGORY_ORDER, sectionOfSlug } from "./sectionsConfig"
 import { Lang, baseSlug, intlLocale, langOf, urlFor } from "./i18n"
+import { galleryFiles } from "./gallery"
 
 type Files = QuartzComponentProps["allFiles"]
 type FileData = Files[number]
@@ -91,6 +92,7 @@ export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"):
       const fm = f.frontmatter ?? ({} as NonNullable<FileData["frontmatter"]>)
       const def = sectionOfSlug(f.slug)!
       const external = fm.external ? String(fm.external) : undefined
+      const gallery = fm.gallery ? galleryFiles(String(fm.gallery)).images : []
       return {
         slug: f.slug as string,
         section: def.slug,
@@ -99,7 +101,11 @@ export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"):
         category: String(fm.category ?? def.title),
         form: fm.form === "poem" ? ("poem" as const) : ("prose" as const),
         badge: fm.badge ? String(fm.badge) : undefined,
-        cover: fm.cover ? String(fm.cover) : undefined,
+        cover: fm.cover
+          ? String(fm.cover)
+          : typeof fm.photo === "number"
+            ? galleryFiles("writing_photos").images[fm.photo - 1]
+            : gallery[0],
         description: fm.description ? String(fm.description) : undefined,
         tags: Array.isArray(fm.tags) ? fm.tags.map(String) : [],
         external,
@@ -108,7 +114,7 @@ export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"):
         publication: fm.publication ? String(fm.publication) : undefined,
         issue: fm.issue ? String(fm.issue) : undefined,
         order: typeof fm.order === "number" ? fm.order : undefined,
-        images: Array.isArray(fm.images) ? fm.images.map(String) : [],
+        images: Array.isArray(fm.images) ? fm.images.map(String) : gallery,
         href: external ?? urlFor(baseSlug(f.slug), langOf(f.slug)),
         untranslated: lang === "es" && !external && langOf(f.slug) === "en",
       }
