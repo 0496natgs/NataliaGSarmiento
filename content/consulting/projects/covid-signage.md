@@ -16,4 +16,6 @@ The system was designed to engage people and get their attention, make the virus
 
 The approach was to use the toolkit's _Risk Framework_ to identify what information people need along their journey across the university. Two types of signals were designed: fast information and slow information. The system also needed a set of icons designed to the university's signage guidelines.
 
+**Additional icons.** New icons were designed to complement the information system with the COVID-19 regulations: distancing, masks, hand washing, symptoms, capacity and wayfinding, among others.
+
 [[consulting/projects|← Projects]]

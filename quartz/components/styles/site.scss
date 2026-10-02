@@ -901,19 +901,57 @@ body[data-slug^="es/consulting/"] {
   }
 }
 
+// The projects list: three small, even cards that rise in one after another.
+body[data-slug$="consulting/projects/index"] .s-grid-work {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem 0.9rem;
+
+  @media all and (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media all and (max-width: 560px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .s-work {
+    animation: pg-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.08}s;
+      }
+    }
+
+    .s-work-media {
+      aspect-ratio: 4 / 3;
+      transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    &:hover .s-work-media {
+      transform: scale(1.04);
+    }
+
+    .s-work-title {
+      margin: 0.6rem 0 0.15rem;
+      font-size: 1.25rem;
+    }
+  }
+}
+
 // Project cards on the consulting space are landscape (diagrams and screens, not portraits).
 .cp .s-work.is-portrait .s-frame,
-body[data-slug$="consulting/projects"] .s-work.is-portrait .s-frame {
+body[data-slug$="consulting/projects/index"] .s-work.is-portrait .s-frame {
   max-width: none;
 }
 
 .cp .s-work.is-portrait .s-work-media,
-body[data-slug$="consulting/projects"] .s-work.is-portrait .s-work-media {
+body[data-slug$="consulting/projects/index"] .s-work.is-portrait .s-work-media {
   aspect-ratio: 3 / 2;
 }
 
 .cp .s-work-media.has-cover,
-body[data-slug$="consulting/projects"] .s-work-media.has-cover {
+body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
   background-position: top center;
 }
 
@@ -1138,26 +1176,74 @@ body[data-slug^="es/visual-notes/"] {
 .pg {
   margin: 2.5rem 0 1rem;
 
-  .pg-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2.4rem 1.6rem;
-    align-items: start;
+  .pg-slider {
+    position: relative;
+  }
 
-    @media all and (max-width: 700px) {
-      grid-template-columns: minmax(0, 1fr);
-    }
+  .pg-track {
+    display: flex;
+    gap: 1.4rem;
+    overflow-x: auto;
+    padding: 1rem 0.2rem 2.2rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    outline: none;
   }
 
   .pg-fig {
+    flex: 0 0 auto;
     margin: 0;
+    scroll-snap-align: start;
+    animation: pg-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.07}s;
+      }
+    }
 
     img {
       display: block;
-      width: 100%;
-      height: auto;
+      width: auto;
+      height: min(62vh, 520px);
+      max-width: min(38rem, 82vw);
+      object-fit: contain;
       margin: 0;
       border-radius: 2px;
+      transition: transform 0.4s;
+    }
+
+    &:hover img {
+      transform: scale(1.02);
+    }
+  }
+
+  .pg-nav {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-top: -0.4rem;
+  }
+
+  .pg-btn {
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 1px solid var(--dark);
+    border-radius: 50%;
+    background: none;
+    color: var(--dark);
+    font-family: $mono;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      color 0.2s,
+      transform 0.2s;
+
+    &:hover {
+      background: var(--dark);
+      color: var(--light);
+      transform: translateY(-2px);
     }
   }
 
@@ -1169,9 +1255,11 @@ body[data-slug^="es/visual-notes/"] {
   }
 }
 
-body[data-slug^="visual-notes/"] .pg .pg-grid,
-body[data-slug^="es/visual-notes/"] .pg .pg-grid {
-  grid-template-columns: minmax(0, 1fr);
+@keyframes pg-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
 }
 
 .cp-btn {
