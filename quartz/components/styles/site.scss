@@ -1294,3 +1294,166 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
   --tertiary: #095d6a;
   --highlight: rgba(9, 93, 106, 0.1);
 }
+
+// Experience as a timeline (after mikes.cv): year on the left, a dotted line, a dot per role.
+.is-timeline {
+  max-width: 50rem;
+
+  .tl {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+  }
+
+  .tl-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 0 1.6rem;
+    padding-bottom: 2.6rem;
+    animation: pg-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i) * 0.1s);
+
+    // the dotted line, running down the left edge of the text
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0.55rem;
+      bottom: -0.2rem;
+      left: calc(5rem + 0.8rem);
+      border-left: 1px dotted var(--gray);
+    }
+
+    // the dot
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0.45rem;
+      left: calc(5rem + 0.8rem - 4px);
+      width: 9px;
+      height: 9px;
+      border: 1px solid var(--tertiary);
+      border-radius: 50%;
+      background: var(--light);
+    }
+
+    &:last-child::before {
+      bottom: 1.4rem;
+    }
+  }
+
+  .tl-year {
+    padding-top: 0.2rem;
+    font-family: $mono;
+    font-size: 12.5px;
+    letter-spacing: 0.1em;
+    text-align: right;
+    color: var(--gray);
+  }
+
+  .tl-body {
+    padding-left: 1.2rem;
+  }
+
+  .tl-place {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.7rem;
+    margin: 0;
+    font-family: $serif;
+    font-weight: 400;
+    font-size: 1.55rem;
+    line-height: 1.15;
+  }
+
+  .tl-place a {
+    font-size: 1rem;
+    font-family: $mono;
+  }
+
+  .tl-current {
+    font-family: $mono;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tertiary);
+  }
+
+  .tl-role {
+    margin: 0.35rem 0 0;
+    font-size: 1.15rem;
+    color: var(--dark);
+  }
+
+  .tl-when {
+    margin: 0.1rem 0 0.7rem;
+    font-family: $script;
+    font-size: 1.25rem;
+    color: var(--script);
+
+    span {
+      font-family: $mono;
+      font-size: 12px;
+      color: var(--gray);
+    }
+  }
+
+  .tl-sum {
+    margin: 0 0 0.6rem;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--darkgray);
+  }
+
+  .tl-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--darkgray);
+
+    li::marker {
+      color: var(--tertiary);
+    }
+  }
+
+  .tl-head {
+    margin: 2.4rem 0 0;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--dark);
+    font-family: $mono;
+    font-weight: 500;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .tl-back {
+    margin-top: 2rem;
+  }
+
+  @media all and (max-width: 560px) {
+    .tl-item {
+      grid-template-columns: 1fr;
+      padding-left: 1.4rem;
+
+      &::before {
+        left: 4px;
+      }
+
+      &::after {
+        left: 0;
+      }
+    }
+
+    .tl-year {
+      text-align: left;
+      padding-left: 1.2rem;
+    }
+
+    .tl-body {
+      padding-left: 1.2rem;
+    }
+  }
+}

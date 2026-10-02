@@ -119,6 +119,66 @@ export function ConsultingProfile({
   )
 }
 
+interface Role {
+  when: string
+  role: string
+  place: string
+  duration?: string
+  summary?: string
+  bullets?: string[]
+  current?: boolean
+}
+
+/** "Salesforce · [Trailblazer profile](https://…)" -> text with a real link. */
+function withLinks(text: string) {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g)
+  return parts.map((part) => {
+    const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    return m ? (
+      <a href={m[2]} target="_blank" rel="noopener noreferrer" data-router-ignore>
+        {m[1]}
+      </a>
+    ) : (
+      part
+    )
+  })
+}
+
+/**
+ * Experience as a timeline (after mikes.cv): the year on the left, a dotted line with a dot per
+ * role, then the place, the role and what you did. The roles live in the page's front matter.
+ */
+function Timeline({ roles, current }: { roles: Role[]; current: string }) {
+  return (
+    <ol class="tl">
+      {roles.map((r, i) => (
+        <li class="tl-item" style={`--i:${i}`}>
+          <span class="tl-year">{r.when.match(/\d{4}/)?.[0]}</span>
+          <div class="tl-body">
+            <h3 class="tl-place">
+              {withLinks(r.place)}
+              {r.current && <span class="tl-current">{current}</span>}
+            </h3>
+            <p class="tl-role">{r.role}</p>
+            <p class="tl-when">
+              {r.when}
+              {r.duration && <span> ({r.duration})</span>}
+            </p>
+            {r.summary && <p class="tl-sum">{r.summary}</p>}
+            {r.bullets && (
+              <ul class="tl-list">
+                {r.bullets.map((b) => (
+                  <li>{b}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
 /** A plain centred page (Experience): title, then the page's own text. */
 export function ConsultingPage({
   componentData,
@@ -129,13 +189,37 @@ export function ConsultingPage({
   Content: QuartzComponent
   footer: QuartzComponent[]
 }) {
+  const fm = componentData.fileData.frontmatter as Record<string, unknown> | undefined
+  const lang = langOf(componentData.fileData.slug)
+  const es = lang === "es"
   return (
     <div class="center s-index cp-page">
       <p class="s-eyebrow">{SITE.name}</p>
       <h1 class="s-index-title">{componentData.fileData.frontmatter?.title}</h1>
-      <div class="cp-page-body">
-        <Content {...componentData} />
-      </div>
+      {Array.isArray(fm?.timeline) ? (
+        <div class="cp-page-body is-timeline">
+          <Timeline roles={fm.timeline as Role[]} current={es ? "Actual" : "Current"} />
+          {Array.isArray(fm.education) && (
+            <>
+              <h2 class="tl-head">{es ? "Formación" : "Education"}</h2>
+              <Timeline roles={fm.education as Role[]} current="" />
+            </>
+          )}
+          {fm.languages && (
+            <>
+              <h2 class="tl-head">{es ? "Idiomas" : "Languages"}</h2>
+              <p class="tl-sum">{String(fm.languages)}</p>
+            </>
+          )}
+          <p class="tl-back">
+            <a href={urlFor("consulting", lang)}>← {es ? "Perfil" : "Profile"}</a>
+          </p>
+        </div>
+      ) : (
+        <div class="cp-page-body">
+          <Content {...componentData} />
+        </div>
+      )}
       {footer.map((F) => (
         <F {...componentData} />
       ))}
