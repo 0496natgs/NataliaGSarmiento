@@ -103,10 +103,10 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
     padding: 0;
     font-family: "EB Garamond", serif;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 1.4;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    text-transform: none;
     white-space: nowrap;
     color: var(--dark);
     background: none;
@@ -914,7 +914,8 @@ body[data-slug^="es/consulting/"] {
 }
 
 // The projects list: three small, even cards that rise in one after another.
-body[data-slug$="consulting/projects/index"] .s-grid-work {
+.s-index-work .s-grid-work,
+.cp .s-grid-work {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.4rem 0.9rem;
 
@@ -1474,8 +1475,6 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
 }
 
 article a:hover,
-.s-post:hover .s-post-title,
-.s-row:hover .s-row-title,
 .crumbs a:hover {
   background: #c1e401;
   color: #212121;
@@ -1598,8 +1597,9 @@ article a:hover,
   gap: 0.3rem;
   margin: 1rem 0 0.4rem;
 
-  label {
+  button {
     padding: 0.2rem 0.8rem;
+    background: none;
     border: 1px solid var(--gray);
     border-radius: 999px;
     font-family: $mono;
@@ -1611,15 +1611,22 @@ article a:hover,
   }
 }
 
-.s-index:has(#view-list:checked) .s-views label[for="view-list"],
-.s-index:has(#view-grid:checked) .s-views label[for="view-grid"] {
+.s-index .s-views button.is-on {
   background: var(--dark);
   border-color: var(--dark);
   color: var(--light);
 }
 
-.s-index:has(#view-list:checked) .s-grid-alt,
-.s-index:has(#view-grid:checked) .s-posts {
+// List is the default; the grid only shows once Grid is chosen.
+.s-index .s-grid-alt {
+  display: none;
+}
+
+.s-index[data-view="grid"] .s-grid-alt {
+  display: grid;
+}
+
+.s-index[data-view="grid"] .s-posts {
   display: none;
 }
 
@@ -1708,9 +1715,9 @@ article a:hover,
   background: none;
   font-family: "EB Garamond", serif;
   font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--dark);
   cursor: pointer;
 
@@ -2218,4 +2225,59 @@ a:hover .s-frame::before {
 // The full stop in the name is the lime green.
 .logo-dot {
   color: #c1e401;
+}
+
+// Only the language switch and the Substack / LinkedIn button are in capitals.
+.site-nav .nav-lang {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.07em;
+}
+
+// ---------- hover on the text of lists: a line that draws itself and a small slide ----------
+.s-post-title,
+.s-row-title,
+.s-caption-title {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition:
+    background-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+    color 0.25s,
+    transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.s-post:hover .s-post-title,
+.s-row:hover .s-row-title,
+.s-tile:hover .s-caption-title {
+  background-size: 100% 1px;
+  color: var(--tertiary);
+  transform: translateX(4px);
+}
+
+.s-post,
+.s-row {
+  .s-post-meta,
+  .s-row-topic,
+  .s-row-date {
+    transition: color 0.25s;
+  }
+
+  &:hover {
+    .s-post-meta,
+    .s-row-topic,
+    .s-row-date {
+      color: var(--tertiary);
+    }
+  }
+}
+
+.s-post-thumb {
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.s-post:hover .s-post-thumb,
+.s-row:hover .s-post-thumb {
+  transform: scale(1.06);
 }

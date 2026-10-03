@@ -12,7 +12,7 @@ root.querySelectorAll(".s-year").forEach(function(g){g.classList.toggle("is-hidd
 var n=Object.keys(seen).length;var c=fl.querySelector(".fl-n");if(c)c.textContent=n;var e=root.querySelector(".s-empty-filter");if(e)e.hidden=n>0;
 fl.querySelectorAll(".fl-pill").forEach(function(b){var k=b.dataset.kind,v=b.dataset.val;b.classList.toggle("is-on",(k==="cat"&&v===cat)||(k==="tag"&&v===tag)||(k==="year"&&v===year)||(k==="year"&&!v&&!year));
 if(k!=="year")b.hidden=b.dataset.group!==fl.dataset.mode||(!!q&&(b.textContent||"").toLowerCase().indexOf(q)<0)})}
-document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".fl [data-mode],.fl .fl-pill");if(!b)return;var fl=b.closest(".fl");
+document.addEventListener("click",function(e){var v=e.target.closest&&e.target.closest(".s-views [data-view]");if(v){var r=v.closest(".s-index");r.dataset.view=v.dataset.view;r.querySelectorAll(".s-views [data-view]").forEach(function(x){x.classList.toggle("is-on",x===v)});var f=r.querySelector(".fl");if(f)apply(f);return}var b=e.target.closest&&e.target.closest(".fl [data-mode],.fl .fl-pill");if(!b)return;var fl=b.closest(".fl");
 if(b.dataset.mode){fl.dataset.mode=b.dataset.mode;fl.querySelectorAll("[data-mode]").forEach(function(x){x.classList.toggle("is-on",x===b)});fl.dataset.cat="";fl.dataset.tag=""}
 else{var k=b.dataset.kind,v=b.dataset.val||"";if(k==="cat")fl.dataset.cat=fl.dataset.cat===v?"":v;if(k==="tag")fl.dataset.tag=fl.dataset.tag===v?"":v;if(k==="year")fl.dataset.year=v}
 apply(fl)});

@@ -44,11 +44,13 @@ export function SectionIndex({
       )}
       {hasViews && (
         <>
-          <input type="radio" name="view" id="view-list" class="s-view-input" checked />
-          <input type="radio" name="view" id="view-grid" class="s-view-input" />
           <div class="s-views">
-            <label for="view-list">{tt.list}</label>
-            <label for="view-grid">{tt.grid}</label>
+            <button type="button" class="is-on" data-view="list">
+              {tt.list}
+            </button>
+            <button type="button" data-view="grid">
+              {tt.grid}
+            </button>
           </div>
           <PostsList pieces={pieces} lang={lang} />
         </>
