@@ -1420,6 +1420,67 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
     }
   }
 
+  .tl-where {
+    margin: -0.4rem 0 0.7rem;
+    font-family: $mono;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--gray);
+  }
+
+  // the projects that belong to a role
+  .tl-projects {
+    margin-top: 1.1rem;
+
+    ul {
+      list-style: none;
+      margin: 0.4rem 0 0;
+      padding: 0;
+    }
+
+    li {
+      margin: 0;
+      border-top: 1px dotted var(--lightgray);
+
+      &:last-child {
+        border-bottom: 1px dotted var(--lightgray);
+      }
+    }
+  }
+
+  .tl-projects-head {
+    margin: 0;
+    font-family: $mono;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .tl-project {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.1rem 1rem;
+    padding: 0.55rem 0;
+    background: none;
+    color: var(--dark);
+  }
+
+  .tl-project-title {
+    font-family: $serif;
+    font-size: 1.12rem;
+    line-height: 1.3;
+  }
+
+  .tl-project-meta {
+    font-family: $mono;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--gray);
+  }
+
   .tl-head {
     margin: 2.4rem 0 0;
     padding-top: 0.8rem;
@@ -1452,6 +1513,11 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
     .tl-year {
       text-align: left;
       padding-left: 1.2rem;
+    }
+
+    .tl-project {
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .tl-body {
@@ -2234,7 +2300,8 @@ a:hover .s-frame::before {
 body[data-slug] .s-post-title,
 body[data-slug] .s-row-title,
 body[data-slug] .s-caption-title,
-body[data-slug] .s-work-title {
+body[data-slug] .s-work-title,
+body[data-slug] .tl-project-title {
   width: fit-content;
   max-width: 100%;
   padding-inline: 0.14em;
@@ -2245,6 +2312,8 @@ body[data-slug] .s-work-title {
   background-position: 0 0;
   background-size: 0% 100%;
   transition: background-size 0.55s cubic-bezier(0.22, 0.8, 0.2, 1);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 // Titles that are centred under an image: keep them centred.
@@ -2257,7 +2326,8 @@ body[data-slug] .cp .s-grid-work .s-work-title {
 .s-post:hover .s-post-title,
 .s-row:hover .s-row-title,
 .s-tile:hover .s-caption-title,
-.s-work:hover .s-work-title {
+.s-work:hover .s-work-title,
+.tl-project:hover .tl-project-title {
   background-size: 100% 100%;
 }
 
@@ -2282,7 +2352,8 @@ body[data-slug] .cp .s-grid-work .s-work-title {
   body[data-slug] .s-post-title,
   body[data-slug] .s-row-title,
   body[data-slug] .s-caption-title,
-  body[data-slug] .s-work-title {
+  body[data-slug] .s-work-title,
+  body[data-slug] .tl-project-title {
     transition: none;
   }
 }

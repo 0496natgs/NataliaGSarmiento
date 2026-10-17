@@ -1,6 +1,8 @@
 ---
 title: "Revolución y Diseño"
 category: Editorial
+publication: "UAM Cuajimalpa"
+year: 2023
 order: 5
 gallery: consulting-design/editorial-design
 description: "Diseño de portada del libro Revolución y Diseño, de Aarón José Caballero Quiroz."

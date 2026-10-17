@@ -1,16 +1,18 @@
 ---
-title: "UAM-C: COVID-19 signage design system"
+title: "UAM Cuajimalpa: COVID-19 signage design system"
 category: Service design
 publication: "UAM Cuajimalpa"
+year: 2021
+period: "2020–2021"
 order: 2
 gallery: consulting-design/covid-signage
-description: "A wayfinding and wayshowing system for COVID-19 across the UAM-C campus, built on the COVID-19 Design Toolkit."
+description: "A wayfinding and wayshowing system for COVID-19 across the UAM Cuajimalpa campus, built on the COVID-19 Design Toolkit."
 tags:
   - consulting
   - service-design
 ---
 
-A complete signage system for COVID-19, implemented across the university (UAM-C) and designed on the COVID-19 Design Toolkit (Version 1.0 US, October 2020) as its base.
+A complete signage system for COVID-19, implemented across UAM Cuajimalpa and designed on the COVID-19 Design Toolkit (Version 1.0 US, October 2020) as its base.
 
 The system was designed to engage people and get their attention, make the virus visible, give the right information at the right time, and coordinate it across the university's installations.
 
