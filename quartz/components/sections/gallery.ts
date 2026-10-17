@@ -39,6 +39,43 @@ export function galleryFiles(folder?: string): GalleryFiles {
   }
 }
 
+/**
+ * Pixel size of a local image (PNG, JPEG or GIF), read from its header at build time. Written on
+ * the <img> as width and height so the browser knows the aspect ratio before the file has loaded.
+ */
+export function imageSize(url: string): { width: number; height: number } | undefined {
+  try {
+    const file = path.join(STATIC_ROOT, decodeURI(url).replace(/^\/static\//, ""))
+    const fd = fs.openSync(file, "r")
+    const buf = Buffer.alloc(262144)
+    const n = fs.readSync(fd, buf, 0, buf.length, 0)
+    fs.closeSync(fd)
+    if (n > 24 && buf.toString("ascii", 1, 4) === "PNG") {
+      return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) }
+    }
+    if (n > 10 && buf.toString("ascii", 0, 3) === "GIF") {
+      return { width: buf.readUInt16LE(6), height: buf.readUInt16LE(8) }
+    }
+    if (buf[0] === 0xff && buf[1] === 0xd8) {
+      let i = 2
+      while (i + 9 < n) {
+        if (buf[i] !== 0xff) {
+          i++
+          continue
+        }
+        const marker = buf[i + 1]
+        if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) {
+          return { width: buf.readUInt16BE(i + 7), height: buf.readUInt16BE(i + 5) }
+        }
+        i += 2 + buf.readUInt16BE(i + 2)
+      }
+    }
+  } catch {
+    // an unreadable image simply gets no size
+  }
+  return undefined
+}
+
 /** The logo you drop in quartz/static/logo/ (logo.svg, logo.png or logo.webp), if there is one. */
 export const LOGO: string | undefined = (() => {
   for (const ext of ["svg", "png", "webp"]) {

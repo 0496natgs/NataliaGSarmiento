@@ -150,7 +150,8 @@ export const UI = {
     shareNative: "Compartir…",
     copyLink: "Copiar enlace",
     copied: "¡Copiado!",
-    copiedInstagram: "Enlace copiado. Pégalo en Instagram (en una historia, una publicación o un mensaje).",
+    copiedInstagram:
+      "Enlace copiado. Pégalo en Instagram (en una historia, una publicación o un mensaje).",
     contact: "Contacto",
     aiUsage: "Uso de IA",
     list: "Lista",

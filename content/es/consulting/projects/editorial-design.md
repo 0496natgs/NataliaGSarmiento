@@ -1,7 +1,7 @@
 ---
 title: "Revolución y Diseño"
 category: Editorial
-order: 6
+order: 5
 gallery: consulting-design/editorial-design
 description: "Diseño de portada del libro Revolución y Diseño, de Aarón José Caballero Quiroz."
 tags:
