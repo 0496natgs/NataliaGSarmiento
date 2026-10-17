@@ -1,7 +1,7 @@
 import { QuartzComponent, QuartzComponentProps } from "../types"
-import { getPieces } from "./pieces"
+import { Piece, getPieces } from "./pieces"
 import { LINKEDIN_URL, SITE } from "./sectionsConfig"
-import { Lang, langOf, t, urlFor } from "./i18n"
+import { Lang, categoryLabel, langOf, t, urlFor } from "./i18n"
 import { WorkCard } from "./WorkCard"
 import { ListRow } from "./ListRow"
 import { Crumbs } from "./Crumbs"
@@ -123,8 +123,11 @@ interface Role {
   role: string
   place: string
   duration?: string
+  location?: string
   summary?: string
   bullets?: string[]
+  /** Slugs under consulting/projects that belong to this role. */
+  projects?: string[]
   current?: boolean
 }
 
@@ -147,7 +150,19 @@ function withLinks(text: string) {
  * Experience as a timeline (after mikes.cv): the year on the left, a dotted line with a dot per
  * role, then the place, the role and what you did. The roles live in the page's front matter.
  */
-function Timeline({ roles, current }: { roles: Role[]; current: string }) {
+function Timeline({
+  roles,
+  current,
+  pieces,
+  label,
+  lang,
+}: {
+  roles: Role[]
+  current: string
+  pieces: Piece[]
+  label: string
+  lang: Lang
+}) {
   return (
     <ol class="tl">
       {roles.map((r, i) => (
@@ -163,6 +178,7 @@ function Timeline({ roles, current }: { roles: Role[]; current: string }) {
               {r.when}
               {r.duration && <span> ({r.duration})</span>}
             </p>
+            {r.location && <p class="tl-where">{r.location}</p>}
             {r.summary && <p class="tl-sum">{r.summary}</p>}
             {r.bullets && (
               <ul class="tl-list">
@@ -170,6 +186,29 @@ function Timeline({ roles, current }: { roles: Role[]; current: string }) {
                   <li>{b}</li>
                 ))}
               </ul>
+            )}
+            {r.projects && (
+              <div class="tl-projects">
+                <p class="tl-projects-head">{label}</p>
+                <ul>
+                  {r.projects.map((name) => {
+                    const piece = pieces.find((p) => p.slug.endsWith(`consulting/projects/${name}`))
+                    if (!piece) return null
+                    return (
+                      <li>
+                        <a class="tl-project" href={piece.href}>
+                          <span class="tl-project-title">{piece.title}</span>
+                          <span class="tl-project-meta">
+                            {[categoryLabel(piece.category, lang), piece.year]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </span>
+                        </a>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
             )}
           </div>
         </li>
@@ -201,11 +240,23 @@ export function ConsultingPage({
       <h1 class="s-index-title">{componentData.fileData.frontmatter?.title}</h1>
       {Array.isArray(fm?.timeline) ? (
         <div class="cp-page-body is-timeline">
-          <Timeline roles={fm.timeline as Role[]} current={es ? "Actual" : "Current"} />
+          <Timeline
+            roles={fm.timeline as Role[]}
+            current={es ? "Actual" : "Current"}
+            pieces={getPieces(componentData.allFiles, "consulting/projects", lang)}
+            label={t(lang).roleProjects}
+            lang={lang}
+          />
           {Array.isArray(fm.education) && (
             <>
               <h2 class="tl-head">{es ? "Formación" : "Education"}</h2>
-              <Timeline roles={fm.education as Role[]} current="" />
+              <Timeline
+                roles={fm.education as Role[]}
+                current=""
+                pieces={[]}
+                label=""
+                lang={lang}
+              />
             </>
           )}
           {fm.languages && (
