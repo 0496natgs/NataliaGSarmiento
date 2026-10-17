@@ -1065,10 +1065,6 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
   background: none;
   text-decoration: none;
 
-  &:hover .s-row-title {
-    color: var(--tertiary);
-  }
-
   .s-row-date {
     font-family: $mono;
     font-size: 11px;
@@ -2234,26 +2230,35 @@ a:hover .s-frame::before {
   letter-spacing: 0.07em;
 }
 
-// ---------- hover on the text of lists: a line that draws itself and a small slide ----------
-.s-post-title,
-.s-row-title,
-.s-caption-title {
-  background-image: linear-gradient(currentColor, currentColor);
+// ---------- hover on titles: the lime highlight sweeps in behind the text ----------
+body[data-slug] .s-post-title,
+body[data-slug] .s-row-title,
+body[data-slug] .s-caption-title,
+body[data-slug] .s-work-title {
+  width: fit-content;
+  max-width: 100%;
+  padding-inline: 0.14em;
+  margin-left: -0.14em;
+  margin-right: -0.14em;
+  background-image: linear-gradient(transparent 20%, #c1e401 20%, #c1e401 94%, transparent 94%);
   background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0 1px;
-  transition:
-    background-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
-    color 0.25s,
-    transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+  background-position: 0 0;
+  background-size: 0% 100%;
+  transition: background-size 0.55s cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+
+// Titles that are centred under an image: keep them centred.
+body[data-slug] .s-index-work .s-grid-work .s-work-title,
+body[data-slug] .cp .s-grid-work .s-work-title {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .s-post:hover .s-post-title,
 .s-row:hover .s-row-title,
-.s-tile:hover .s-caption-title {
-  background-size: 100% 1px;
-  color: var(--tertiary);
-  transform: translateX(4px);
+.s-tile:hover .s-caption-title,
+.s-work:hover .s-work-title {
+  background-size: 100% 100%;
 }
 
 .s-post,
@@ -2261,15 +2266,24 @@ a:hover .s-frame::before {
   .s-post-meta,
   .s-row-topic,
   .s-row-date {
-    transition: color 0.25s;
+    transition: color 0.4s;
   }
 
   &:hover {
     .s-post-meta,
     .s-row-topic,
     .s-row-date {
-      color: var(--tertiary);
+      color: var(--dark);
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-slug] .s-post-title,
+  body[data-slug] .s-row-title,
+  body[data-slug] .s-caption-title,
+  body[data-slug] .s-work-title {
+    transition: none;
   }
 }
 
