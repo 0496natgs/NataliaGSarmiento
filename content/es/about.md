@@ -7,12 +7,16 @@ tags:
   - behavioral-change
 unlisted: true
 facts:
-  - text: Poema publicado, KHÔRA (número 54)
+  - year: "2026"
+    text: Poema publicado, KHÔRA (número 54)
     href: /es/work/khora-discovering-taste
-  - text: Diseño, UAM Cuajimalpa
-  - text: Trabajo editorial, UAM Cuajimalpa
-  - text: Notas visuales, Colectivo Tlacuiloque
+  - year: 2023–hoy
+    text: Notas visuales, Colectivo Tlacuiloque
     href: https://tlacuiloque.com/
+  - year: 2022–2023
+    text: Diseño, UAM Cuajimalpa
+  - year: 2022–2023
+    text: Trabajo editorial, UAM Cuajimalpa
 ---
 
 Soy profesional de la transformación, del diseño de cambio conductual, de la escritura y del aprendizaje continuo, y creo que la tecnología solo vale la pena cuando ayuda a las personas a crecer, adaptarse y conectar.

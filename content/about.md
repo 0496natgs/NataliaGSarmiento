@@ -6,12 +6,16 @@ tags:
   - writing
   - behavioral-change
 facts:
-  - text: Published poem, KHÔRA (Issue 54)
+  - year: "2026"
+    text: Published poem, KHÔRA (Issue 54)
     href: /work/khora-discovering-taste
-  - text: Designer, UAM Cuajimalpa
-  - text: Editorial work, UAM Cuajimalpa
-  - text: Visual notetaker, Colectivo Tlacuiloque
+  - year: 2023–present
+    text: Visual notetaker, Colectivo Tlacuiloque
     href: https://tlacuiloque.com/
+  - year: 2022–2023
+    text: Designer, UAM Cuajimalpa
+  - year: 2022–2023
+    text: Editorial work, UAM Cuajimalpa
 ---
 
 I'm a transformation professional, behavioral change designer, writer, and lifelong learner who believes that technology is only valuable when it helps people grow, adapt, and connect.
