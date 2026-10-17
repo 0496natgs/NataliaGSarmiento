@@ -3,7 +3,7 @@ title: "Granados Chapa: branding"
 category: Branding
 publication: "UAM Cuajimalpa"
 year: 2023
-order: 5
+order: 4
 cover: /static/consulting-design/granados-chapa/01-programa-general.png
 gallery: consulting-design/granados-chapa
 video: VgAZT9FigUC

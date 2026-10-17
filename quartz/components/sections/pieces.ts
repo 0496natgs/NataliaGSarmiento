@@ -163,6 +163,7 @@ export function filterAttrs(piece: Piece, lang: Lang = "en") {
     "data-category": categoryId(piece.category),
     "data-tags": pieceTags(piece).join("|"),
     "data-year": pieceYear(piece, lang),
-    "data-text": `${piece.title} ${piece.description ?? ""} ${piece.category} ${pieceTags(piece).join(" ")}`.toLowerCase(),
+    "data-text":
+      `${piece.title} ${piece.description ?? ""} ${piece.category} ${pieceTags(piece).join(" ")}`.toLowerCase(),
   }
 }

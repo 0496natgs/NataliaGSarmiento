@@ -9,6 +9,12 @@ timeline:
   place: Valvoline Global Operations
   duration: 3 yrs
   summary: I lead cross-functional programs that support the deployment and adoption of Salesforce solutions across global markets. I partner with business leaders, sales teams, customer service, supply chain, and technology stakeholders to design scalable experiences that drive operational excellence and lasting behavioral change.
+  bullets:
+  - Lead cross-functional Salesforce programs, from pilot programs to global deployments, covering go-live planning, user acceptance testing (UAT), training, support readiness and hypercare.
+  - Design the enablement that helps teams learn new tools and use them with confidence, through training, readiness and capability building.
+  - Apply behavioral change design to adoption strategy, looking at how people learn, adapt and engage with change, and removing friction along the way.
+  - Align stakeholders and executives around a shared vision, and manage global program and project delivery across business, sales, customer service, supply chain and technology teams.
+  - Improve processes as part of the business transformation, so that what is implemented is also embraced by the people it affects.
   current: true
 - when: Jun 2020 – Oct 2022
   role: Salesforce Admin, Project Lead & UX Designer

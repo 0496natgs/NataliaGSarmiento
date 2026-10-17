@@ -1,5 +1,5 @@
 import { QuartzComponentProps } from "../types"
-import { galleryFiles } from "./gallery"
+import { galleryFiles, imageSize } from "./gallery"
 import { langOf } from "./i18n"
 
 /**
@@ -16,11 +16,14 @@ export function ProjectGallery({ fileData }: QuartzComponentProps) {
     <div class="pg">
       {images.length > 0 && (
         <div class={`pg-masonry${images.length === 1 ? " is-single" : ""}`}>
-          {images.map((src) => (
-            <figure class="pg-fig">
-              <img src={src} alt="" loading="lazy" />
-            </figure>
-          ))}
+          {images.map((src) => {
+            const size = imageSize(src)
+            return (
+              <figure class="pg-fig">
+                <img src={src} alt="" loading="lazy" width={size?.width} height={size?.height} />
+              </figure>
+            )
+          })}
         </div>
       )}
       {video && (

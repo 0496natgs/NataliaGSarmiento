@@ -10,6 +10,12 @@ timeline:
   place: Valvoline Global Operations
   duration: 3 años
   summary: Lidero programas multifuncionales que apoyan el despliegue y la adopción de soluciones de Salesforce en mercados globales. Trabajo con líderes de negocio, equipos de ventas, servicio al cliente, cadena de suministro y tecnología para diseñar experiencias escalables que impulsan la excelencia operativa y un cambio conductual duradero.
+  bullets:
+  - Lidero programas multifuncionales de Salesforce, desde programas piloto hasta despliegues globales, con planeación de salida a producción (go-live), pruebas de aceptación de usuario (UAT), capacitación, preparación de soporte y hypercare.
+  - Diseño la habilitación que ayuda a los equipos a aprender nuevas herramientas y usarlas con confianza, mediante capacitación, preparación y desarrollo de capacidades.
+  - Aplico el diseño de cambio conductual a la estrategia de adopción, atendiendo a cómo las personas aprenden, se adaptan y se involucran con el cambio, y eliminando fricción en el camino.
+  - Alineo a las partes interesadas y a la dirección en torno a una visión compartida, y gestiono la entrega de programas y proyectos globales con equipos de negocio, ventas, servicio al cliente, cadena de suministro y tecnología.
+  - Mejoro procesos como parte de la transformación del negocio, para que lo que se implementa también sea adoptado por las personas a quienes impacta.
   current: true
 - when: jun 2020 – oct 2022
   role: Admin de Salesforce, líder de proyectos y diseño UX
