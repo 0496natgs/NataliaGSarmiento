@@ -256,10 +256,6 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   background: none;
   text-decoration: none;
 
-  &:hover .s-caption-title {
-    color: var(--tertiary);
-  }
-
   &:hover .s-tile-media {
     transform: translateY(-3px);
   }
@@ -369,7 +365,6 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     font-size: 1.45rem;
     line-height: 1.15;
     color: var(--dark);
-    transition: color 0.2s;
   }
 
   .s-caption-meta {
@@ -633,10 +628,6 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     aspect-ratio: 3 / 2;
   }
 
-  &:hover .s-work-title {
-    color: var(--tertiary);
-  }
-
   .s-work-title {
     margin: 1.1rem 0 0.3rem;
     font-family: "EB Garamond", serif;
@@ -644,7 +635,6 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     font-size: 1.9rem;
     line-height: 1.15;
     color: var(--dark);
-    transition: color 0.2s;
   }
 
   .s-work-meta {
