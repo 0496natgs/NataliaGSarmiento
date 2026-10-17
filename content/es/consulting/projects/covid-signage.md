@@ -2,6 +2,8 @@
 title: "UAM Cuajimalpa: sistema de diseño de señalética COVID-19"
 category: Service design
 publication: "UAM Cuajimalpa"
+year: 2021
+period: "2020–2021"
 order: 2
 gallery: consulting-design/covid-signage
 description: "Un sistema de orientación y señalización para COVID-19 en el campus de la UAM Cuajimalpa, basado en el COVID-19 Design Toolkit."

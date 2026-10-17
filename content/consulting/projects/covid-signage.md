@@ -2,6 +2,8 @@
 title: "UAM Cuajimalpa: COVID-19 signage design system"
 category: Service design
 publication: "UAM Cuajimalpa"
+year: 2021
+period: "2020–2021"
 order: 2
 gallery: consulting-design/covid-signage
 description: "A wayfinding and wayshowing system for COVID-19 across the UAM Cuajimalpa campus, built on the COVID-19 Design Toolkit."

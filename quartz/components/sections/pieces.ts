@@ -20,6 +20,8 @@ export interface Piece {
   /** Full URL when the piece lives elsewhere (e.g. a Substack post); the card links out. */
   external?: string
   year?: string
+  /** A range shown instead of the year (for example "2020–2021"); `year` is still the one used to group and filter. */
+  period?: string
   role?: string
   /** For published work: the magazine or outlet, and the issue. */
   publication?: string
@@ -118,6 +120,7 @@ export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"):
         tags: Array.isArray(fm.tags) ? fm.tags.map(String) : [],
         external,
         year: fm.year ? String(fm.year) : undefined,
+        period: fm.period ? String(fm.period) : undefined,
         role: fm.role ? String(fm.role) : undefined,
         publication: fm.publication ? String(fm.publication) : undefined,
         issue: fm.issue ? String(fm.issue) : undefined,

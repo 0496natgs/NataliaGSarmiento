@@ -2,6 +2,8 @@
 title: "CSE: redesigning the experience of school services"
 category: Service design
 publication: "UAM Cuajimalpa"
+year: 2023
+period: "2022–2023"
 order: 1
 gallery: consulting-design/cse-school-services
 description: "A service redesign of school services for students at UAM Cuajimalpa."

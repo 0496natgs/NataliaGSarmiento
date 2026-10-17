@@ -2,6 +2,8 @@
 title: "CSE: rediseño de la experiencia de los servicios escolares"
 category: Service design
 publication: "UAM Cuajimalpa"
+year: 2023
+period: "2022–2023"
 order: 1
 gallery: consulting-design/cse-school-services
 description: "Un rediseño de servicio de los servicios escolares para estudiantes en la UAM Cuajimalpa."

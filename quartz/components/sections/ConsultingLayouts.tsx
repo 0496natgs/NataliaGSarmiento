@@ -199,7 +199,7 @@ function Timeline({
                         <a class="tl-project" href={piece.href}>
                           <span class="tl-project-title">{piece.title}</span>
                           <span class="tl-project-meta">
-                            {[categoryLabel(piece.category, lang), piece.year]
+                            {[categoryLabel(piece.category, lang), piece.period ?? piece.year]
                               .filter(Boolean)
                               .join(" · ")}
                           </span>
