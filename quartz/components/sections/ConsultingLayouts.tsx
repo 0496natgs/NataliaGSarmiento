@@ -5,6 +5,7 @@ import { Lang, categoryLabel, langOf, t, urlFor } from "./i18n"
 import { WorkCard } from "./WorkCard"
 import { ListRow } from "./ListRow"
 import { Crumbs } from "./Crumbs"
+import { GoArrow } from "./GoArrow"
 
 /**
  * The consulting space's home: a LinkedIn-style profile (robertcmeza on LinkedIn, aimforbehavior.com).
@@ -197,7 +198,10 @@ function Timeline({
                     return (
                       <li>
                         <a class="tl-project" href={piece.href}>
-                          <span class="tl-project-title">{piece.title}</span>
+                          <span class="tl-project-title">
+                            {piece.title}
+                            <GoArrow />
+                          </span>
                           <span class="tl-project-meta">
                             {[categoryLabel(piece.category, lang), piece.period ?? piece.year]
                               .filter(Boolean)

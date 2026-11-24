@@ -16,7 +16,7 @@ import { MARQUEE_PHRASES } from "../socratica/siteContent"
 // for the manuscript voice (body text, handwritten dates and logo), Spline Sans Mono for the menu,
 // captions and small print (olhalazarieva.com, tour-kyrgyzstan.com), Bricolage Grotesque for UI text.
 const SITE_FONTS =
-  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Caveat:wght@500;600&family=DM+Serif+Display:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Spline+Sans+Mono:wght@400;500&display=swap"
+  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=DM+Serif+Display:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Spline+Sans+Mono:wght@400;500&display=swap"
 
 const slug = (props: { componentData: { fileData: { slug?: string } } }) =>
   props.componentData.fileData.slug

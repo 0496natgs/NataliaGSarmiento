@@ -188,6 +188,7 @@ export function Landing({
             title={p.name}
             blurb={lang === "es" ? p.blurb_es : p.blurb}
             color={p.color}
+            light={p.light}
             external
           />
         ))}

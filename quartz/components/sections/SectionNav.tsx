@@ -21,13 +21,22 @@ const PAGE_SCRIPTS = [FILTER_JS, SHARE_JS, SIDENOTES_JS].join(";\n")
 import { Lang, baseSlug, langOf, t, urlFor } from "./i18n"
 
 /** The name with the full stop after the G in lime green. */
-function NameWithDot() {
-  const [first, rest] = SITE.name.split(". ")
+/**
+ * The logo: "Natalia G." small and italic above a large, light "Sarmiento", with the lime dot set
+ * over its last letter like an accent (Cormorant Garamond).
+ */
+function Wordmark() {
+  const cut = SITE.name.lastIndexOf(" ")
+  const first = SITE.name.slice(0, cut)
+  const last = SITE.name.slice(cut + 1)
   return (
-    <>
-      {first}
-      <span class="logo-dot">.</span> {rest}
-    </>
+    <span class="logo-m1">
+      <span class="logo-first">{first} </span>
+      <span class="logo-last">
+        {last.slice(0, -1)}
+        <span class="logo-accent">{last.slice(-1)}</span>
+      </span>
+    </span>
   )
 }
 
@@ -112,7 +121,7 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
       <script dangerouslySetInnerHTML={{ __html: PAGE_SCRIPTS }} />
       <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label={tt.menu} />
       <a class="nav-logo" href={home} aria-label={`${SITE.name} — ${tt.home}`}>
-        {LOGO ? <img src={LOGO} alt={SITE.name} /> : <NameWithDot />}
+        {LOGO ? <img src={LOGO} alt={SITE.name} /> : <Wordmark />}
       </a>
       {space === "consulting" && <span class="nav-space">{tt.consultingTag}</span>}
       <label class="nav-burger" for="nav-toggle">

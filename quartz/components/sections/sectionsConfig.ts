@@ -25,15 +25,16 @@ export const CONTACT_EMAIL = "sarmiento.natns@gmail.com"
 export const LINKEDIN_URL = "https://www.linkedin.com/in/natalia-garcia-sarmiento/"
 export const TLACUILOQUE_URL = "https://tlacuiloque.com/"
 
-// Colours taken from your Substack publication icons. They tint the typographic tiles and the
-// section frames; the icons' brush strokes are no longer used anywhere on the site.
+// Grounds for the typographic tiles, section frames and newsletter cards: ink, greys and the lime,
+// so the writing site is black and white with lime as its only colour. Keep this order in step
+// with --tile-1 … --tile-6 in sections.scss.
 export const PALETTE = [
-  { name: "Brick", color: "#a63e26", light: false },
-  { name: "Chartreuse", color: "#c9ae17", light: true },
-  { name: "Royal blue", color: "#1154d9", light: false },
-  { name: "Khaki", color: "#b19c41", light: true },
-  { name: "Oxblood", color: "#590202", light: false },
-  { name: "Orange", color: "#d9753b", light: true },
+  { name: "Ink", color: "#17130f", light: false },
+  { name: "Stone", color: "#d9d6cf", light: true },
+  { name: "Warm grey", color: "#8a877f", light: true },
+  { name: "Graphite", color: "#3a3631", light: false },
+  { name: "Lime", color: "#c1e401", light: true },
+  { name: "Charcoal", color: "#5f5a52", light: false },
 ]
 
 /** Your Substack publications, shown on the landing page and linked to their own pages. */
@@ -44,6 +45,7 @@ export const SUBSTACK_PUBLICATIONS = [
     blurb_es: "Ensayos: donde el cuerpo es materia, de memoria, de cambio, de escritura.",
     path: "",
     color: PALETTE[0].color,
+    light: PALETTE[0].light,
   },
   {
     name: "The Other Tongue",
@@ -51,6 +53,7 @@ export const SUBSTACK_PUBLICATIONS = [
     blurb_es: "Poesía y ensayos en inglés, ocasionales y opcionales.",
     path: "/s/the-other-tongue",
     color: PALETTE[4].color,
+    light: PALETTE[4].light,
   },
   {
     name: "Cuartos Propios",
@@ -58,6 +61,7 @@ export const SUBSTACK_PUBLICATIONS = [
     blurb_es: "Cómo se hace el trabajo: borradores, proceso, páginas de cuaderno.",
     path: "/s/cuartos-propios",
     color: PALETTE[2].color,
+    light: PALETTE[2].light,
   },
 ]
 

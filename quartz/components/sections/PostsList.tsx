@@ -1,5 +1,6 @@
 import { filterAttrs, formatPieceDate, pieceYear, Piece } from "./pieces"
 import { Lang, categoryLabel, t } from "./i18n"
+import { GoArrow } from "./GoArrow"
 
 /**
  * The List view of Writing and Work (after ssp.sh/posts): pieces grouped by year, two columns, a
@@ -54,6 +55,7 @@ export function PostsList({
                       <span class="ext" aria-hidden="true" />
                     </span>
                   ) : null}
+                  <GoArrow external={!!piece.external} />
                 </span>
                 <span class="s-post-meta">
                   <span class="s-post-cat">
