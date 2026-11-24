@@ -6,6 +6,8 @@ badge: Sample
 description: A placeholder to show the card and the page. Replace with your own work.
 tags:
   - photo-video
+sandbox: true
+unlisted: true
 ---
 
 Write a few lines about the work here, then add the images below it:

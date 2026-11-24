@@ -5,6 +5,8 @@ category: Nonfiction
 description: Another placeholder essay.
 tags:
   - writing
+sandbox: true
+unlisted: true
 ---
 
 ## A heading

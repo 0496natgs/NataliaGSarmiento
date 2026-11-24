@@ -6,6 +6,8 @@ photo: Rome.JPG
 description: A second placeholder, so the grid has more than one card per category.
 tags:
   - writing
+sandbox: true
+unlisted: true
 ---
 
 ## One

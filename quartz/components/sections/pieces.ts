@@ -73,6 +73,13 @@ function toDate(file: FileData): Date | undefined {
   return Number.isNaN(date.getTime()) ? undefined : date
 }
 
+/**
+ * A page kept in the sandbox (`sandbox: true` in its frontmatter): a template or placeholder that is
+ * hidden from every list on the live site and shown only on /sandbox, where it can be tested.
+ */
+export const isSandbox = (f: { frontmatter?: Record<string, unknown> }) =>
+  f.frontmatter?.sandbox === true
+
 const isPiece = (f: FileData) => {
   const def = sectionOfSlug(f.slug)
   const base = baseSlug(f.slug)
@@ -84,10 +91,20 @@ const isPiece = (f: FileData) => {
 /**
  * Every page under a section folder except its index, newest first. Pass a slug to limit to one
  * section. In Spanish, pieces without a Spanish page fall back to the English page.
+ * Sandbox pages are left out; pass `sandbox: true` to get only them instead (for /sandbox, and for
+ * the lists and arrows on a sandbox page itself).
  */
-export function getPieces(allFiles: Files, section?: string, lang: Lang = "en"): Piece[] {
+export function getPieces(
+  allFiles: Files,
+  section?: string,
+  lang: Lang = "en",
+  sandbox = false,
+): Piece[] {
   const files = allFiles.filter(
-    (f) => isPiece(f) && (!section || sectionOfSlug(f.slug)!.slug === section),
+    (f) =>
+      isPiece(f) &&
+      isSandbox(f) === sandbox &&
+      (!section || sectionOfSlug(f.slug)!.slug === section),
   )
   const translated = new Set(
     files.filter((f) => langOf(f.slug) === "es").map((f) => baseSlug(f.slug)),

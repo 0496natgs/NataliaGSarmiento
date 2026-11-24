@@ -1,6 +1,7 @@
 ---
 title: Credits
 issueNo: 7
+draft: true
 ---
 
 ## Contributors
