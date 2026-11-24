@@ -1,5 +1,6 @@
 import { filterAttrs, formatPieceDate, Piece } from "./pieces"
 import { Lang, categoryLabel, t } from "./i18n"
+import { GoArrow } from "./GoArrow"
 
 /**
  * One row of an "every post" list, after aimforbehavior.com/insights: date, title, topic. Used by the
@@ -28,6 +29,7 @@ export function ListRow({ piece, lang = "en" }: { piece: Piece; lang?: Lang }) {
         <span class="s-row-title">
           {piece.title}
           {piece.external ? <span class="ext" aria-hidden="true" /> : null}
+          <GoArrow external={!!piece.external} />
         </span>
         {piece.description && <span class="s-row-desc">{piece.description}</span>}
       </span>

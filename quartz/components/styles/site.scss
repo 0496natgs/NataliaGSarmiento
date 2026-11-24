@@ -1346,9 +1346,9 @@ body[data-slug^="es/visual-notes/"] {
 
 // Tag pages (the chips on every project) in the site's colours.
 body[data-slug^="tags/"] {
-  --secondary: #a63e26;
-  --tertiary: #a63e26;
-  --highlight: #a63e261a;
+  --secondary: #17130f;
+  --tertiary: #17130f;
+  --highlight: #17130f12;
 }
 
 body[data-slug^="tags/"]:has(.space-consulting),
@@ -2193,26 +2193,6 @@ article a:hover,
 .s-work {
   --card-accent: var(--tertiary);
 
-  &:nth-child(5n + 1) {
-    --card-accent: #a63e26;
-  }
-
-  &:nth-child(5n + 2) {
-    --card-accent: #1154d9;
-  }
-
-  &:nth-child(5n + 3) {
-    --card-accent: #6b6f2e;
-  }
-
-  &:nth-child(5n + 4) {
-    --card-accent: #d9753b;
-  }
-
-  &:nth-child(5n) {
-    --card-accent: #590202;
-  }
-
   .s-frame {
     padding: 10px;
     border: 1px solid transparent;
@@ -2362,12 +2342,9 @@ a:hover .s-frame::before {
   letter-spacing: 0.07em;
 }
 
-// ---------- hover on titles: the lime highlight sweeps in behind the text ----------
-body[data-slug] .s-post-title,
-body[data-slug] .s-row-title,
+// ---------- hover on card titles: the lime highlight sweeps in behind the text ----------
 body[data-slug] .s-caption-title,
-body[data-slug] .s-work-title,
-body[data-slug] .tl-project-title {
+body[data-slug] .s-work-title {
   width: fit-content;
   max-width: 100%;
   padding-inline: 0.14em;
@@ -2389,12 +2366,61 @@ body[data-slug] .cp .s-grid-work .s-work-title {
   margin-right: auto;
 }
 
-.s-post:hover .s-post-title,
-.s-row:hover .s-row-title,
 .s-tile:hover .s-caption-title,
-.s-work:hover .s-work-title,
-.tl-project:hover .tl-project-title {
+.s-work:hover .s-work-title {
   background-size: 100% 100%;
+}
+
+// ---------- contents lists (after southwestreview.com): on hover the row steps forward, a lime
+// circle with an arrow appears beside the title and a thin line draws under the row ----------
+.s-post,
+.s-row,
+.tl-project {
+  position: relative;
+  transition: transform 0.2s ease-in;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 0;
+    height: 1px;
+    background: var(--dark);
+    transition: width 0.35s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateX(8px);
+
+    &::after {
+      width: 100%;
+    }
+
+    .s-go {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.s-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #c1e401;
+  color: #17130f;
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 0.2s,
+    transform 0.25s;
 }
 
 .s-post,
@@ -2415,11 +2441,15 @@ body[data-slug] .cp .s-grid-work .s-work-title {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body[data-slug] .s-post-title,
-  body[data-slug] .s-row-title,
   body[data-slug] .s-caption-title,
   body[data-slug] .s-work-title,
-  body[data-slug] .tl-project-title {
+  .s-post,
+  .s-row,
+  .tl-project,
+  .s-post::after,
+  .s-row::after,
+  .tl-project::after,
+  .s-go {
     transition: none;
   }
 }

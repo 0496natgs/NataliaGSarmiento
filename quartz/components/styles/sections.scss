@@ -9,11 +9,12 @@
 //   errr-magazine    tight photo grid, 24px gaps
 //   rattle.com       centred poem with prev/next arrows
 //   tour-kyrgyzstan  paper white and ink black with one accent, mono captions, crop-mark frames
-// The accent and the tile colours come from your Substack publication icons (brick #a63e26,
-// brown, mustard, olive, teal). Everything is scoped so the Socratica guide pages (Basics, etc.)
-// are untouched.
+// The writing site is black and white (ink #17130f) with the lime as its only colour; the tiles
+// are ink, greys and lime. Everything is scoped so the Socratica guide pages (Basics, etc.) are
+// untouched.
 
 $lime: #c1e401;
+$mono: "Spline Sans Mono", "IBM Plex Mono", monospace;
 $cream-text: #f0f2bd;
 
 $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es/'], body[data-slug^='writing/'], body[data-slug^='photo-video/'], body[data-slug^='visual-notes/'], body[data-slug^='work/'], body[data-slug='about'], body[data-slug='contact'], body[data-slug='ai'], body[data-slug='sandbox'], body[data-slug^='tags/'], body[data-slug='consulting'], body[data-slug^='consulting/']";
@@ -25,25 +26,25 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   --gray: #736b5d;
   --darkgray: #4a4239;
   --dark: #17130f;
-  --secondary: #a63e26;
-  --tertiary: #a63e26;
-  --highlight: #a63e261a;
+  --secondary: #17130f;
+  --tertiary: #17130f;
+  --highlight: #17130f12;
   // Colour of the handwriting (dates, notes). Change it here to recolour every handwritten line.
-  --script: #a63e26;
+  --script: #17130f;
   --textHighlight: #c1e40199;
-  // Tile grounds, used in turn (Brick, Chartreuse, Royal blue, Khaki, Oxblood, Orange).
-  --tile-1: #a63e26;
-  --tile-2: #c9ae17;
-  --tile-3: #1154d9;
-  --tile-4: #b19c41;
-  --tile-5: #590202;
-  --tile-6: #d9753b;
-  // Tag chips, used in turn, and the lettering on a filled chip.
-  --chip-1: #a63e26;
-  --chip-2: #1154d9;
-  --chip-3: #6b6f2e;
-  --chip-4: #590202;
-  --chip-text-on: #f0f2bd;
+  // Tile grounds, used in turn (Ink, Stone, Warm grey, Graphite, Lime, Charcoal), as PALETTE.
+  --tile-1: #17130f;
+  --tile-2: #d9d6cf;
+  --tile-3: #8a877f;
+  --tile-4: #3a3631;
+  --tile-5: #c1e401;
+  --tile-6: #5f5a52;
+  // Tag chips, used in turn, and the lettering on a filled chip (lime on ink).
+  --chip-1: #17130f;
+  --chip-2: #17130f;
+  --chip-3: #17130f;
+  --chip-4: #17130f;
+  --chip-text-on: #c1e401;
   --headerFont: "EB Garamond", serif;
   --bodyFont: "EB Garamond", "PT Serif", serif;
   --uiFont: "Bricolage Grotesque", system-ui, sans-serif;
@@ -83,7 +84,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   }
 
   // Index and poem pages are single full-width columns, not the three-column grid.
-  #quartz-body:has(> .s-index, > .s-poem, > .cp) {
+  #quartz-body:has(> .s-index, > .s-poem, > .cp, > .s-hero-piece) {
     display: block;
     padding: 0;
   }
@@ -98,7 +99,8 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   }
 
   #quartz-body .s-index,
-  #quartz-body .cp {
+  #quartz-body .cp,
+  #quartz-body .s-hero-piece {
     min-width: 0;
     width: 100%;
     max-width: 1240px;
@@ -107,7 +109,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   }
 
   // The footer carries Socratica's links; in the sections keep only the credit line.
-  #quartz-body:has(> .s-index, > .s-poem, > .cp) footer {
+  #quartz-body:has(> .s-index, > .s-poem, > .cp, > .s-hero-piece) footer {
     max-width: 1240px;
     margin: 0 auto;
     padding: 0 40px 3rem;
@@ -497,6 +499,79 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 }
 
 /* ---------- poem (rattle) ---------- */
+// A piece with a large image across the top (layout: hero), after therumpus.net.
+.s-hero-piece {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 40px 3rem;
+  box-sizing: border-box;
+
+  .s-hero-img {
+    display: block;
+    width: 100%;
+    height: clamp(240px, 52vh, 560px);
+    margin: 1.5rem 0 0;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .s-hero-body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding-top: 2.4rem;
+  }
+
+  .s-hero-kicker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.9rem;
+    align-items: center;
+    margin: 1.2rem 0 0.8rem;
+    font-family: $mono;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .s-hero-section {
+    padding: 0.2rem 0.5rem;
+    background: $lime;
+    color: var(--dark);
+  }
+
+  .s-hero-title {
+    margin: 0;
+    font-family: "EB Garamond", serif;
+    font-weight: 400;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.02;
+    color: var(--dark);
+  }
+
+  .s-hero-byline {
+    margin: 1rem 0 2rem;
+    font-family: $mono;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--darkgray);
+  }
+
+  .s-hero-text {
+    font-size: 1.2rem;
+    line-height: 1.65;
+  }
+
+  @media all and (max-width: 700px) {
+    padding: 0 16px 2rem;
+
+    .s-hero-img {
+      margin-top: 1rem;
+    }
+  }
+}
+
 .s-poem {
   max-width: 540px;
   margin: 0 auto;

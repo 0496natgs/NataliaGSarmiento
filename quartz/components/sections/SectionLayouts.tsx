@@ -4,7 +4,7 @@ import { QuartzComponent } from "../types"
 import { SelectedPieces } from "./SelectedPieces"
 import { SectionIndex } from "./SectionIndex"
 import { formatPieceDate, getPieces, isPageSection, isSandbox, isSectionIndex } from "./pieces"
-import { SITE, sectionOfSlug } from "./sectionsConfig"
+import { SITE, sectionOfSlug, textOf } from "./sectionsConfig"
 import { AboutFacts } from "./AboutFacts"
 import { ProjectGallery } from "./ProjectGallery"
 import { ConsultingPage, ConsultingProfile } from "./ConsultingLayouts"
@@ -69,6 +69,59 @@ function PrevNext({ componentData }: Pick<PageFrameProps, "componentData">) {
   )
 }
 
+/**
+ * A piece with a large image across the top (front matter `layout: hero` and a `cover`), after
+ * therumpus.net: the image, then the section and category, a large title and a one-line byline,
+ * then the text in one centred column.
+ */
+function HeroPiece({
+  componentData,
+  Content,
+  footer,
+}: Pick<PageFrameProps, "componentData" | "footer"> & {
+  Content: QuartzComponent
+}) {
+  const slug = componentData.fileData.slug
+  const lang = langOf(slug)
+  const tt = t(lang)
+  const section = sectionOfSlug(slug)
+  const sandbox = isSandbox(componentData.fileData)
+  const piece = getPieces(componentData.allFiles, undefined, lang, sandbox).find(
+    (p) => p.slug === slug,
+  )
+  const title = String(componentData.fileData.frontmatter?.title ?? "")
+  const byline = [
+    `${tt.by} ${SITE.name}`,
+    piece?.date ? formatPieceDate(piece.date, lang) : piece?.year,
+    [piece?.publication, piece?.issue].filter(Boolean).join(", "),
+  ].filter(Boolean)
+  return (
+    <>
+      <div class="center s-hero-piece">
+        {piece?.cover && <img class="s-hero-img" src={piece.cover} alt="" />}
+        <div class="s-hero-body">
+          {sandbox && <SandboxNote lang={lang} />}
+          <Crumbs slug={slug} title={title} />
+          <p class="s-hero-kicker">
+            {section && <span class="s-hero-section">{textOf(section, lang).title}</span>}
+            {piece?.category && <span>{categoryLabel(piece.category, lang)}</span>}
+          </p>
+          <h1 class="s-hero-title">{title}</h1>
+          <p class="s-hero-byline">{byline.join(" • ")}</p>
+          <article class="s-hero-text">
+            <Content {...componentData} />
+          </article>
+          <ShareBar url={pageUrl(componentData.cfg.baseUrl, slug)} title={title} lang={lang} />
+          <PrevNext componentData={componentData} />
+        </div>
+      </div>
+      {footer.map((F) => (
+        <F {...componentData} />
+      ))}
+    </>
+  )
+}
+
 export function renderSection(props: PageFrameProps) {
   const { componentData, pageBody: Content, left, footer } = props
   const slug = componentData.fileData.slug
@@ -121,6 +174,10 @@ export function renderSection(props: PageFrameProps) {
         ))}
       </>
     )
+  }
+
+  if (componentData.fileData.frontmatter?.layout === "hero") {
+    return <HeroPiece componentData={componentData} Content={Content} footer={footer} />
   }
 
   if (form === "poem" && !componentData.fileData.frontmatter?.collection) {
