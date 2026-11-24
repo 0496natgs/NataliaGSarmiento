@@ -6,6 +6,8 @@ badge: Sample
 description: A placeholder for a short film. Paste a YouTube or Vimeo link in the page and it plays here.
 tags:
   - photo-video
+sandbox: true
+unlisted: true
 ---
 
 Paste the link to your video on its own line and it becomes a player:

@@ -257,10 +257,7 @@ plugins:
   - source: "@quartz-community/footer"
     enabled: true
     options:
-      links:
-        Socratica: https://www.socratica.info/
-        Attend a Session: https://www.socratica.info/map
-        GitHub: https://github.com/Socratica-Org/toolbox
+      links: {}
     layout:
       position: footer
       priority: 50

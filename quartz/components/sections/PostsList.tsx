@@ -6,7 +6,16 @@ import { Lang, categoryLabel, t } from "./i18n"
  * small image on the side when the piece has one, the title, and its category and date.
  * Pieces that live elsewhere (Substack) open in the same tab.
  */
-export function PostsList({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
+export function PostsList({
+  pieces,
+  lang,
+  groups,
+}: {
+  pieces: Piece[]
+  lang: Lang
+  /** Headings and their pieces, in order, instead of grouping by year (the Sandbox page). */
+  groups?: [string, Piece[]][]
+}) {
   const tt = t(lang)
   const byYear = new Map<string, Piece[]>()
   for (const p of pieces) {
@@ -15,7 +24,7 @@ export function PostsList({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
       : (p.year ?? (lang === "es" ? "Sin fecha" : "Undated"))
     byYear.set(y, [...(byYear.get(y) ?? []), p])
   }
-  const years = [...byYear.entries()].sort((a, b) => b[0].localeCompare(a[0]))
+  const years = groups ?? [...byYear.entries()].sort((a, b) => b[0].localeCompare(a[0]))
   return (
     <div class="s-posts">
       {years.map(([year, list]) => (
@@ -51,7 +60,11 @@ export function PostsList({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
                     {piece.publication ?? categoryLabel(piece.category, lang)}
                   </span>
                   {piece.date && (
-                    <time>{formatPieceDate(piece.date, lang).replace(/,?\s*\d{4}$/, "")}</time>
+                    <time>
+                      {groups
+                        ? formatPieceDate(piece.date, lang)
+                        : formatPieceDate(piece.date, lang).replace(/,?\s*\d{4}$/, "")}
+                    </time>
                   )}
                 </span>
               </a>

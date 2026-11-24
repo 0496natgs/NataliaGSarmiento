@@ -8,6 +8,8 @@ badge: Sample
 tags:
   - writing
   - essay
+sandbox: true
+unlisted: true
 ---
 
 ## What this page shows

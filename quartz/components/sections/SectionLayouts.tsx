@@ -3,7 +3,7 @@ import { DefaultFrame } from "../frames/DefaultFrame"
 import { QuartzComponent } from "../types"
 import { SelectedPieces } from "./SelectedPieces"
 import { SectionIndex } from "./SectionIndex"
-import { formatPieceDate, getPieces, isPageSection, isSectionIndex } from "./pieces"
+import { formatPieceDate, getPieces, isPageSection, isSandbox, isSectionIndex } from "./pieces"
 import { SITE, sectionOfSlug } from "./sectionsConfig"
 import { AboutFacts } from "./AboutFacts"
 import { ProjectGallery } from "./ProjectGallery"
@@ -12,6 +12,7 @@ import { categoryLabel, langOf, t } from "./i18n"
 import { Crumbs } from "./Crumbs"
 import { ShareBar } from "./ShareBar"
 import { Sidenotes } from "./Sidenotes"
+import { SandboxNote, SandboxPage } from "./Sandbox"
 
 const pageUrl = (baseUrl: string | undefined, slug: string | undefined) =>
   `https://${baseUrl ?? "nataliagsarmiento.com"}/${(slug ?? "").replace(/\/index$/, "").replace(/^index$/, "")}`
@@ -20,9 +21,13 @@ const pageUrl = (baseUrl: string | undefined, slug: string | undefined) =>
 function PieceHeader({ componentData }: Pick<PageFrameProps, "componentData">) {
   const slug = componentData.fileData.slug
   const lang = langOf(slug)
-  const piece = getPieces(componentData.allFiles, undefined, lang).find((p) => p.slug === slug)
+  const sandbox = isSandbox(componentData.fileData)
+  const piece = getPieces(componentData.allFiles, undefined, lang, sandbox).find(
+    (p) => p.slug === slug,
+  )
   return (
     <div class="s-piece-header">
+      {sandbox && <SandboxNote lang={lang} />}
       <Crumbs slug={slug} title={String(componentData.fileData.frontmatter?.title ?? "")} />
       <h1 class="s-piece-title">{componentData.fileData.frontmatter?.title}</h1>
       <p class="s-piece-meta">
@@ -47,7 +52,12 @@ function PieceHeader({ componentData }: Pick<PageFrameProps, "componentData">) {
 function PrevNext({ componentData }: Pick<PageFrameProps, "componentData">) {
   const section = sectionOfSlug(componentData.fileData.slug)
   const lang = langOf(componentData.fileData.slug)
-  const pieces = getPieces(componentData.allFiles, section?.slug, lang).filter((p) => !p.external)
+  const pieces = getPieces(
+    componentData.allFiles,
+    section?.slug,
+    lang,
+    isSandbox(componentData.fileData),
+  ).filter((p) => !p.external)
   const i = pieces.findIndex((p) => p.slug === componentData.fileData.slug)
   const older = i >= 0 ? pieces[i + 1] : undefined
   const newer = i > 0 ? pieces[i - 1] : undefined
@@ -68,6 +78,10 @@ export function renderSection(props: PageFrameProps) {
 
   if (isPageSection(slug) && section.slug === "consulting") {
     return <ConsultingProfile componentData={componentData} Content={Content} footer={footer} />
+  }
+
+  if (isPageSection(slug) && section.slug === "sandbox") {
+    return <SandboxPage componentData={componentData} Content={Content} footer={footer} />
   }
 
   if (isPageSection(slug) && (section.space === "consulting" || section.slug === "contact")) {
@@ -112,7 +126,8 @@ export function renderSection(props: PageFrameProps) {
   if (form === "poem" && !componentData.fileData.frontmatter?.collection) {
     const lang = langOf(slug)
     const tt = t(lang)
-    const pieces = getPieces(componentData.allFiles, section.slug, lang).filter(
+    const sandbox = isSandbox(componentData.fileData)
+    const pieces = getPieces(componentData.allFiles, section.slug, lang, sandbox).filter(
       (p) => !p.external && p.form === "poem",
     )
     const i = pieces.findIndex((p) => p.slug === slug)
@@ -139,6 +154,7 @@ export function renderSection(props: PageFrameProps) {
           </a>
         )}
         <div class="center s-poem">
+          {sandbox && <SandboxNote lang={lang} />}
           <Crumbs slug={slug} title={String(componentData.fileData.frontmatter?.title ?? "")} />
           <p class="s-poem-date">{formatPieceDate(pieces[i]?.date, lang)}</p>
           <p class="s-poem-author">{SITE.name}</p>

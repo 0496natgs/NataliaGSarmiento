@@ -6,6 +6,8 @@ description: A placeholder short story, to show the article layout with the tabl
 tags:
   - writing
   - fiction
+sandbox: true
+unlisted: true
 ---
 
 ## Opening

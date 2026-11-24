@@ -1199,6 +1199,35 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
   }
 }
 
+/* ---------- sandbox: the strip on pages hidden from the live site ---------- */
+.sandbox-note {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.3rem 1rem;
+  margin: 0 0 1.2rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  background: #c1e401;
+  font-family: $mono;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #17130f;
+
+  a {
+    color: #17130f;
+    background: none;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+.sandbox-page .s-posts {
+  margin-top: 2.4rem;
+}
+
 /* ---------- link to the other space ---------- */
 .space-link {
   margin: 3rem 0 1.5rem;

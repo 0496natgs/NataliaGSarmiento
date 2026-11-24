@@ -1,6 +1,7 @@
 ---
 title: Growing People
 issueNo: 3
+draft: true
 ---
 
 <div class="article-header">

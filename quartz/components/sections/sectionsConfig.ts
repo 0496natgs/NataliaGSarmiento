@@ -314,6 +314,27 @@ export const SECTIONS: SectionDef[] = [
       marquee: ["escrito por una persona", "sin IA para escribir"],
     },
   },
+  // Templates and placeholders, hidden from the live site (pages with `sandbox: true`). Not in the
+  // menu; open it at /sandbox.
+  {
+    slug: "sandbox",
+    kind: "page",
+    space: "writer",
+    numeral: "",
+    card: false,
+    inNav: false,
+    title: "Sandbox",
+    blurb: "Templates and placeholders, hidden from the site",
+    art: 0,
+    grid: "tiles",
+    tabs: false,
+    marquee: ["sandbox"],
+    es: {
+      title: "Sandbox",
+      blurb: "Plantillas y borradores, ocultos del sitio",
+      marquee: ["sandbox"],
+    },
+  },
 
   // ---------- consulting space: digital transformation, behavioral science, service design ----------
   {

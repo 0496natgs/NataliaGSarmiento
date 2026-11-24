@@ -9,6 +9,8 @@ description: A placeholder collection of poems, to show how several poems live o
 tags:
   - writing
   - poems
+sandbox: true
+unlisted: true
 ---
 
 _A placeholder collection. Each poem has its own title, and the page keeps every line break._

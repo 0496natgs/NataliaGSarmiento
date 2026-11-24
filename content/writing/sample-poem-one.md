@@ -8,6 +8,8 @@ description: A placeholder poem to show the poem layout. Replace with your own.
 tags:
   - writing
   - poems
+sandbox: true
+unlisted: true
 ---
 
 This is where a poem goes.
