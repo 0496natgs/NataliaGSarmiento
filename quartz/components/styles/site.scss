@@ -2330,9 +2330,50 @@ a:hover .s-frame::before {
   display: none;
 }
 
-// The full stop in the name is the lime green.
+// The full stop in the handwritten name on the home page is the lime green.
 .logo-dot {
   color: #c1e401;
+}
+
+// The logo: "Natalia G." small and italic over a large, light "Sarmiento"; the lime dot sits over
+// the last o like an accent.
+.logo-m1 {
+  display: flex;
+  flex-direction: column;
+  font-family: "Cormorant Garamond", "EB Garamond", serif;
+  line-height: 0.9;
+  color: var(--dark);
+
+  .logo-first {
+    margin-left: 0.08em;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.5em;
+    letter-spacing: 0.01em;
+  }
+
+  .logo-last {
+    font-weight: 300;
+    font-size: 1.2em;
+    letter-spacing: -0.01em;
+  }
+
+  .logo-accent {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0.02em;
+      width: 0.17em;
+      height: 0.17em;
+      margin-left: -0.085em;
+      border-radius: 50%;
+      background: #c1e401;
+    }
+  }
 }
 
 // Only the language switch and the Substack / LinkedIn button are in capitals.
