@@ -26,7 +26,7 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
   align-items: center;
   gap: 1.5rem;
   padding: 12px clamp(16px, 3vw, 40px);
-  background: var(--light, #fcfbf6);
+  background: var(--light, #fcfcfc);
   border-bottom: 1px solid var(--lightgray, #e3e1dd);
 
   .nav-toggle {
@@ -229,7 +229,7 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
       gap: 0.4rem;
       padding: 7rem clamp(16px, 5vw, 40px) 2rem;
       overflow-y: auto;
-      background: var(--light, #fcfbf6);
+      background: var(--light, #fcfcfc);
 
       > .nav-link:first-child {
         margin-left: 0;
