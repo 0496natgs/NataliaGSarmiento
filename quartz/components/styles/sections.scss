@@ -826,3 +826,57 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     font-size: 1.4rem;
   }
 }
+
+// Section index header (W6): the title on the left and the page's text on the right on a desktop;
+// on tablets (iPad included) and phones the text goes under the title.
+// (Nested, so the selector applies to each page in the list, not only the last one.)
+#{$in-section} {
+  .s-index-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 31rem);
+    gap: 1.2rem 4rem;
+    align-items: end;
+    margin-bottom: 2.6rem;
+
+    .s-index-title {
+      margin-bottom: 0;
+    }
+
+    .s-index-intro {
+      max-width: none;
+      margin: 0;
+
+      p:last-child,
+      article > :last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    @media all and (max-width: 1180px) {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+
+      .s-index-intro {
+        max-width: 40rem;
+      }
+    }
+  }
+}
+
+// The map (graph) takes its colours from the root element, not from the page: this page's dot and
+// the dots of pages you have visited (and tags) are lime on the writing side, indigo and periwinkle
+// on the consulting side. The page itself keeps its own ink colours (set on body above).
+:root:has(#{$in-section}) {
+  --secondary: #c1e401;
+  --tertiary: #c1e401;
+}
+
+:root:has(
+  body[data-slug="consulting"],
+  body[data-slug^="consulting/"],
+  body[data-slug="es/consulting"],
+  body[data-slug^="es/consulting/"]
+) {
+  --secondary: #0a0773;
+  --tertiary: #a7aed9;
+}

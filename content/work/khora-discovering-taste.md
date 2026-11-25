@@ -5,7 +5,7 @@ category: Flash
 publication: "KHÔRA"
 issue: "Issue 54 · Flash"
 external: "https://khoramagazine.com/issue/54/discovering-taste"
-cover: "/static/work/khora-discovering-taste.jpg"
+cover: "/static/work/khora-discovering-taste-cover.jpg"
 description: "“The first tongue was a woman. Not her name. Not her story. Barely a laugh in my ear. A nape.”"
 tags:
   - work

@@ -31,15 +31,20 @@ export function SectionIndex({
   const hasViews = (section.grid === "tiles" || section.grid === "work") && pieces.length > 0
   return (
     <div class={`center s-index s-index-${section.grid}`}>
-      <Crumbs slug={componentData.fileData.slug} />
-      <p class="s-eyebrow">{SITE.name}</p>
-      <h1 class="s-index-title">
-        {componentData.fileData.frontmatter?.title ?? textOf(section, lang).title}
-      </h1>
-      <div class="s-index-intro">
-        <Content {...componentData} />
+      {/* Title on the left and the page's text on the right on a desktop; stacked on tablets and phones. */}
+      <div class="s-index-head">
+        <div class="s-index-head-main">
+          <Crumbs slug={componentData.fileData.slug} />
+          <p class="s-eyebrow">{SITE.name}</p>
+          <h1 class="s-index-title">
+            {componentData.fileData.frontmatter?.title ?? textOf(section, lang).title}
+          </h1>
+        </div>
+        <div class="s-index-intro">
+          <Content {...componentData} />
+        </div>
       </div>
-      {section.kind === "collection" && pieces.length > 1 && (
+      {section.kind === "collection" && pieces.length > 0 && (
         <Filters pieces={pieces} lang={lang} />
       )}
       {hasViews && (
