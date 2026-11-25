@@ -12,9 +12,12 @@
 // Colours are the CSS variables set in sections.scss (--light paper, --dark ink, --tertiary accent).
 // The five publication colours come from your Substack icons (see PALETTE in sectionsConfig.ts).
 
-$mono: "Spline Sans Mono", "IBM Plex Mono", monospace;
-$serif: "EB Garamond", "PT Serif", serif;
-$script: "Caveat", cursive;
+// Fonts (F2 on the writing site, F3 on the consulting site) are CSS variables set in sections.scss
+// and in the consulting block below: --title-font, --text-font and --ui-font.
+$mono: var(--ui-font);
+$serif: var(--title-font);
+$text: var(--text-font);
+$script: var(--ui-font);
 $ease: cubic-bezier(0.7, 0, 0.2, 1);
 
 /* ---------- top menu ---------- */
@@ -52,9 +55,8 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
   .nav-space {
     display: none;
     font-family: $mono;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
     white-space: nowrap;
 
@@ -165,7 +167,7 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
     border-radius: 999px;
     font-family: $mono;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 0.09em;
     text-transform: uppercase;
     color: var(--dark);
@@ -192,9 +194,8 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
       cursor: pointer;
       font-family: $mono;
       font-weight: 500;
-      font-size: 12px;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.01em;
       color: var(--dark);
 
       .nav-burger-close {
@@ -243,7 +244,7 @@ $ease: cubic-bezier(0.7, 0, 0.2, 1);
     .nav-link {
       height: auto;
       overflow: visible;
-      font-family: $serif;
+      font-family: "EB Garamond", serif;
       font-weight: 400;
       font-size: 2.4rem;
       line-height: 1.25;
@@ -301,9 +302,8 @@ a:hover .s-frame::before {
   margin-top: 1.1rem;
   font-family: $mono;
   font-weight: 400;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--gray);
 }
 
@@ -369,9 +369,8 @@ a:hover .s-frame::before {
   margin: 0;
   font-family: $mono;
   font-weight: 500;
-  font-size: 11.5px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--gray);
 }
 
@@ -388,7 +387,7 @@ a:hover .s-frame::before {
 // offporter's chapter row: numeral over the word, quiet until you point at it.
 .d-index {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--d-index-cols, 5), minmax(0, 1fr));
   margin-bottom: clamp(3rem, 6vw, 5rem);
   border-top: 1px solid var(--dark);
 
@@ -407,12 +406,12 @@ a:hover .s-frame::before {
 
   .d-index-n {
     font-family: $mono;
-    font-size: 11.5px;
+    font-size: 13px;
     letter-spacing: 0.1em;
   }
 
   .d-index-w {
-    font-family: "EB Garamond", serif;
+    font-family: $serif;
     font-size: clamp(1.15rem, 2vw, 1.55rem);
     line-height: 1.15;
   }
@@ -483,7 +482,7 @@ a:hover .s-frame::before {
   .d-frame-title {
     display: block;
     margin-top: 0.3rem;
-    font-family: "EB Garamond", serif;
+    font-family: $serif;
     font-size: 1.7rem;
     line-height: 1.15;
     color: var(--dark);
@@ -497,9 +496,10 @@ a:hover .s-frame::before {
   .d-frame-blurb {
     display: block;
     margin-top: 0.35rem;
-    font-family: $mono;
-    font-size: 11.5px;
-    line-height: 1.55;
+    font-family: $text;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.4;
     color: var(--darkgray);
   }
 }
@@ -576,7 +576,7 @@ a:hover .s-frame::before {
 .d-section-note {
   margin: 0 0 2rem;
   font-family: $mono;
-  font-size: 11.5px;
+  font-size: 13px;
   letter-spacing: 0.04em;
   color: var(--gray);
 }
@@ -630,9 +630,9 @@ a:hover .s-frame::before {
   margin: 0;
   padding-top: 1rem;
   text-align: center;
-  font-family: $script;
-  font-weight: 600;
-  font-size: 2rem;
+  font-family: $serif;
+  font-weight: 400;
+  font-size: 2.2rem;
   color: var(--script);
 
   img {
@@ -680,10 +680,14 @@ body[data-slug="consulting"],
 body[data-slug^="consulting/"],
 body[data-slug="es/consulting"],
 body[data-slug^="es/consulting/"] {
+  // Fonts (F3): Spectral Light for titles, Hanken Grotesk for text, labels and the menu.
+  --title-font: "Spectral", Georgia, serif;
+  --text-font: "Hanken Grotesk", system-ui, sans-serif;
+  --ui-font: "Hanken Grotesk", system-ui, sans-serif;
   --secondary: #0a0773;
   --tertiary: #0a0773;
   --highlight: #0a07731a;
-  --script: #a63e26;
+  --script: #0a0773;
   // Soft lines: section dividers and the hover border of a project card.
   --soft: #a7aed9;
   --chip-1: #0a0773;
@@ -729,9 +733,8 @@ body[data-slug^="es/consulting/"] {
     z-index: 1;
     margin: 0 0 0.9rem;
     font-family: $mono;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -762,9 +765,8 @@ body[data-slug^="es/consulting/"] {
   .cp-headline {
     margin: 0.3rem 0 0;
     font-family: $mono;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -803,9 +805,8 @@ body[data-slug^="es/consulting/"] {
   border-radius: 999px;
   font-family: $mono;
   font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--dark);
   transition:
     background 0.2s,
@@ -838,9 +839,8 @@ body[data-slug^="es/consulting/"] {
     border-top: 1px solid var(--dark);
     font-family: $mono;
     font-weight: 500;
-    font-size: 11.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--dark);
   }
 
@@ -858,7 +858,7 @@ body[data-slug^="es/consulting/"] {
   .cp-more {
     margin: 1.5rem 0 0;
     font-family: $mono;
-    font-size: 12px;
+    font-size: 13px;
 
     a {
       color: var(--tertiary);
@@ -881,9 +881,8 @@ body[data-slug^="es/consulting/"] {
     border: 1px solid var(--dark);
     border-radius: 999px;
     font-family: $mono;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--dark);
   }
 }
@@ -908,7 +907,7 @@ body[data-slug^="es/consulting/"] {
   p {
     margin: 0.5rem 0 1.4rem;
     font-family: $mono;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--gray);
   }
 }
@@ -986,21 +985,20 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
     border-top: 1px solid var(--dark);
     font-family: $mono;
     font-weight: 500;
-    font-size: 11.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
   }
 
   .exp-date {
     margin: 2.4rem 0 0;
     font-family: $script;
-    font-size: 1.3rem;
+    font-size: 15px;
     line-height: 1.2;
     color: var(--script);
 
     span {
       font-family: $mono;
-      font-size: 12px;
+      font-size: 13px;
       letter-spacing: 0.04em;
       color: var(--gray);
     }
@@ -1018,8 +1016,7 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
     font-family: $mono;
     font-style: normal;
     font-size: 13px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -1067,14 +1064,14 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
 
   .s-row-date {
     font-family: $mono;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.04em;
     color: var(--gray);
   }
 
   .s-row-title {
     display: block;
-    font-family: "EB Garamond", serif;
+    font-family: $serif;
     font-size: 1.4rem;
     line-height: 1.2;
     transition: color 0.2s;
@@ -1084,16 +1081,15 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
     display: block;
     margin-top: 0.3rem;
     font-family: $mono;
-    font-size: 11.5px;
+    font-size: 13px;
     line-height: 1.55;
     color: var(--darkgray);
   }
 
   .s-row-topic {
     font-family: $mono;
-    font-size: 10.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--tertiary);
     text-align: right;
   }
@@ -1117,9 +1113,8 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
     margin: 0 0 0.8rem;
     font-family: $mono;
     font-weight: 500;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--dark);
   }
 
@@ -1172,7 +1167,7 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
   .at-year {
     display: block;
     font-family: $mono;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 0.1em;
     line-height: 1.6;
     color: var(--gray);
@@ -1180,7 +1175,7 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
 
   .at-body p {
     margin: 0.15rem 0 0;
-    font-family: "EB Garamond", serif;
+    font-family: $text;
     font-size: 1.1rem;
     line-height: 1.3;
     color: var(--dark);
@@ -1210,9 +1205,8 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
   border-radius: 4px;
   background: #c1e401;
   font-family: $mono;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: #17130f;
 
   a {
@@ -1233,7 +1227,7 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
   margin: 3rem 0 1.5rem;
   text-align: center;
   font-family: $mono;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.04em;
   color: var(--gray);
 
@@ -1413,7 +1407,7 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
   .tl-year {
     padding-top: 0.2rem;
     font-family: $mono;
-    font-size: 12.5px;
+    font-size: 13px;
     letter-spacing: 0.1em;
     text-align: right;
     color: var(--gray);
@@ -1442,9 +1436,8 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
 
   .tl-current {
     font-family: $mono;
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--tertiary);
   }
 
@@ -1455,14 +1448,14 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
   }
 
   .tl-when {
-    margin: 0.1rem 0 0.7rem;
+    margin: 0.2rem 0 0.7rem;
     font-family: $script;
-    font-size: 1.25rem;
+    font-size: 15px;
     color: var(--script);
 
     span {
       font-family: $mono;
-      font-size: 12px;
+      font-size: 13px;
       color: var(--gray);
     }
   }
@@ -1489,7 +1482,7 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
   .tl-where {
     margin: -0.4rem 0 0.7rem;
     font-family: $mono;
-    font-size: 11.5px;
+    font-size: 13px;
     letter-spacing: 0.04em;
     color: var(--gray);
   }
@@ -1517,9 +1510,8 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
   .tl-projects-head {
     margin: 0;
     font-family: $mono;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -1542,7 +1534,7 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
 
   .tl-project-meta {
     font-family: $mono;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.06em;
     color: var(--gray);
   }
@@ -1553,9 +1545,8 @@ body[data-slug^="tags/"]:has(.site-nav.space-consulting) {
     border-top: 1px solid var(--dark);
     font-family: $mono;
     font-weight: 500;
-    font-size: 11.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
   }
 
   .tl-back {
@@ -1615,7 +1606,7 @@ article a:hover,
   gap: 0.35rem;
   margin: 0 0 1.1rem;
   font-family: $mono;
-  font-size: 11.5px;
+  font-size: 13px;
   letter-spacing: 0.04em;
   color: var(--gray);
 
@@ -1652,9 +1643,8 @@ article a:hover,
   .share-label {
     margin-right: 0.3rem;
     font-family: $mono;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -1665,7 +1655,7 @@ article a:hover,
     background: none;
     color: var(--dark);
     font-family: $mono;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.06em;
     text-decoration: none;
     cursor: pointer;
@@ -1699,14 +1689,16 @@ article a:hover,
     margin: 0.2rem -17.5rem 0.9rem 0;
     padding-left: 0.8rem;
     border-left: 1px solid var(--gray);
-    font-family: $mono;
-    font-size: 11.5px;
-    line-height: 1.5;
+    font-family: $text;
+    font-size: 15px;
+    line-height: 1.45;
     font-weight: 400;
     color: var(--darkgray);
 
     .sidenote-num {
       margin-right: 0.5rem;
+      font-family: $mono;
+      font-size: 12px;
       color: var(--tertiary);
     }
   }
@@ -1731,9 +1723,8 @@ article a:hover,
     border: 1px solid var(--gray);
     border-radius: 999px;
     font-family: $mono;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
     cursor: pointer;
   }
@@ -1769,13 +1760,13 @@ article a:hover,
   margin: 0 0 0.6rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--dark);
-  font-family: "EB Garamond", serif;
+  font-family: $serif;
   font-weight: 400;
   font-size: 1.7rem;
 
   small {
     font-family: $mono;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.06em;
     color: var(--gray);
   }
@@ -1803,8 +1794,9 @@ article a:hover,
   text-decoration: none;
 
   .s-post-title {
-    font-family: "EB Garamond", serif;
-    font-size: 1.2rem;
+    font-family: $serif;
+    font-weight: 500;
+    font-size: 1.5rem;
     line-height: 1.25;
   }
 
@@ -1815,9 +1807,8 @@ article a:hover,
     flex-shrink: 0;
     gap: 0.15rem;
     font-family: $mono;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 }
@@ -1913,9 +1904,8 @@ article a:hover,
     margin: 0;
     padding: 0.5rem 1.1rem;
     font-family: $mono;
-    font-size: 10.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -1942,15 +1932,14 @@ article a:hover,
     .ss-where {
       display: block;
       font-family: $mono;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.01em;
       color: var(--gray);
     }
 
     .ss-title {
       display: block;
-      font-family: "EB Garamond", serif;
+      font-family: $serif;
       font-size: 1.25rem;
       line-height: 1.2;
     }
@@ -2053,9 +2042,8 @@ article a:hover,
   }
 
   .fl-label {
-    font-size: 10.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -2069,7 +2057,7 @@ article a:hover,
       border-radius: 999px;
       background: none;
       font-family: $mono;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--dark);
       cursor: pointer;
 
@@ -2096,7 +2084,7 @@ article a:hover,
       outline: 0;
       background: none;
       font-family: $mono;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--dark);
 
       &::-webkit-search-cancel-button {
@@ -2141,7 +2129,7 @@ article a:hover,
     border-radius: 999px;
     background: none;
     font-family: $mono;
-    font-size: 11px;
+    font-size: 13px;
     color: var(--dark);
     cursor: pointer;
     transition:
@@ -2227,9 +2215,8 @@ body .s-tags a.s-tag {
   color: var(--chip);
   font-family: $mono;
   font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   text-decoration: none;
   transition:
     background 0.2s,
@@ -2502,4 +2489,864 @@ body[data-slug] .cp .s-grid-work .s-work-title {
 .s-post:hover .s-post-thumb,
 .s-row:hover .s-post-thumb {
   transform: scale(1.06);
+}
+
+/* ---------- consulting menu in F3: Hanken Grotesk instead of EB Garamond ---------- */
+.site-nav.space-consulting {
+  .nav-link,
+  .nav-search {
+    font-family: var(--ui-font);
+    font-weight: 400;
+    font-size: 15px;
+  }
+}
+
+@media all and (max-width: 860px) {
+  .site-nav.space-consulting .nav-link {
+    font-family: var(--title-font);
+    font-weight: 300;
+  }
+}
+
+/* ---------- consulting home: K1 with the K2 hero (ConsultingProfile) ---------- */
+// Fonts are F3 (--title-font Spectral Light, --ui-font Hanken Grotesk), set in the consulting block.
+$cpk-indigo: #0a0773;
+$cpk-wide: 1160px;
+
+#quartz-body .cp.cpk {
+  max-width: none !important;
+  padding: 0 0 1rem !important;
+}
+
+#quartz-body .cpk {
+  > section:not(.cpk-hero):not(.cpk-cta) {
+    max-width: $cpk-wide;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    box-sizing: border-box;
+  }
+
+  h2 {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(2rem, 3.6vw, 2.9rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--dark);
+  }
+
+  .cpk-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.8rem 1.35rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-family: var(--ui-font);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+
+    &.is-lime {
+      background: #c1e401;
+      color: #17130f;
+
+      &:hover {
+        background: #fcfcfc;
+      }
+    }
+
+    &.is-ghost {
+      border-color: rgba(252, 252, 252, 0.6);
+      color: #fcfcfc;
+
+      &:hover {
+        border-color: #fcfcfc;
+        background: rgba(252, 252, 252, 0.08);
+      }
+    }
+  }
+
+  // The band: indigo, René's photograph in black and white under an indigo wash.
+  .cpk-hero {
+    position: relative;
+    overflow: hidden;
+    background: $cpk-indigo;
+    color: #fcfcfc;
+    padding: clamp(4rem, 9vw, 7.5rem) max(40px, calc((100% - #{$cpk-wide}) / 2 + 40px))
+      clamp(3.5rem, 6vw, 5rem);
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        90deg,
+        rgba(10, 7, 115, 0.95) 0%,
+        rgba(10, 7, 115, 0.86) 55%,
+        rgba(10, 7, 115, 0.7) 100%
+      );
+    }
+  }
+
+  .cpk-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    border-radius: 0;
+    filter: grayscale(1) contrast(1.15);
+  }
+
+  .cpk-hero-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+    gap: 1.6rem 4rem;
+    align-items: end;
+  }
+
+  .cpk-tag {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 14px;
+    color: #c9cbeb;
+  }
+
+  .cpk-title {
+    grid-column: 1;
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(2.6rem, 6vw, 4.9rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: #fcfcfc;
+  }
+
+  .cpk-lede {
+    grid-column: 2;
+    margin: 0;
+    font-family: var(--text-font);
+    font-weight: 300;
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: #e9e8f4;
+  }
+
+  .cpk-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0.8rem 0 0;
+  }
+
+  .cpk-credit {
+    position: absolute;
+    right: max(16px, calc((100% - #{$cpk-wide}) / 2 + 40px));
+    bottom: 14px;
+    z-index: 2;
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 12.5px;
+    color: rgba(252, 252, 252, 0.72);
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  // Currently: three facts in a row.
+  .cpk-now {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 2rem;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--lightgray);
+    }
+
+    span {
+      font-family: var(--ui-font);
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    strong {
+      font-family: var(--ui-font);
+      font-weight: 500;
+      font-size: 15.5px;
+      line-height: 1.4;
+      color: var(--dark);
+    }
+  }
+
+  // The page's own text, beside its tagline.
+  .cpk-about {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 2rem 4rem;
+    align-items: start;
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+
+  .cpk-statement {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--dark);
+  }
+
+  .cpk-about-text {
+    p {
+      margin: 0 0 1rem;
+      font-family: var(--text-font);
+      font-weight: 400;
+      font-size: 1.02rem;
+      line-height: 1.7;
+      color: #3d3832;
+    }
+
+    .tag-list,
+    .page-listing {
+      display: none;
+    }
+  }
+
+  // Three practices instead of ten chips.
+  .cpk-practices {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 2.5rem;
+    margin-top: clamp(3rem, 6vw, 5rem);
+
+    h2 {
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--dark);
+      font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    }
+
+    ul {
+      margin: 0.9rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin: 0;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--lightgray);
+      font-family: var(--ui-font);
+      font-size: 15px;
+      line-height: 1.45;
+      color: #3d3832;
+    }
+  }
+
+  .cpk-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+
+    a {
+      font-family: var(--ui-font);
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--secondary);
+      white-space: nowrap;
+    }
+  }
+
+  .cpk-projects,
+  .cpk-insights {
+    margin-top: clamp(3.5rem, 7vw, 5.5rem);
+    scroll-margin-top: 90px;
+  }
+
+  // Experience in five lines.
+  .cpk-exp {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 1.5rem 3rem;
+    margin-top: clamp(3.5rem, 7vw, 5.5rem);
+  }
+
+  .cpk-exp-row {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr) 210px;
+    gap: 0.3rem 1.2rem;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--lightgray);
+    font-family: var(--ui-font);
+    font-size: 15px;
+    line-height: 1.4;
+
+    &:first-child {
+      border-top-color: var(--dark);
+    }
+
+    &:last-of-type {
+      border-bottom: 1px solid var(--lightgray);
+    }
+  }
+
+  .cpk-exp-when {
+    color: var(--gray);
+  }
+
+  .cpk-exp-role {
+    font-weight: 500;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cpk-exp-place {
+    color: var(--darkgray);
+  }
+
+  .cpk-exp-more {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: var(--ui-font);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--secondary);
+  }
+
+  // Let's talk: an indigo band with the lime button.
+  .cpk-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    max-width: $cpk-wide - 80px;
+    margin: clamp(3.5rem, 7vw, 5.5rem) auto 3rem;
+    padding: 2.6rem 3rem;
+    box-sizing: border-box;
+    background: $cpk-indigo;
+
+    h2 {
+      color: #fcfcfc;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+    }
+  }
+
+  .cpk-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+  }
+
+  @media all and (max-width: 1240px) {
+    .cpk-cta {
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+  }
+
+  @media all and (max-width: 860px) {
+    .cpk-hero-inner,
+    .cpk-about,
+    .cpk-exp {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cpk-lede {
+      grid-column: 1;
+    }
+
+    .cpk-now,
+    .cpk-practices {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cpk-now > div {
+      padding: 0.8rem 0;
+    }
+
+    .cpk-exp-row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cpk-exp-role {
+      white-space: normal;
+    }
+  }
+
+  @media all and (max-width: 640px) {
+    > section:not(.cpk-hero):not(.cpk-cta) {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .cpk-hero {
+      padding: 3rem 16px 3.5rem;
+    }
+
+    .cpk-credit {
+      right: 16px;
+    }
+
+    .cpk-cta {
+      margin-left: 16px;
+      margin-right: 16px;
+      padding: 2rem 1.4rem;
+    }
+  }
+}
+
+/* ---------- photo credits ("Photograph: René Rivas") ---------- */
+.photo-credit {
+  margin: 0.4rem 0 0;
+  font-family: var(--ui-font);
+  font-size: 13px;
+  color: var(--gray);
+
+  a {
+    color: inherit;
+    background: none;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+.s-hero-piece .s-hero-credit {
+  margin: 0.5rem 0 0;
+  text-align: right;
+}
+
+/* ---------- writing home (W5): a line, the newest piece large, then rows by genre ---------- */
+.w5 {
+  .w5-intro {
+    padding: clamp(2.5rem, 6vw, 4rem) 0 0;
+    text-align: center;
+  }
+
+  .w5-line {
+    max-width: 860px;
+    margin: 0 auto;
+    font-family: var(--title-font);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    line-height: 1.12;
+    color: var(--dark);
+  }
+
+  // The newest piece, large, its title over the image.
+  .w5-feature {
+    position: relative;
+    display: block;
+    height: clamp(300px, 46vw, 480px);
+    margin: clamp(2rem, 5vw, 3.2rem) 0 0;
+    overflow: hidden;
+    background: var(--tile-1);
+    color: #fcfcfc;
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      object-fit: cover;
+      object-position: 50% 40%;
+      border-radius: 0;
+      transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(23, 19, 15, 0.62), rgba(23, 19, 15, 0) 62%);
+    }
+
+    &:hover img {
+      transform: scale(1.03);
+    }
+  }
+
+  .w5-feature-text {
+    position: absolute;
+    left: clamp(1.2rem, 3.5vw, 2.8rem);
+    right: clamp(1.2rem, 3.5vw, 2.8rem);
+    bottom: clamp(1.2rem, 3vw, 2.3rem);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .w5-feature-kicker {
+    font-family: var(--ui-font);
+    font-size: 14px;
+    color: #fcfcfc;
+  }
+
+  .w5-feature-title {
+    align-self: flex-start;
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    line-height: 0.98;
+    color: #fcfcfc;
+    background-image: linear-gradient(transparent 82%, #c1e401 82%, #c1e401 92%, transparent 92%);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.55s cubic-bezier(0.22, 0.8, 0.2, 1);
+  }
+
+  .w5-feature:hover .w5-feature-title {
+    background-size: 100% 100%;
+  }
+
+  .w5-credit {
+    text-align: right;
+  }
+
+  // Genres: the name and a link on the left, the pieces on the right.
+  .w5-genres {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.2rem, 4vw, 3rem);
+    margin: clamp(2.5rem, 5vw, 3.5rem) 0 clamp(3.5rem, 7vw, 5rem);
+  }
+
+  .w5-genre {
+    display: grid;
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+    gap: 1rem 3rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--dark);
+  }
+
+  .w5-genre-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    h2 {
+      margin: 0;
+      font-family: var(--title-font);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 3.6vw, 2.9rem);
+      line-height: 1;
+      color: var(--dark);
+    }
+
+    a {
+      align-self: flex-start;
+      font-family: var(--ui-font);
+      font-size: 13px;
+      color: var(--gray);
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--dark);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  .w5-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .w5-row {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) minmax(0, 200px);
+    gap: 1.3rem;
+    align-items: center;
+    padding: 0.2rem 0 1rem;
+    color: var(--dark);
+
+    & + .w5-row {
+      padding-top: 1rem;
+      border-top: 1px solid var(--lightgray);
+    }
+  }
+
+  .w5-thumb {
+    display: block;
+    width: 96px;
+    height: 96px;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      object-fit: cover;
+      border-radius: 0;
+      transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    &.is-blank {
+      display: flex;
+      align-items: flex-end;
+      padding: 9px;
+      box-sizing: border-box;
+    }
+  }
+
+  .w5-row:hover .w5-thumb img {
+    transform: scale(1.06);
+  }
+
+  .w5-thumb-title {
+    font-family: var(--title-font);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1;
+    color: #c1e401;
+  }
+
+  .w5-row-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .w5-row-title {
+    font-family: var(--title-font);
+    font-weight: 500;
+    font-size: 1.65rem;
+    line-height: 1.1;
+  }
+
+  .w5-row-quote {
+    font-family: var(--text-font);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: var(--darkgray);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .w5-row-meta {
+    font-family: var(--ui-font);
+    font-size: 13px;
+    text-align: right;
+    color: var(--gray);
+    transition: color 0.4s;
+  }
+
+  .w5-row:hover .w5-row-meta {
+    color: var(--dark);
+  }
+
+  .w5-notes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  // Newsletters: three columns of text (W5), the name underlined in lime on hover.
+  .w5-news {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+    margin: clamp(3.5rem, 7vw, 5rem) 0;
+  }
+
+  .w5-news-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--dark);
+    color: var(--dark);
+  }
+
+  .w5-news-kicker {
+    font-family: var(--ui-font);
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .w5-news-name {
+    align-self: flex-start;
+    font-family: var(--title-font);
+    font-size: clamp(1.8rem, 2.8vw, 2.2rem);
+    line-height: 1.05;
+    background-image: linear-gradient(transparent 20%, #c1e401 20%, #c1e401 94%, transparent 94%);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.55s cubic-bezier(0.22, 0.8, 0.2, 1);
+  }
+
+  .w5-news-item:hover .w5-news-name {
+    background-size: 100% 100%;
+  }
+
+  .w5-news-blurb {
+    font-family: var(--text-font);
+    font-size: 1.08rem;
+    line-height: 1.5;
+    color: var(--darkgray);
+  }
+
+  @media all and (max-width: 860px) {
+    .w5-genre {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .w5-row {
+      grid-template-columns: 72px minmax(0, 1fr);
+
+      .w5-thumb {
+        width: 72px;
+        height: 72px;
+      }
+    }
+
+    .w5-row-meta {
+      grid-column: 2;
+      text-align: left;
+    }
+
+    .w5-notes,
+    .w5-news {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .w5-feature img,
+    .w5-feature-title,
+    .w5-thumb img,
+    .w5-news-name {
+      transition: none;
+    }
+  }
+}
+
+// The contents-list hover (step forward, lime arrow, line drawn under) on the genre rows too.
+.w5-row {
+  position: relative;
+  transition: transform 0.2s ease-in;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 0;
+    height: 1px;
+    background: var(--dark);
+    transition: width 0.35s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateX(8px);
+
+    &::after {
+      width: 100%;
+    }
+
+    .s-go {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---------- writing masthead (W2 style): search left, logo centred, menu centred below ---------- */
+@media all and (min-width: 861px) {
+  .site-nav.space-writer {
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 18px;
+    padding-bottom: 12px;
+
+    .nav-logo {
+      font-size: 2.5rem;
+    }
+
+    .nav-menu {
+      flex: none;
+      justify-content: center;
+
+      > .nav-link:first-child {
+        margin-left: 0;
+      }
+    }
+
+    // Search on the left, Contact, ES and Substack on the right, level with the logo.
+    .nav-end {
+      position: absolute;
+      top: 26px;
+      left: clamp(16px, 3vw, 40px);
+      right: clamp(16px, 3vw, 40px);
+      justify-content: flex-end;
+      margin: 0;
+      pointer-events: none;
+
+      > * {
+        pointer-events: auto;
+      }
+
+      > .nav-search {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+// Filter bar: the genre a page was opened with (?genre=…), with a × to show every genre again.
+.fl-genre {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.6rem;
+  padding: 0.22rem 0.7rem;
+  border: 1px solid var(--dark);
+  border-radius: 999px;
+  background: var(--dark);
+  color: #c1e401;
+  font-family: var(--ui-font);
+  font-size: 13px;
+  cursor: pointer;
+
+  &[hidden] {
+    display: none;
+  }
 }

@@ -13,6 +13,7 @@ import { Crumbs } from "./Crumbs"
 import { ShareBar } from "./ShareBar"
 import { Sidenotes } from "./Sidenotes"
 import { SandboxNote, SandboxPage } from "./Sandbox"
+import { PhotoCredit } from "./PhotoCredit"
 
 const pageUrl = (baseUrl: string | undefined, slug: string | undefined) =>
   `https://${baseUrl ?? "nataliagsarmiento.com"}/${(slug ?? "").replace(/\/index$/, "").replace(/^index$/, "")}`
@@ -36,6 +37,7 @@ function PieceHeader({ componentData }: Pick<PageFrameProps, "componentData">) {
         {piece?.year && <span class="s-fact">{piece.year}</span>}
         {piece?.role && <span class="s-fact">{piece.role}</span>}
       </p>
+      <PhotoCredit src={piece?.cover} lang={lang} />
       {piece && piece.tags.length > 0 && (
         <p class="s-tags">
           {piece.tags.map((t) => (
@@ -99,6 +101,7 @@ function HeroPiece({
     <>
       <div class="center s-hero-piece">
         {piece?.cover && <img class="s-hero-img" src={piece.cover} alt="" />}
+        <PhotoCredit src={piece?.cover} lang={lang} class="s-hero-credit" />
         <div class="s-hero-body">
           {sandbox && <SandboxNote lang={lang} />}
           <Crumbs slug={slug} title={title} />

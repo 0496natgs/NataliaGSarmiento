@@ -30,4 +30,4 @@ My philosophy is simple: learn from others, learn from yourself, and share what 
 
 My work in digital transformation, behavioral science and service design lives in its own space: [Consulting →](/consulting).
 
-[[writing|Writing]] · [[work|Work]] · [[photo-video|Photo & Video]] · [[visual-notes|Visual Notes]]
+[[writing|Writing]] · [[work|Work]] · [[visual-notes|Visual Notes]]

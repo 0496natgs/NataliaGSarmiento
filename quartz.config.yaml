@@ -16,9 +16,9 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: PT Serif
-      body: PT Serif
-      code: IBM Plex Mono
+      header: Cormorant Garamond
+      body: EB Garamond
+      code: Jost
     colors:
       lightMode:
         light: "#fcfcfc"
@@ -114,20 +114,20 @@ plugins:
     options:
       useThemeFonts: false
       fontOrigin: googleFonts
-      # Socratica uses Tiempos (commercial, not bundled) for headings; PT Serif is the free stand-in.
+      # The site's own fonts are loaded in SocraticaFrame.tsx (SITE_FONTS); these are the fallbacks.
       header:
-        name: PT Serif
-        weights: [400, 700]
+        name: Cormorant Garamond
+        weights: [400]
       title:
-        name: PT Serif
-        weights: [400, 700]
+        name: Cormorant Garamond
+        weights: [400]
       body:
-        name: PT Serif
-        weights: [400, 600, 700]
+        name: EB Garamond
+        weights: [400, 500]
         includeItalic: true
       code:
-        name: IBM Plex Mono
-        weights: [400, 600]
+        name: Jost
+        weights: [400]
   - source: "@quartz-themes/core"
     enabled: false
     options:

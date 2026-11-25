@@ -26,6 +26,8 @@ export interface Piece {
   /** For published work: the magazine or outlet, and the issue. */
   publication?: string
   issue?: string
+  /** Genre id (see GENRES in sectionsConfig.ts): flash, poetry, essays, fiction, visual-notes. */
+  genre?: string
   /** Manual position (1 = first). Pieces with an order come before those sorted by date. */
   order?: number
   /** Extra images (e.g. a gallery of visual notes); each becomes a tile in photo grids. */
@@ -142,6 +144,7 @@ export function getPieces(
         publication: fm.publication ? String(fm.publication) : undefined,
         issue: fm.issue ? String(fm.issue) : undefined,
         order: typeof fm.order === "number" ? fm.order : undefined,
+        genre: genreOf(fm.genre, def.slug, fm.form, String(fm.category ?? "")),
         images: Array.isArray(fm.images) ? fm.images.map(String) : gallery,
         href: external ?? urlFor(baseSlug(f.slug), langOf(f.slug)),
         untranslated: lang === "es" && !external && langOf(f.slug) === "en",
@@ -177,9 +180,42 @@ export const pieceYear = (piece: Piece, lang: Lang = "en"): string =>
     : (piece.year ?? (lang === "es" ? "Sin fecha" : "Undated"))
 
 /** The data attributes that let the filter bar (Filters.tsx) show or hide a card, tile or row. */
+const GENRE_WORDS: Record<string, string[]> = {
+  flash: ["flash", "flash fiction", "minificción", "minificcion"],
+  poetry: ["poem", "poems", "poetry", "poema", "poemas", "poesía", "poesia"],
+  essays: ["essay", "essays", "nonfiction", "non-fiction", "ensayo", "ensayos", "no ficción"],
+  fiction: [
+    "fiction",
+    "story",
+    "stories",
+    "short story",
+    "ficción",
+    "ficcion",
+    "cuento",
+    "cuentos",
+  ],
+}
+
+/** The genre of a piece: `genre:` in its front matter, else its section, category or form. */
+export function genreOf(
+  genre: unknown,
+  section: string,
+  form: unknown,
+  category: string,
+): string | undefined {
+  if (genre !== undefined && genre !== null && String(genre).trim())
+    return String(genre).trim().toLowerCase()
+  if (section === "visual-notes") return "visual-notes"
+  const c = category.trim().toLowerCase()
+  for (const [id, words] of Object.entries(GENRE_WORDS)) if (words.includes(c)) return id
+  if (form === "poem") return "poetry"
+  return undefined
+}
+
 export function filterAttrs(piece: Piece, lang: Lang = "en") {
   return {
     "data-piece": piece.slug,
+    "data-genre": piece.genre ?? "",
     "data-category": categoryId(piece.category),
     "data-tags": pieceTags(piece).join("|"),
     "data-year": pieceYear(piece, lang),

@@ -12,11 +12,11 @@ import { baseSlug, langOf } from "../sections/i18n"
 import { SpaceLink } from "../sections/SpaceLink"
 import { MARQUEE_PHRASES } from "../socratica/siteContent"
 
-// Fonts for the landing page and the sections: DM Serif Display for titles, EB Garamond and Caveat
-// for the manuscript voice (body text, handwritten dates and logo), Spline Sans Mono for the menu,
-// captions and small print (olhalazarieva.com, tour-kyrgyzstan.com), Bricolage Grotesque for UI text.
+// Fonts. Writing site (F2): Cormorant Garamond for titles and the logo, EB Garamond for reading and
+// the menu, Jost for labels and dates (sentence case). Consulting site (F3): Spectral Light for titles,
+// Hanken Grotesk for text and UI. Spectral is loaded at 300 only, so every title there is light.
 const SITE_FONTS =
-  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=DM+Serif+Display:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Spline+Sans+Mono:wght@400;500&display=swap"
+  "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:wght@300;400;500;600&family=Jost:wght@400;500&family=Spectral:ital,wght@0,300;1,300&display=swap"
 
 const slug = (props: { componentData: { fileData: { slug?: string } } }) =>
   props.componentData.fileData.slug

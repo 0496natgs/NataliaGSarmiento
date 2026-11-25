@@ -14,7 +14,7 @@
 // untouched.
 
 $lime: #c1e401;
-$mono: "Spline Sans Mono", "IBM Plex Mono", monospace;
+$mono: var(--ui-font);
 $cream-text: #f0f2bd;
 
 $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es/'], body[data-slug^='writing/'], body[data-slug^='photo-video/'], body[data-slug^='visual-notes/'], body[data-slug^='work/'], body[data-slug='about'], body[data-slug='contact'], body[data-slug='ai'], body[data-slug='sandbox'], body[data-slug^='tags/'], body[data-slug='consulting'], body[data-slug^='consulting/']";
@@ -45,10 +45,16 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   --chip-3: #17130f;
   --chip-4: #17130f;
   --chip-text-on: #c1e401;
-  --headerFont: "EB Garamond", serif;
-  --bodyFont: "EB Garamond", "PT Serif", serif;
-  --uiFont: "Bricolage Grotesque", system-ui, sans-serif;
-  --codeFont: "Spline Sans Mono", "IBM Plex Mono", monospace;
+  // Fonts (F2): Cormorant Garamond for titles, EB Garamond for reading, Jost for labels and dates,
+  // always in sentence case. The menu stays in EB Garamond. The consulting site swaps these three
+  // for F3 (Spectral Light and Hanken Grotesk) in site.scss.
+  --title-font: "Cormorant Garamond", "EB Garamond", serif;
+  --text-font: "EB Garamond", serif;
+  --ui-font: "Jost", system-ui, sans-serif;
+  --headerFont: var(--title-font);
+  --bodyFont: var(--text-font);
+  --uiFont: var(--ui-font);
+  --codeFont: var(--ui-font);
   background-color: var(--light);
   background-image: none !important;
 
@@ -128,8 +134,8 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 }
 
 .s-script-date {
-  font-family: "Caveat", cursive;
-  font-size: 1.05rem;
+  font-family: var(--ui-font);
+  font-size: 14px;
   color: var(--script, var(--darkgray));
 }
 
@@ -143,9 +149,8 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   .s-eyebrow {
     margin: 0 0 0.6rem;
     font-family: var(--codeFont);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -161,15 +166,15 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   .s-index-intro {
     max-width: 38rem;
     margin: 1.5rem 0 2.5rem;
-    font-family: var(--codeFont);
-    font-size: 12px;
-    line-height: 1.7;
+    font-family: var(--text-font);
+    font-size: 1.15rem;
+    line-height: 1.55;
 
     p,
     article {
-      font-family: var(--codeFont);
-      font-size: 12px;
-      line-height: 1.7;
+      font-family: var(--text-font);
+      font-size: 1.15rem;
+      line-height: 1.55;
       margin: 0 0 0.8rem;
     }
   }
@@ -213,7 +218,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
   .s-empty {
     font-family: var(--codeFont);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--gray);
   }
 }
@@ -297,7 +302,6 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     color: #212121;
     font-family: var(--uiFont);
     font-size: 13px;
-    text-transform: uppercase;
   }
 
   .s-badge-ext {
@@ -313,10 +317,9 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     position: relative;
     z-index: 2;
     margin: 0 0 0.55rem;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-family: var(--ui-font);
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: inherit;
     opacity: 0.85;
   }
@@ -326,7 +329,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     z-index: 2;
     margin: 0;
     max-width: 85%;
-    font-family: "Instrument Serif", "PT Serif", serif;
+    font-family: var(--title-font);
     font-style: italic;
     font-weight: 400;
     font-size: clamp(1.9rem, 2.7vw, 2.9rem);
@@ -349,9 +352,10 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     padding: 2rem 0.8rem 0.7rem;
     background: linear-gradient(transparent, rgba(23, 19, 15, 0.78));
     color: #fff;
-    font-family: "Caveat", cursive;
-    font-size: 1.25rem;
-    line-height: 1.1;
+    font-family: var(--text-font);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.2;
     opacity: 0;
     transition: opacity 0.2s;
   }
@@ -362,7 +366,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
   .s-caption-title {
     margin: 0 0 0.25rem;
-    font-family: "EB Garamond", serif;
+    font-family: var(--title-font);
     font-weight: 400;
     font-size: 1.45rem;
     line-height: 1.15;
@@ -372,17 +376,17 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   .s-caption-meta {
     margin: 0 0 0.5rem;
     font-family: var(--codeFont);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
   .s-caption-desc {
     margin: 0;
-    font-family: var(--codeFont);
-    font-size: 12px;
-    line-height: 1.6;
+    font-family: var(--text-font);
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.45;
     color: var(--darkgray);
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -441,8 +445,8 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     margin: 0;
     font-family: var(--headerFont);
     font-weight: 400;
-    font-size: 2.1rem;
-    line-height: 1.15;
+    font-size: clamp(2.4rem, 4.4vw, 3.2rem);
+    line-height: 1.05;
     color: var(--dark);
   }
 
@@ -459,14 +463,12 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     background: $lime;
     color: #212121;
     font-family: var(--codeFont);
-    font-size: 11px;
-    text-transform: uppercase;
+    font-size: 13px;
   }
 
   .s-fact {
     font-family: var(--codeFont);
-    font-size: 11px;
-    text-transform: uppercase;
+    font-size: 13px;
     color: var(--gray);
   }
 
@@ -490,7 +492,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
   gap: 1.5rem;
   margin-top: 1.5rem;
   font-family: var(--codeFont);
-  font-size: 12px;
+  font-size: 13px;
 
   a {
     color: var(--secondary);
@@ -529,9 +531,8 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     align-items: center;
     margin: 1.2rem 0 0.8rem;
     font-family: $mono;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
@@ -543,7 +544,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
   .s-hero-title {
     margin: 0;
-    font-family: "EB Garamond", serif;
+    font-family: var(--title-font);
     font-weight: 400;
     font-size: clamp(2.6rem, 6vw, 4.4rem);
     line-height: 1.02;
@@ -583,14 +584,13 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     margin: 0;
     font-family: var(--uiFont);
     font-size: 13px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0.01em;
     color: var(--darkgray);
   }
 
   .s-poem-author {
     margin: 0.3rem 0 0;
-    font-family: "EB Garamond", serif;
+    font-family: var(--title-font);
     font-style: italic;
     font-size: 1.45rem;
     color: var(--dark);
@@ -598,7 +598,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
   .s-poem-title {
     margin: 0.4rem 0 3rem;
-    font-family: "EB Garamond", serif;
+    font-family: var(--title-font);
     font-weight: 500;
     font-size: 2.1rem;
     color: var(--dark);
@@ -705,7 +705,7 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
   .s-work-title {
     margin: 1.1rem 0 0.3rem;
-    font-family: "EB Garamond", serif;
+    font-family: var(--title-font);
     font-weight: 400;
     font-size: 1.9rem;
     line-height: 1.15;
@@ -716,16 +716,16 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
     margin: 0;
     font-family: var(--uiFont);
     font-size: 14px;
-    text-transform: uppercase;
     color: var(--gray);
   }
 
   .s-work-desc {
     max-width: 30rem;
     margin: 0.8rem 0 0;
-    font-family: var(--codeFont);
-    font-size: 12px;
-    line-height: 1.6;
+    font-family: var(--text-font);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.45;
     color: var(--darkgray);
   }
 }
@@ -764,14 +764,13 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
   .cv-kicker {
     font-family: var(--codeFont);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 13px;
+    letter-spacing: 0.01em;
     color: var(--gray);
   }
 
   .cv-title {
-    font-family: "EB Garamond", serif;
+    font-family: var(--title-font);
     font-weight: 400;
     font-size: 1.7rem;
     line-height: 1.1;
@@ -804,5 +803,26 @@ $in-section: "body[data-slug='index'], body[data-slug='es'], body[data-slug^='es
 
   .graph-outer {
     height: 360px;
+  }
+}
+
+// Inside card and list links, labels and dates keep their own weight instead of the link's bold
+// (zero specificity, so any rule that sets a weight still wins).
+:where(#{$in-section}) :where(a) :where(p, span, time, small, em) {
+  font-weight: 400;
+}
+
+// Headings inside a piece: the title font at a real weight (Cormorant has no bold; Quartz asks for 700).
+// Low specificity, so the consulting pages' own small-label headings (.cp-page-body h2) still win.
+:where(#{$in-section}) article {
+  :is(h2, h3, h4) {
+    font-family: var(--title-font);
+    font-weight: 500;
+  }
+  :is(h2) {
+    font-size: 1.75rem;
+  }
+  :is(h3) {
+    font-size: 1.4rem;
   }
 }

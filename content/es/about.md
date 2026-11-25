@@ -31,4 +31,4 @@ Mi filosofía es sencilla: aprende de otros, aprende de ti y comparte lo que des
 
 Mi trabajo en transformación digital, ciencia conductual y diseño de servicios vive en su propio espacio: [Consultoría →](/es/consulting).
 
-[[es/writing|Escritura]] · [[es/work|Trabajo]] · [[es/photo-video|Foto y video]] · [[es/visual-notes|Notas visuales]]
+[[es/writing|Escritura]] · [[es/work|Trabajo]] · [[es/visual-notes|Notas visuales]]
