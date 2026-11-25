@@ -34,6 +34,19 @@ export const PHOTO_CREDITS: { folder: string; name: string; url: string }[] = [
   { folder: "photos/rene-rivas/", name: "René Rivas", url: "https://renerivas.xyz/" },
 ]
 
+/**
+ * Genres, in the order the home page shows them. A piece's genre comes from `genre:` in its front
+ * matter, or else from its category or form (Flash, poems, essays/nonfiction, fiction/stories);
+ * everything in Visual Notes is "visual-notes". A genre with no pieces is left out.
+ */
+export const GENRES: { id: string; title: string; title_es: string }[] = [
+  { id: "flash", title: "Flash", title_es: "Minificción" },
+  { id: "poetry", title: "Poetry", title_es: "Poesía" },
+  { id: "essays", title: "Essays", title_es: "Ensayos" },
+  { id: "fiction", title: "Fiction", title_es: "Ficción" },
+  { id: "visual-notes", title: "Visual notes", title_es: "Notas visuales" },
+]
+
 export const photoCreditFor = (src?: string) =>
   src ? PHOTO_CREDITS.find((c) => src.includes(c.folder)) : undefined
 

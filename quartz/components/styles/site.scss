@@ -2788,75 +2788,6 @@ $cpk-wide: 1160px;
     scroll-margin-top: 90px;
   }
 
-  .cpk-cards {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2rem 24px;
-  }
-
-  .cpk-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    color: var(--dark);
-  }
-
-  .cpk-card-media {
-    display: block;
-    aspect-ratio: 5 / 4;
-    overflow: hidden;
-    background: #a7aed9;
-
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      object-fit: cover;
-      object-position: top;
-      border-radius: 0;
-      transition: transform 0.6s $ease;
-    }
-  }
-
-  .cpk-card:hover .cpk-card-media img {
-    transform: scale(1.03);
-  }
-
-  .cpk-card-blank {
-    display: flex;
-    align-items: flex-end;
-    height: 100%;
-    padding: 1rem;
-    box-sizing: border-box;
-    font-family: var(--title-font);
-    font-style: italic;
-    font-weight: 300;
-    font-size: 1.8rem;
-    line-height: 1;
-    color: $cpk-indigo;
-  }
-
-  .cpk-card-kicker {
-    margin-top: 0.35rem;
-    font-family: var(--ui-font);
-    font-size: 13px;
-    color: var(--secondary);
-  }
-
-  .cpk-card-title {
-    font-family: var(--title-font);
-    font-weight: 300;
-    font-size: 1.55rem;
-    line-height: 1.12;
-  }
-
-  .cpk-card:hover .cpk-card-title {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-  }
-
   // Experience in five lines.
   .cpk-exp {
     display: grid;
@@ -2954,8 +2885,7 @@ $cpk-wide: 1160px;
     }
 
     .cpk-now,
-    .cpk-practices,
-    .cpk-cards {
+    .cpk-practices {
       grid-template-columns: minmax(0, 1fr);
     }
 
@@ -3012,4 +2942,411 @@ $cpk-wide: 1160px;
 .s-hero-piece .s-hero-credit {
   margin: 0.5rem 0 0;
   text-align: right;
+}
+
+/* ---------- writing home (W5): a line, the newest piece large, then rows by genre ---------- */
+.w5 {
+  .w5-intro {
+    padding: clamp(2.5rem, 6vw, 4rem) 0 0;
+    text-align: center;
+  }
+
+  .w5-line {
+    max-width: 860px;
+    margin: 0 auto;
+    font-family: var(--title-font);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    line-height: 1.12;
+    color: var(--dark);
+  }
+
+  // The newest piece, large, its title over the image.
+  .w5-feature {
+    position: relative;
+    display: block;
+    height: clamp(300px, 46vw, 480px);
+    margin: clamp(2rem, 5vw, 3.2rem) 0 0;
+    overflow: hidden;
+    background: var(--tile-1);
+    color: #fcfcfc;
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      object-fit: cover;
+      object-position: 50% 40%;
+      border-radius: 0;
+      transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(23, 19, 15, 0.62), rgba(23, 19, 15, 0) 62%);
+    }
+
+    &:hover img {
+      transform: scale(1.03);
+    }
+  }
+
+  .w5-feature-text {
+    position: absolute;
+    left: clamp(1.2rem, 3.5vw, 2.8rem);
+    right: clamp(1.2rem, 3.5vw, 2.8rem);
+    bottom: clamp(1.2rem, 3vw, 2.3rem);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .w5-feature-kicker {
+    font-family: var(--ui-font);
+    font-size: 14px;
+    color: #fcfcfc;
+  }
+
+  .w5-feature-title {
+    align-self: flex-start;
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    line-height: 0.98;
+    color: #fcfcfc;
+    background-image: linear-gradient(transparent 82%, #c1e401 82%, #c1e401 92%, transparent 92%);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.55s cubic-bezier(0.22, 0.8, 0.2, 1);
+  }
+
+  .w5-feature:hover .w5-feature-title {
+    background-size: 100% 100%;
+  }
+
+  .w5-credit {
+    text-align: right;
+  }
+
+  // Genres: the name and a link on the left, the pieces on the right.
+  .w5-genres {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.2rem, 4vw, 3rem);
+    margin: clamp(2.5rem, 5vw, 3.5rem) 0 clamp(3.5rem, 7vw, 5rem);
+  }
+
+  .w5-genre {
+    display: grid;
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+    gap: 1rem 3rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--dark);
+  }
+
+  .w5-genre-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    h2 {
+      margin: 0;
+      font-family: var(--title-font);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 3.6vw, 2.9rem);
+      line-height: 1;
+      color: var(--dark);
+    }
+
+    a {
+      align-self: flex-start;
+      font-family: var(--ui-font);
+      font-size: 13px;
+      color: var(--gray);
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--dark);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  .w5-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .w5-row {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) minmax(0, 200px);
+    gap: 1.3rem;
+    align-items: center;
+    padding: 0.2rem 0 1rem;
+    color: var(--dark);
+
+    & + .w5-row {
+      padding-top: 1rem;
+      border-top: 1px solid var(--lightgray);
+    }
+  }
+
+  .w5-thumb {
+    display: block;
+    width: 96px;
+    height: 96px;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      object-fit: cover;
+      border-radius: 0;
+      transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    &.is-blank {
+      display: flex;
+      align-items: flex-end;
+      padding: 9px;
+      box-sizing: border-box;
+    }
+  }
+
+  .w5-row:hover .w5-thumb img {
+    transform: scale(1.06);
+  }
+
+  .w5-thumb-title {
+    font-family: var(--title-font);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1;
+    color: #c1e401;
+  }
+
+  .w5-row-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .w5-row-title {
+    font-family: var(--title-font);
+    font-weight: 500;
+    font-size: 1.65rem;
+    line-height: 1.1;
+  }
+
+  .w5-row-quote {
+    font-family: var(--text-font);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: var(--darkgray);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .w5-row-meta {
+    font-family: var(--ui-font);
+    font-size: 13px;
+    text-align: right;
+    color: var(--gray);
+    transition: color 0.4s;
+  }
+
+  .w5-row:hover .w5-row-meta {
+    color: var(--dark);
+  }
+
+  .w5-notes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  // Newsletters: three columns of text (W5), the name underlined in lime on hover.
+  .w5-news {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+    margin: clamp(3.5rem, 7vw, 5rem) 0;
+  }
+
+  .w5-news-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--dark);
+    color: var(--dark);
+  }
+
+  .w5-news-kicker {
+    font-family: var(--ui-font);
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .w5-news-name {
+    align-self: flex-start;
+    font-family: var(--title-font);
+    font-size: clamp(1.8rem, 2.8vw, 2.2rem);
+    line-height: 1.05;
+    background-image: linear-gradient(transparent 20%, #c1e401 20%, #c1e401 94%, transparent 94%);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.55s cubic-bezier(0.22, 0.8, 0.2, 1);
+  }
+
+  .w5-news-item:hover .w5-news-name {
+    background-size: 100% 100%;
+  }
+
+  .w5-news-blurb {
+    font-family: var(--text-font);
+    font-size: 1.08rem;
+    line-height: 1.5;
+    color: var(--darkgray);
+  }
+
+  @media all and (max-width: 860px) {
+    .w5-genre {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .w5-row {
+      grid-template-columns: 72px minmax(0, 1fr);
+
+      .w5-thumb {
+        width: 72px;
+        height: 72px;
+      }
+    }
+
+    .w5-row-meta {
+      grid-column: 2;
+      text-align: left;
+    }
+
+    .w5-notes,
+    .w5-news {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .w5-feature img,
+    .w5-feature-title,
+    .w5-thumb img,
+    .w5-news-name {
+      transition: none;
+    }
+  }
+}
+
+// The contents-list hover (step forward, lime arrow, line drawn under) on the genre rows too.
+.w5-row {
+  position: relative;
+  transition: transform 0.2s ease-in;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 0;
+    height: 1px;
+    background: var(--dark);
+    transition: width 0.35s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateX(8px);
+
+    &::after {
+      width: 100%;
+    }
+
+    .s-go {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---------- writing masthead (W2 style): search left, logo centred, menu centred below ---------- */
+@media all and (min-width: 861px) {
+  .site-nav.space-writer {
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 18px;
+    padding-bottom: 12px;
+
+    .nav-logo {
+      font-size: 2.5rem;
+    }
+
+    .nav-menu {
+      flex: none;
+      justify-content: center;
+
+      > .nav-link:first-child {
+        margin-left: 0;
+      }
+    }
+
+    // Search on the left, Contact, ES and Substack on the right, level with the logo.
+    .nav-end {
+      position: absolute;
+      top: 26px;
+      left: clamp(16px, 3vw, 40px);
+      right: clamp(16px, 3vw, 40px);
+      justify-content: flex-end;
+      margin: 0;
+      pointer-events: none;
+
+      > * {
+        pointer-events: auto;
+      }
+
+      > .nav-search {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+// Filter bar: the genre a page was opened with (?genre=…), with a × to show every genre again.
+.fl-genre {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.6rem;
+  padding: 0.22rem 0.7rem;
+  border: 1px solid var(--dark);
+  border-radius: 999px;
+  background: var(--dark);
+  color: #c1e401;
+  font-family: var(--ui-font);
+  font-size: 13px;
+  cursor: pointer;
+
+  &[hidden] {
+    display: none;
+  }
 }

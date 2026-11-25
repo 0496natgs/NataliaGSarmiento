@@ -1,79 +1,25 @@
 import { QuartzComponent, QuartzComponentProps } from "../types"
-import { getPieces } from "../sections/pieces"
+import { Piece, getPieces } from "../sections/pieces"
 import {
-  PALETTE,
+  GENRES,
   SECTIONS,
   SITE,
   SKETCHBOOK,
   SUBSTACK_PUBLICATIONS,
   SUBSTACK_URL,
-  SectionDef,
-  textOf,
 } from "../sections/sectionsConfig"
-import { Lang, langOf, t, urlFor } from "../sections/i18n"
+import { Lang, intlLocale, langOf, t, urlFor } from "../sections/i18n"
 import { Tile } from "../sections/Tile"
+import { GoArrow } from "../sections/GoArrow"
+import { PhotoCredit } from "../sections/PhotoCredit"
 import { LOGO } from "../sections/gallery"
 
-/** A framed card: crop marks around a photo (cross-fading if there are several) or a drifting colour field. */
-function FrameCard({
-  href,
-  numeral,
-  title,
-  blurb,
-  color,
-  light = false,
-  images = [],
-  external,
-}: {
-  href: string
-  numeral: string
-  title: string
-  blurb: string
-  color: string
-  light?: boolean
-  images?: string[]
-  external?: boolean
-}) {
-  return (
-    <a
-      class="d-frame"
-      href={href}
-      {...(external
-        ? { target: "_blank", rel: "noopener noreferrer", "data-router-ignore": true }
-        : {})}
-    >
-      <span class="s-frame">
-        <span
-          class={`d-frame-media${light ? " is-light" : ""}`}
-          style={`background-color:${color}`}
-        >
-          {images.length > 0 ? (
-            <span class={`d-slides n${Math.min(images.length, 4)}`}>
-              {images.slice(0, 4).map((src, i) => (
-                <img style={`--i:${i}`} src={src} alt="" loading="lazy" />
-              ))}
-            </span>
-          ) : (
-            <>
-              <span class="s-field" aria-hidden="true">
-                <i />
-                <i />
-              </span>
-              <span class="d-numeral">{numeral}</span>
-            </>
-          )}
-        </span>
-        <span class="s-figcap">
-          {numeral} — {title}
-          {external ? <span class="ext" aria-hidden="true" /> : null}
-        </span>
-      </span>
-      <span class="d-frame-title">{title}</span>
-      <span class="d-frame-blurb">{blurb}</span>
-    </a>
-  )
-}
-
+/**
+ * The writing site's home (W5): your line, the newest piece large, then one row per genre
+ * (Flash, Poetry, Essays, Fiction, Visual notes) with up to three pieces each and an "All …" link
+ * that opens the section filtered to that genre; then the moving strip of selected work, the three
+ * newsletters and the map. Genres come from GENRES in sectionsConfig.ts.
+ */
 export function Landing({
   componentData,
   graph: Graph,
@@ -83,76 +29,121 @@ export function Landing({
 }) {
   const lang: Lang = langOf(componentData.fileData.slug)
   const tt = t(lang)
-  const cards = SECTIONS.filter((s) => s.card && s.space === "writer")
-  const substackRow: { n: string; title: string; href: string }[] = [
-    { n: "IV", title: tt.substack, href: SUBSTACK_URL },
-  ]
-
-  // Mix the sections: take one from each in turn until there are eight.
-  const bySection = SECTIONS.filter((s) => s.kind === "collection" && s.space === "writer").map(
-    (s) => getPieces(componentData.allFiles, s.slug, lang),
-  )
-  const latest = []
-  for (let i = 0; latest.length < 8 && bySection.some((list) => i < list.length); i++) {
-    for (const list of bySection) {
-      if (i < list.length && latest.length < 8) latest.push(list[i])
-    }
-  }
+  // Every published piece on the writing side, newest first (one copy per piece). A piece with
+  // only a year counts as the start of that year.
+  const when = (p: Piece) => p.date?.getTime() ?? (p.year ? Date.UTC(Number(p.year), 0, 1) : 0)
+  const seen = new Set<string>()
+  const all = SECTIONS.filter((s) => s.kind === "collection" && s.space === "writer")
+    .flatMap((s) => getPieces(componentData.allFiles, s.slug, lang))
+    .filter((p) => (seen.has(p.slug) ? false : (seen.add(p.slug), true)))
+    .sort((a, b) => when(b) - when(a))
+  const writing = all.filter((p) => p.genre !== "visual-notes")
+  // The feature: the newest piece with an image (W5's "Latest").
+  const feature = writing.find((p) => p.cover) ?? writing[0]
+  const monthYear = (d?: Date) =>
+    d ? d.toLocaleDateString(intlLocale(lang), { month: "short", year: "numeric" }) : ""
+  const whereWhen = (p: Piece) =>
+    [[p.publication, p.issue?.split(" · ")[0]].filter(Boolean).join(", "), monthYear(p.date)]
+      .filter(Boolean)
+      .join(" · ")
+  // One row per genre that has pieces; "All …" opens the section that holds most of them,
+  // already filtered to the genre (?genre=…), with its list/grid switch and filters.
+  const genres = GENRES.map((g) => {
+    const pieces = all.filter((p) => p.genre === g.id)
+    const bySection = new Map<string, number>()
+    for (const p of pieces) bySection.set(p.section, (bySection.get(p.section) ?? 0) + 1)
+    const section = [...bySection.entries()].sort((a, b) => b[1] - a[1])[0]?.[0]
+    const title = lang === "es" ? g.title_es : g.title
+    // A genre that is a whole section (Visual notes) opens it as it is.
+    const filter = section === g.id ? "" : `?genre=${g.id}`
+    return { ...g, title, pieces, href: section ? `${urlFor(section, lang)}${filter}` : "" }
+  }).filter((g) => g.pieces.length > 0)
 
   return (
-    <div class="center content-container d-home">
-      <section class="d-hero">
-        <p class="d-kicker">{tt.heroKicker}</p>
-        <h1 class="d-hero-title">{tt.heroTitle}</h1>
+    <div class="center content-container d-home w5">
+      <section class="w5-intro">
+        <h1 class="w5-line">{tt.heroTitle}</h1>
       </section>
 
-      {/* offporter-style chapter index: numeral over the word */}
-      <nav
-        class="d-index"
-        aria-label={tt.index}
-        style={`--d-index-cols: ${cards.length + substackRow.length}`}
-      >
-        {cards.map((s) => (
-          <a href={urlFor(s.slug, lang)}>
-            <span class="d-index-n">{s.numeral}.</span>
-            <span class="d-index-w">{textOf(s, lang).title}</span>
-          </a>
-        ))}
-        {substackRow.map((r) => (
-          <a href={r.href} target="_blank" rel="noopener noreferrer" data-router-ignore>
-            <span class="d-index-n">{r.n}.</span>
-            <span class="d-index-w">
-              {r.title}
-              <span class="ext" aria-hidden="true" />
+      {feature && (
+        <a
+          class={`w5-feature${feature.cover ? "" : " is-blank"}`}
+          href={feature.href}
+          {...(feature.external
+            ? { target: "_blank", rel: "noopener noreferrer", "data-router-ignore": true }
+            : {})}
+        >
+          {feature.cover && <img src={feature.cover} alt="" />}
+          <span class="w5-feature-text">
+            <span class="w5-feature-kicker">
+              {[
+                tt.latest,
+                genres.find((g) => g.id === feature.genre)?.title,
+                [feature.publication, feature.issue?.split(" · ")[0]].filter(Boolean).join(", "),
+              ]
+                .filter(Boolean)
+                .join(" · ")}
             </span>
-          </a>
-        ))}
-      </nav>
-
-      <div class={`d-frames${cards.length === 3 ? " d-frames-3" : ""}`}>
-        {cards.map((s: SectionDef) => (
-          <FrameCard
-            href={urlFor(s.slug, lang)}
-            numeral={s.numeral}
-            title={textOf(s, lang).title}
-            blurb={textOf(s, lang).blurb}
-            color={PALETTE[s.art % PALETTE.length].color}
-            light={PALETTE[s.art % PALETTE.length].light}
-            images={s.images}
-          />
-        ))}
-      </div>
-
-      {latest.length > 0 && (
-        <>
-          <h2 class="d-section-title">{tt.latest}</h2>
-          <div class="s-grid s-grid-tiles d-latest">
-            {latest.map((p, i) => (
-              <Tile piece={p} index={i} lang={lang} showSection />
-            ))}
-          </div>
-        </>
+            <span class="w5-feature-title">
+              {feature.title}
+              {feature.external && <span class="ext" aria-hidden="true" />}
+            </span>
+          </span>
+        </a>
       )}
+      <PhotoCredit src={feature?.cover} lang={lang} class="w5-credit" />
+
+      <section class="w5-genres">
+        {genres.map((g) => (
+          <div class={`w5-genre${g.id === "visual-notes" ? " is-notes" : ""}`}>
+            <div class="w5-genre-head">
+              <h2>{g.title}</h2>
+              <a href={g.href}>
+                {tt.articles(g.pieces.length)} · {tt.allOf(g.title)} →
+              </a>
+            </div>
+            {g.id === "visual-notes" ? (
+              <div class="s-grid s-grid-tiles w5-notes">
+                {g.pieces.slice(0, 3).map((p, i) => (
+                  <Tile piece={p} index={i} lang={lang} />
+                ))}
+              </div>
+            ) : (
+              <div class="w5-rows">
+                {g.pieces.slice(0, 3).map((p, i) => (
+                  <a
+                    class="w5-row"
+                    href={p.href}
+                    {...(p.external
+                      ? { target: "_blank", rel: "noopener noreferrer", "data-router-ignore": true }
+                      : {})}
+                  >
+                    <span
+                      class={`w5-thumb${p.cover ? "" : " is-blank"}`}
+                      style={p.cover ? undefined : `background-color:var(--tile-${(i % 2) + 1})`}
+                    >
+                      {p.cover ? (
+                        <img src={p.cover} alt="" loading="lazy" />
+                      ) : (
+                        <span class="w5-thumb-title">{p.title}</span>
+                      )}
+                    </span>
+                    <span class="w5-row-text">
+                      <span class="w5-row-title">
+                        {p.title}
+                        {p.external && <span class="ext" aria-hidden="true" />}
+                        <GoArrow external={!!p.external} />
+                      </span>
+                      {p.description && <span class="w5-row-quote">{p.description}</span>}
+                    </span>
+                    <span class="w5-row-meta">{whereWhen(p)}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </section>
 
       {SKETCHBOOK.length > 0 && (
         <>
@@ -182,21 +173,24 @@ export function Landing({
         </>
       )}
 
-      <h2 class="d-section-title">{tt.newsletters}</h2>
-      <p class="d-section-note">{tt.newslettersNote}</p>
-      <div class="d-frames d-frames-3">
-        {SUBSTACK_PUBLICATIONS.map((p, i) => (
-          <FrameCard
+      <section class="w5-news" aria-label={tt.newsletters}>
+        {SUBSTACK_PUBLICATIONS.map((p) => (
+          <a
+            class="w5-news-item"
             href={`${SUBSTACK_URL.replace(/\/+$/, "")}${p.path}`}
-            numeral={["a", "b", "c"][i]}
-            title={p.name}
-            blurb={lang === "es" ? p.blurb_es : p.blurb}
-            color={p.color}
-            light={p.light}
-            external
-          />
+            target="_blank"
+            rel="noopener noreferrer"
+            data-router-ignore
+          >
+            <span class="w5-news-kicker">
+              {tt.newsletter}
+              <span class="ext" aria-hidden="true" />
+            </span>
+            <span class="w5-news-name">{p.name}</span>
+            <span class="w5-news-blurb">{lang === "es" ? p.blurb_es : p.blurb}</span>
+          </a>
         ))}
-      </div>
+      </section>
 
       {Graph && lang === "en" && (
         <>

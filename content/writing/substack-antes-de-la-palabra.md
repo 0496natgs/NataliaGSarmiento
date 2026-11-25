@@ -2,6 +2,7 @@
 title: "Antes de la palabra"
 date: 2026-06-30
 category: "Materia prima"
+genre: essays
 publication: "Materia prima"
 external: "https://nataliagsarmiento.substack.com/p/antes-de-la-palabra"
 description: "Antes de que algo se vuelva palabra, es materia: piel, sangre, saliva, pulso, y el peso exacto del recuerdo."

@@ -2,6 +2,7 @@ import { QuartzComponent, QuartzComponentProps } from "../types"
 import { Piece, getPieces } from "./pieces"
 import { LINKEDIN_URL, SITE } from "./sectionsConfig"
 import { Lang, categoryLabel, langOf, t, urlFor } from "./i18n"
+import { WorkCard } from "./WorkCard"
 import { ListRow } from "./ListRow"
 import { Crumbs } from "./Crumbs"
 import { GoArrow } from "./GoArrow"
@@ -125,23 +126,9 @@ export function ConsultingProfile({
             <h2>{tt.featuredProjects}</h2>
             <a href={urlFor("consulting/projects", lang)}>{tt.allProjects} →</a>
           </div>
-          <div class="cpk-cards">
-            {featured.map((p) => (
-              <a class="cpk-card" href={p.href}>
-                <span class="cpk-card-media">
-                  {p.cover ? (
-                    <img src={p.cover} alt="" loading="lazy" />
-                  ) : (
-                    <span class="cpk-card-blank">{p.title}</span>
-                  )}
-                </span>
-                <span class="cpk-card-kicker">
-                  {[categoryLabel(p.category, lang), p.period ?? p.year]
-                    .filter(Boolean)
-                    .join(" · ")}
-                </span>
-                <span class="cpk-card-title">{p.title}</span>
-              </a>
+          <div class="s-grid s-grid-work">
+            {featured.map((p, i) => (
+              <WorkCard piece={p} index={i} lang={lang} />
             ))}
           </div>
         </section>
