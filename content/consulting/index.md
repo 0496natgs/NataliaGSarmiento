@@ -3,17 +3,31 @@ title: Digital transformation, behavioral science & service design
 description: "Transformation professional and behavioral change designer: Salesforce, adoption, readiness and service design."
 tagline: "Technology is only valuable when it helps people grow, adapt, and connect."
 headline: Transformation professional · Behavioral change designer
-expertise:
-  - Salesforce Transformation & Enablement
-  - Behavioral Change Design & Adoption Strategy
-  - Global Program & Project Management
-  - Organizational Change Management
-  - Training, Readiness & Capability Building
-  - User Acceptance Testing (UAT)
-  - Process Improvement & Business Transformation
-  - Stakeholder Engagement & Executive Alignment
-  - Go-Live Planning & Hypercare Support
-  - Cross-Functional Leadership
+# The sentence under the headline, in the indigo band.
+intro: "I focus on understanding how people learn, adapt, and engage with change, designing strategies that increase adoption, reduce friction, and create meaningful, sustainable outcomes."
+# The photograph behind the band. Any photo from quartz/static/photos/rene-rivas/ is credited to René Rivas automatically.
+hero: /static/photos/rene-rivas/rene-rivas-dji-0026.jpg
+languages: [Spanish, English]
+# Your areas of expertise, in three groups.
+practices:
+  - title: Transformation & enablement
+    items:
+      - Salesforce Transformation & Enablement
+      - Go-Live Planning & Hypercare Support
+      - User Acceptance Testing (UAT)
+      - Training, Readiness & Capability Building
+  - title: Behavioral change design
+    items:
+      - Behavioral Change Design & Adoption Strategy
+      - Organizational Change Management
+      - Process Improvement & Business Transformation
+  - title: Programs & people
+    items:
+      - Global Program & Project Management
+      - Stakeholder Engagement & Executive Alignment
+      - Cross-Functional Leadership
+# The three projects shown large (file names in consulting/projects).
+featured: [cultura-de-paz, covid-signage, cse-school-services]
 tags:
   - consulting
   - behavioral-change

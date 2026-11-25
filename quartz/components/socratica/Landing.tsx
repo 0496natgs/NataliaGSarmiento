@@ -85,7 +85,7 @@ export function Landing({
   const tt = t(lang)
   const cards = SECTIONS.filter((s) => s.card && s.space === "writer")
   const substackRow: { n: string; title: string; href: string }[] = [
-    { n: "V", title: tt.substack, href: SUBSTACK_URL },
+    { n: "IV", title: tt.substack, href: SUBSTACK_URL },
   ]
 
   // Mix the sections: take one from each in turn until there are eight.
@@ -107,7 +107,11 @@ export function Landing({
       </section>
 
       {/* offporter-style chapter index: numeral over the word */}
-      <nav class="d-index" aria-label={tt.index}>
+      <nav
+        class="d-index"
+        aria-label={tt.index}
+        style={`--d-index-cols: ${cards.length + substackRow.length}`}
+      >
         {cards.map((s) => (
           <a href={urlFor(s.slug, lang)}>
             <span class="d-index-n">{s.numeral}.</span>
@@ -125,7 +129,7 @@ export function Landing({
         ))}
       </nav>
 
-      <div class="d-frames">
+      <div class={`d-frames${cards.length === 3 ? " d-frames-3" : ""}`}>
         {cards.map((s: SectionDef) => (
           <FrameCard
             href={urlFor(s.slug, lang)}

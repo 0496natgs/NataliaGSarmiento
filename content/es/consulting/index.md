@@ -3,17 +3,27 @@ title: Transformación digital, ciencia conductual y diseño de servicios
 description: "Profesional de la transformación y diseño de cambio conductual: Salesforce, adopción, preparación y diseño de servicios."
 tagline: "La tecnología solo vale la pena cuando ayuda a las personas a crecer, adaptarse y conectar."
 headline: Profesional de la transformación · Diseño de cambio conductual
-expertise:
-  - Transformación y habilitación con Salesforce
-  - Diseño de cambio conductual y estrategia de adopción
-  - Gestión de programas y proyectos globales
-  - Gestión del cambio organizacional
-  - Capacitación, preparación y desarrollo de capacidades
-  - Pruebas de aceptación de usuario (UAT)
-  - Mejora de procesos y transformación del negocio
-  - Relación con partes interesadas y alineación ejecutiva
-  - Planeación de lanzamiento y soporte hypercare
-  - Liderazgo multifuncional
+intro: "Me concentro en entender cómo aprende, se adapta y se involucra la gente frente al cambio, y diseño estrategias que aumentan la adopción, reducen la fricción y generan resultados con sentido y sostenibles."
+hero: /static/photos/rene-rivas/rene-rivas-dji-0026.jpg
+languages: [Español, Inglés]
+practices:
+  - title: Transformación y habilitación
+    items:
+      - Transformación y habilitación con Salesforce
+      - Planeación de lanzamiento y soporte hypercare
+      - Pruebas de aceptación de usuario (UAT)
+      - Capacitación, preparación y desarrollo de capacidades
+  - title: Diseño de cambio conductual
+    items:
+      - Diseño de cambio conductual y estrategia de adopción
+      - Gestión del cambio organizacional
+      - Mejora de procesos y transformación del negocio
+  - title: Programas y personas
+    items:
+      - Gestión de programas y proyectos globales
+      - Relación con partes interesadas y alineación ejecutiva
+      - Liderazgo multifuncional
+featured: [cultura-de-paz, covid-signage, cse-school-services]
 tags:
   - consulting
   - behavioral-change

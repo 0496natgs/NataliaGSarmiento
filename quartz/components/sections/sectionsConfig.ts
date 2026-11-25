@@ -25,6 +25,18 @@ export const CONTACT_EMAIL = "sarmiento.natns@gmail.com"
 export const LINKEDIN_URL = "https://www.linkedin.com/in/natalia-garcia-sarmiento/"
 export const TLACUILOQUE_URL = "https://tlacuiloque.com/"
 
+/**
+ * Photographers whose pictures are kept on the site, one folder each under quartz/static/photos/.
+ * Any cover or hero image taken from that folder shows "Photograph: <name>" with a link to their
+ * site, on the page, without typing it. To add someone: a new folder and a new line here.
+ */
+export const PHOTO_CREDITS: { folder: string; name: string; url: string }[] = [
+  { folder: "photos/rene-rivas/", name: "René Rivas", url: "https://renerivas.xyz/" },
+]
+
+export const photoCreditFor = (src?: string) =>
+  src ? PHOTO_CREDITS.find((c) => src.includes(c.folder)) : undefined
+
 // Grounds for the typographic tiles, section frames and newsletter cards: ink, greys and the lime,
 // so the writing site is black and white with lime as its only colour. Keep this order in step
 // with --tile-1 … --tile-6 in sections.scss.
@@ -104,17 +116,20 @@ const NOTE_ITEMS: Highlight[] = [
 }))
 
 // A hand-picked handful of the photographs in static/writing_photos.
-const PHOTO_ITEMS: Highlight[] = ["Prague.JPG", "Florencia.JPG", "Utah.jpg", "Switzerland.JPG"].map(
-  (f) => ({
-    src: `/static/writing_photos/${f}`,
-    alt: "Photograph",
-    label: "Photo",
-    label_es: "Foto",
-    href: "/photo-video",
-  }),
-)
+export const PHOTO_ITEMS: Highlight[] = [
+  "Prague.JPG",
+  "Florencia.JPG",
+  "Utah.jpg",
+  "Switzerland.JPG",
+].map((f) => ({
+  src: `/static/writing_photos/${f}`,
+  alt: "Photograph",
+  label: "Photo",
+  label_es: "Foto",
+  href: "/photo-video",
+}))
 
-const ILLUSTRATION_ITEMS: Highlight[] = [
+export const ILLUSTRATION_ITEMS: Highlight[] = [
   {
     src: "/static/Illustration-art/drawing.jpeg",
     alt: "Illustration",
@@ -127,7 +142,9 @@ const ILLUSTRATION_ITEMS: Highlight[] = [
 // Interleave so no two neighbours are the same kind: work, photo, note, photo, note, ...
 export const SKETCHBOOK: Highlight[] = (() => {
   const out: Highlight[] = []
-  const lists = [WORK_ITEMS, PHOTO_ITEMS, NOTE_ITEMS, ILLUSTRATION_ITEMS]
+  // Photo & Video is in the sandbox, so its photographs and illustration are left out for now:
+  // add PHOTO_ITEMS and ILLUSTRATION_ITEMS back to this list when the section returns.
+  const lists = [WORK_ITEMS, NOTE_ITEMS]
   for (let i = 0; lists.some((l) => i < l.length); i++) {
     for (const l of lists) if (i < l.length) out.push(l[i])
   }
@@ -214,12 +231,16 @@ export const SECTIONS: SectionDef[] = [
       marquee: ["ensayos", "cuentos", "poemas", "boletines", "obra en proceso", "lee despacio"],
     },
   },
+  // In the sandbox for now: out of the menu and the home page, reachable from /sandbox. To bring it
+  // back: card: true, delete the inNav line, put it back in SKETCHBOOK below, and remove
+  // `sandbox: true` and `unlisted: true` from content/photo-video/index.md.
   {
     slug: "photo-video",
     kind: "collection",
     space: "writer",
-    numeral: "III",
-    card: true,
+    numeral: "",
+    card: false,
+    inNav: false,
     title: "Photo & Video",
     blurb: "Photography, film and moving image",
     art: 2,
@@ -236,7 +257,7 @@ export const SECTIONS: SectionDef[] = [
     slug: "visual-notes",
     kind: "collection",
     space: "writer",
-    numeral: "IV",
+    numeral: "III",
     card: true,
     title: "Visual Notes",
     blurb: "Live notes from conferences, one card per event",
