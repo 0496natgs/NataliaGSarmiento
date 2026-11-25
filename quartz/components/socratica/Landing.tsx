@@ -56,6 +56,20 @@ export function Landing({
     const filter = section === g.id ? "" : `?genre=${g.id}`
     return { ...g, title, pieces, href: section ? `${urlFor(section, lang)}${filter}` : "" }
   }).filter((g) => g.pieces.length > 0)
+  // Writing without a genre (e.g. a new Substack post you haven't given one) still shows, in
+  // "More writing", before Visual notes.
+  const known = new Set(GENRES.map((g) => g.id))
+  const other = writing.filter((p) => !p.genre || !known.has(p.genre))
+  if (other.length > 0) {
+    const at = genres.findIndex((g) => g.id === "visual-notes")
+    genres.splice(at < 0 ? genres.length : at, 0, {
+      id: "other",
+      title: tt.moreWriting,
+      title_es: tt.moreWriting,
+      pieces: other,
+      href: urlFor("writing", lang),
+    })
+  }
 
   return (
     <div class="center content-container d-home w5">
@@ -97,7 +111,8 @@ export function Landing({
             <div class="w5-genre-head">
               <h2>{g.title}</h2>
               <a href={g.href}>
-                {tt.articles(g.pieces.length)} · {tt.allOf(g.title)} →
+                {tt.articles(g.pieces.length)} ·{" "}
+                {g.id === "other" ? tt.seeAllWriting : tt.allOf(g.title)} →
               </a>
             </div>
             {g.id === "visual-notes" ? (
