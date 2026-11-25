@@ -28,6 +28,18 @@ const SECTION_LABELS = {
 }
 const MAIN_LABEL = "Materia prima"
 
+// The genre each Substack section's posts get by default (flash, poetry, essays, fiction; see GENRES
+// in quartz/components/sections/sectionsConfig.ts). A post with no genre still shows on the Writing
+// page and in "More writing" on the home page. Materia prima is "essays in Spanish".
+const SECTION_GENRES = {
+  "": "essays",
+}
+
+// Lines you add by hand to a synced post (for example `genre: poetry`) are kept the next time the
+// posts are synced, instead of being overwritten. When only the RSS feed answers (it has no
+// sections), a post keeps the newsletter it already had too.
+const KEEP = /^(genre|order):/
+const KEEP_IF_NO_SECTION = /^(category|publication):/
 const UAS = [
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
   "Mozilla/5.0 (quartz substack sync)",
@@ -99,7 +111,8 @@ async function fromFeed(base) {
     date: tag(item, "pubDate"),
     cover: (item.match(/<enclosure[^>]*url="([^"]+)"/) ?? [])[1],
     desc: stripHtml(tag(item, "description")),
-    section: "",
+    // The feed does not say which section a post is in.
+    section: undefined,
   }))
 }
 
@@ -127,8 +140,18 @@ async function main() {
   if (posts.length === 0) throw new Error("no posts found")
 
   await mkdir(outDir, { recursive: true })
+  const kept = {}
+  const keptSection = {}
   for (const f of await readdir(outDir)) {
-    if (f.startsWith("substack-") && f.endsWith(".md")) await rm(path.join(outDir, f))
+    if (!f.startsWith("substack-") || !f.endsWith(".md")) continue
+    const front = ((await readFile(path.join(outDir, f), "utf8")).split(/^---$/m)[1] ?? "").split(
+      "\n",
+    )
+    const lines = front.filter((l) => KEEP.test(l))
+    if (lines.length) kept[f] = lines
+    const where = front.filter((l) => KEEP_IF_NO_SECTION.test(l))
+    if (where.length === 2) keptSection[f] = where
+    await rm(path.join(outDir, f))
   }
 
   let written = 0
@@ -146,22 +169,31 @@ async function main() {
     // Paid posts stay on Substack; the card carries a "Paid" badge and links there.
     const paid = p.audience === "only_paid" || p.audience === "founding"
     const desc = stripHtml(p.desc).slice(0, 180)
+    const file = `substack-${slug}.md`
+    const own = kept[file] ?? []
+    const known = p.section !== undefined
+    const genre =
+      own.some((l) => l.startsWith("genre:")) || !known || !SECTION_GENRES[p.section]
+        ? null
+        : `genre: ${SECTION_GENRES[p.section]}`
+    const where = !known && keptSection[file] ? keptSection[file] : null
     const lines = [
       "---",
       `title: ${JSON.stringify(decode(p.title))}`,
       iso ? `date: ${iso}` : null,
-      `category: ${JSON.stringify(label)}`,
-      `publication: ${JSON.stringify(label)}`,
+      ...(where ?? [`category: ${JSON.stringify(label)}`, `publication: ${JSON.stringify(label)}`]),
       paid ? 'badge: "Paid"' : null,
       `external: ${JSON.stringify(p.link)}`,
       p.cover ? `cover: ${JSON.stringify(p.cover)}` : null,
       desc ? `description: ${JSON.stringify(desc)}` : null,
+      genre,
+      ...own,
       "---",
       "",
       `[Read this on Substack ↗](${p.link})`,
       "",
     ].filter((l) => l !== null)
-    await writeFile(path.join(outDir, `substack-${slug}.md`), lines.join("\n"))
+    await writeFile(path.join(outDir, file), lines.join("\n"))
     written++
   }
   console.log(`[substack] wrote ${written} posts from ${base}`)
