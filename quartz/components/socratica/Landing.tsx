@@ -4,7 +4,6 @@ import {
   GENRES,
   SECTIONS,
   SITE,
-  SKETCHBOOK,
   SUBSTACK_PUBLICATIONS,
   SUBSTACK_URL,
 } from "../sections/sectionsConfig"
@@ -17,8 +16,7 @@ import { LOGO } from "../sections/gallery"
 /**
  * The writing site's home (W5): your line, the newest piece large, then one row per genre
  * (Flash, Poetry, Essays, Fiction, Visual notes) with up to three pieces each and an "All …" link
- * that opens the section filtered to that genre; then the moving strip of selected work, the three
- * newsletters and the map. Genres come from GENRES in sectionsConfig.ts.
+ * that opens the section filtered to that genre; then the three newsletters and the map. Genres come from GENRES in sectionsConfig.ts.
  */
 export function Landing({
   componentData,
@@ -144,34 +142,6 @@ export function Landing({
           </div>
         ))}
       </section>
-
-      {SKETCHBOOK.length > 0 && (
-        <>
-          <h2 class="d-section-title">{tt.sketchbook}</h2>
-          <p class="d-section-note">{tt.sketchbookNote}</p>
-          <div class="d-strip">
-            <div class="d-strip-track">
-              {/* The row is repeated so the loop is seamless. */}
-              {[...SKETCHBOOK, ...SKETCHBOOK].map((p, i) => (
-                <a
-                  class="d-strip-item"
-                  href={p.href ? urlFor(p.href.replace(/^\//, ""), lang) : undefined}
-                  aria-hidden={i >= SKETCHBOOK.length ? "true" : undefined}
-                  tabindex={i >= SKETCHBOOK.length ? -1 : undefined}
-                >
-                  <span class="s-frame">
-                    <img src={p.src} alt={i < SKETCHBOOK.length ? p.alt : ""} loading="lazy" />
-                    <span class="s-figcap">
-                      {String((i % SKETCHBOOK.length) + 1).padStart(2, "0")} —{" "}
-                      {lang === "es" ? p.label_es : p.label}
-                    </span>
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
 
       <section class="w5-news" aria-label={tt.newsletters}>
         {SUBSTACK_PUBLICATIONS.map((p) => (

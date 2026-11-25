@@ -105,7 +105,7 @@ export interface Highlight {
 
 const WORK_ITEMS: Highlight[] = [
   {
-    src: "/static/work/khora-discovering-taste.jpg",
+    src: "/static/work/khora-discovering-taste-cover.jpg",
     alt: "Discovering Taste, KHÔRA",
     label: "Work",
     label_es: "Trabajo",
@@ -218,7 +218,7 @@ export const SECTIONS: SectionDef[] = [
     art: 0,
     grid: "work",
     tabs: true,
-    images: ["/static/work/khora-discovering-taste.jpg"],
+    images: ["/static/work/khora-discovering-taste-cover.jpg"],
     marquee: ["published work", "essays", "flash", "in print", "read it there"],
     es: {
       title: "Trabajo",

@@ -17,7 +17,17 @@ import { SIDENOTES_JS } from "./Sidenotes"
 
 // Scripts the pages rely on. They live in the menu, which is on every page, so they are loaded
 // once whichever page the visitor lands on and keep working when pages change without a reload.
-const PAGE_SCRIPTS = [FILTER_JS, SHARE_JS, SIDENOTES_JS].join(";\n")
+// The writing masthead is centred only at the top of a page; once you scroll down it becomes a
+// thin bar (logo left, menu, links right), like therumpus.net. Two thresholds (120px down, 24px
+// up) stop it flickering, and pages too short to scroll 240px keep the masthead.
+const NAV_COMPACT_JS = `if(!window.__navCompact){window.__navCompact=1;var busy=false;
+function f(){var n=document.querySelector(".site-nav");if(!n)return;var y=window.scrollY,c=n.classList.contains("is-compact");
+if(document.documentElement.scrollHeight-window.innerHeight<240){if(c)n.classList.remove("is-compact");return}
+if(!c&&y>120)n.classList.add("is-compact");else if(c&&y<24)n.classList.remove("is-compact")}
+window.addEventListener("scroll",function(){if(!busy){busy=true;requestAnimationFrame(function(){busy=false;f()})}},{passive:true});
+document.addEventListener("nav",f);f()}`
+
+const PAGE_SCRIPTS = [FILTER_JS, SHARE_JS, SIDENOTES_JS, NAV_COMPACT_JS].join(";\n")
 import { Lang, baseSlug, langOf, t, urlFor } from "./i18n"
 
 /** The name with the full stop after the G in lime green. */

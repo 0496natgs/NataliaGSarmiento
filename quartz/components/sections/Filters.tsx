@@ -2,8 +2,9 @@ import { Lang, categoryLabel, t } from "./i18n"
 import { categoryId, Piece, pieceTags, pieceYear } from "./pieces"
 import { GENRES } from "./sectionsConfig"
 
-// The filter bar (after ssp.sh/posts): filter by categories or tags, find a tag or a piece, then by
-// year. It runs in the page, so it works with the list, the grid and the photo grids alike.
+// The filter bar (after ssp.sh/posts): filter by categories, genres or tags, find a tag or a piece,
+// then by year. Opening a section with ?genre=poetry (the "All poetry →" links on the home page)
+// selects that genre. It runs in the page, so it works with the list, the grid and the photo grids alike.
 export const FILTER_JS = `if(!window.__fl){window.__fl=1;
 function apply(fl){var root=fl.closest(".s-index");var cat=fl.dataset.cat||"",tag=fl.dataset.tag||"",year=fl.dataset.year||"",genre=fl.dataset.genre||"",q=(fl.dataset.q||"").toLowerCase();
 var seen={};root.querySelectorAll("[data-piece]").forEach(function(el){
@@ -12,16 +13,17 @@ el.classList.toggle("is-hidden",!ok)});
 root.querySelectorAll(".s-year").forEach(function(g){g.classList.toggle("is-hidden",!g.querySelector("[data-piece]:not(.is-hidden)"))});
 root.querySelectorAll("[data-piece]:not(.is-hidden)").forEach(function(el){if(el.offsetParent!==null)seen[el.dataset.piece]=1});
 var n=Object.keys(seen).length;var c=fl.querySelector(".fl-n");if(c)c.textContent=n;var e=root.querySelector(".s-empty-filter");if(e)e.hidden=n>0;
-fl.querySelectorAll(".fl-pill").forEach(function(b){var k=b.dataset.kind,v=b.dataset.val;b.classList.toggle("is-on",(k==="cat"&&v===cat)||(k==="tag"&&v===tag)||(k==="year"&&v===year)||(k==="year"&&!v&&!year));
+fl.querySelectorAll("[data-mode]").forEach(function(x){x.classList.toggle("is-on",x.dataset.mode===fl.dataset.mode)});
+fl.querySelectorAll(".fl-pill").forEach(function(b){var k=b.dataset.kind,v=b.dataset.val;b.classList.toggle("is-on",(k==="cat"&&v===cat)||(k==="tag"&&v===tag)||(k==="genre"&&v===genre)||(k==="year"&&v===year)||(k==="year"&&!v&&!year));
 if(k!=="year")b.hidden=b.dataset.group!==fl.dataset.mode||(!!q&&(b.textContent||"").toLowerCase().indexOf(q)<0)})}
-document.addEventListener("click",function(e){var v=e.target.closest&&e.target.closest(".s-views [data-view]");if(v){var r=v.closest(".s-index");r.dataset.view=v.dataset.view;r.querySelectorAll(".s-views [data-view]").forEach(function(x){x.classList.toggle("is-on",x===v)});var f=r.querySelector(".fl");if(f)apply(f);return}var gc=e.target.closest&&e.target.closest(".fl .fl-genre");if(gc){var gf=gc.closest(".fl");gf.dataset.genre="";gc.hidden=true;try{history.replaceState(history.state,"",location.pathname+location.hash)}catch(_){}apply(gf);return}var b=e.target.closest&&e.target.closest(".fl [data-mode],.fl .fl-pill");if(!b)return;var fl=b.closest(".fl");
-if(b.dataset.mode){fl.dataset.mode=b.dataset.mode;fl.querySelectorAll("[data-mode]").forEach(function(x){x.classList.toggle("is-on",x===b)});fl.dataset.cat="";fl.dataset.tag=""}
-else{var k=b.dataset.kind,v=b.dataset.val||"";if(k==="cat")fl.dataset.cat=fl.dataset.cat===v?"":v;if(k==="tag")fl.dataset.tag=fl.dataset.tag===v?"":v;if(k==="year")fl.dataset.year=v}
+function setUrl(g){try{var u=new URL(location.href);if(g)u.searchParams.set("genre",g);else u.searchParams.delete("genre");history.replaceState(history.state,"",u.pathname+u.search+u.hash)}catch(_){}}
+document.addEventListener("click",function(e){var v=e.target.closest&&e.target.closest(".s-views [data-view]");if(v){var r=v.closest(".s-index");r.dataset.view=v.dataset.view;r.querySelectorAll(".s-views [data-view]").forEach(function(x){x.classList.toggle("is-on",x===v)});var f=r.querySelector(".fl");if(f)apply(f);return}var b=e.target.closest&&e.target.closest(".fl [data-mode],.fl .fl-pill");if(!b)return;var fl=b.closest(".fl");
+if(b.dataset.mode){fl.dataset.mode=b.dataset.mode;fl.dataset.cat="";fl.dataset.tag="";if(fl.dataset.genre){fl.dataset.genre="";setUrl("")}}
+else{var k=b.dataset.kind,v=b.dataset.val||"";if(k==="cat")fl.dataset.cat=fl.dataset.cat===v?"":v;if(k==="tag")fl.dataset.tag=fl.dataset.tag===v?"":v;if(k==="genre"){fl.dataset.genre=fl.dataset.genre===v?"":v;setUrl(fl.dataset.genre)}if(k==="year")fl.dataset.year=v}
 apply(fl)});
 document.addEventListener("input",function(e){var i=e.target;if(!i.classList||!i.classList.contains("fl-q"))return;var fl=i.closest(".fl");fl.dataset.q=i.value;apply(fl)});
 function init(){var g="";try{g=new URLSearchParams(location.search).get("genre")||""}catch(_){}
-document.querySelectorAll(".fl").forEach(function(fl){var c=fl.querySelector(".fl-genre"),labels={};try{labels=JSON.parse(c?c.dataset.labels:"{}")}catch(_){}
-fl.dataset.genre=g&&labels[g]?g:"";if(c){c.hidden=!fl.dataset.genre;var l=c.querySelector(".fl-genre-name");if(l)l.textContent=labels[g]||""}apply(fl)})}init();document.addEventListener("nav",init)}`
+document.querySelectorAll(".fl").forEach(function(fl){var has=g&&fl.querySelector('.fl-pill[data-kind="genre"][data-val="'+g.replace(/[^a-z0-9-]/gi,"")+'"]');fl.dataset.genre=has?g:"";if(has)fl.dataset.mode="genres";apply(fl)})}init();document.addEventListener("nav",init)}`
 
 /**
  * Filter bar for a section index. `pieces` give the counts. Pieces are hidden or shown through the
@@ -40,12 +42,12 @@ export function Filters({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
     b[0].localeCompare(a[0]),
   )
   const hasTags = tags.length > 0
-  const genreLabels = Object.fromEntries(
-    GENRES.filter((g) => pieces.some((p) => p.genre === g.id)).map((g) => [
-      g.id,
-      lang === "es" ? g.title_es : g.title,
-    ]),
-  )
+  // Genres, when the pieces have more than the section's own one (all of Visual Notes is one genre).
+  const genres = GENRES.map((g) => ({
+    ...g,
+    n: pieces.filter((p) => p.genre === g.id).length,
+  })).filter((g) => g.n > 0)
+  const hasGenres = genres.length > 0 && !(genres.length === 1 && genres[0].id === "visual-notes")
   return (
     <div class="fl" data-mode="cats" data-cat="" data-tag="" data-year="" data-q="">
       <div class="fl-row">
@@ -54,23 +56,17 @@ export function Filters({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
           <button type="button" data-mode="cats" class="is-on">
             {tt.categories}
           </button>
+          {hasGenres && (
+            <button type="button" data-mode="genres">
+              {tt.genres}
+            </button>
+          )}
           {hasTags && (
             <button type="button" data-mode="tags">
               {tt.tags}
             </button>
           )}
         </span>
-        {/* Shown when the page opens with ?genre=… (the "All flash →" links on the home page). */}
-        <button
-          type="button"
-          class="fl-genre"
-          hidden
-          aria-label={tt.clearGenre}
-          data-labels={JSON.stringify(genreLabels)}
-        >
-          <span class="fl-genre-name" />
-          <span aria-hidden="true"> ×</span>
-        </button>
         <label class="fl-find">
           <svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
             <circle
@@ -107,6 +103,20 @@ export function Filters({ pieces, lang }: { pieces: Piece[]; lang: Lang }) {
             <sup>{n}</sup>
           </button>
         ))}
+        {hasGenres &&
+          genres.map((g) => (
+            <button
+              type="button"
+              class="fl-pill"
+              data-kind="genre"
+              data-group="genres"
+              data-val={g.id}
+              hidden
+            >
+              {lang === "es" ? g.title_es : g.title}
+              <sup>{g.n}</sup>
+            </button>
+          ))}
         {tags.map(([c, n]) => (
           <button
             type="button"
