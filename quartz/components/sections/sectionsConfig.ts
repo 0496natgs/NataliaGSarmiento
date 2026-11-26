@@ -1,6 +1,7 @@
 // Editable configuration for the site's two spaces and their sections:
 //   writer space:     Work, Writing, Photo & Video, Visual Notes, About (home is "/")
-//   consulting space: Profile, Experience, Projects, Insights (home is "/consulting")
+//   consulting space: Profile, Services, Experience, Insights (home is "/consulting"); Projects is in
+//                     the sandbox
 // plus the Substack and LinkedIn links and the sketchbook strip. Change names, copy and colours
 // here. Spanish versions of every label sit next to the English ones.
 
@@ -24,6 +25,38 @@ export const CONTACT_EMAIL = "sarmiento.natns@gmail.com"
 
 export const LINKEDIN_URL = "https://www.linkedin.com/in/natalia-garcia-sarmiento/"
 export const TLACUILOQUE_URL = "https://tlacuiloque.com/"
+export const INSTAGRAM_URL = "https://www.instagram.com/natgsarmiento/"
+export const INSTAGRAM_WRITING_URL = "https://www.instagram.com/soymateria.prima/"
+
+/**
+ * The icons in the footer. The writing site shows the writing accounts, the consulting site the
+ * professional ones; both end with an envelope that opens the Contact page. `icon` is one of
+ * linkedin, instagram, substack, pen (see SiteFooter.tsx).
+ */
+export const SOCIAL: Record<
+  "writer" | "consulting",
+  { icon: string; label: string; label_es?: string; url: string }[]
+> = {
+  writer: [
+    { icon: "substack", label: "Substack", url: SUBSTACK_URL },
+    {
+      icon: "instagram",
+      label: "Instagram: Materia prima",
+      url: INSTAGRAM_WRITING_URL,
+    },
+    { icon: "pen", label: "Colectivo Tlacuiloque", url: TLACUILOQUE_URL },
+  ],
+  consulting: [
+    { icon: "linkedin", label: "LinkedIn", url: LINKEDIN_URL },
+    { icon: "instagram", label: "Instagram", url: INSTAGRAM_URL },
+  ],
+}
+
+/**
+ * The photograph behind every "Let's talk" band on the consulting site (René Rivas: paths meeting
+ * at a fountain). A page can use another one with `talk_photo:` in its front matter.
+ */
+export const TALK_PHOTO = "/static/photos/rene-rivas/rene-rivas-dji-0004.jpg"
 
 /**
  * Photographers whose pictures are kept on the site, one folder each under quartz/static/photos/.
@@ -406,6 +439,30 @@ export const SECTIONS: SectionDef[] = [
     },
   },
   {
+    slug: "consulting/services",
+    kind: "page",
+    space: "consulting",
+    numeral: "",
+    card: false,
+    title: "Services",
+    blurb: "Behavioral Change Design",
+    art: 4,
+    grid: "tiles",
+    tabs: false,
+    marquee: ["services", "behavioral change design", "wicked problems", "learn", "measure"],
+    es: {
+      title: "Servicios",
+      blurb: "Diseño de cambio conductual",
+      marquee: [
+        "servicios",
+        "diseño de cambio conductual",
+        "problemas perversos",
+        "aprender",
+        "medir",
+      ],
+    },
+  },
+  {
     slug: "consulting/experience",
     kind: "page",
     space: "consulting",
@@ -429,12 +486,17 @@ export const SECTIONS: SectionDef[] = [
       ],
     },
   },
+  // In the sandbox: the list and the project pages are kept, hidden, and open at /sandbox. The
+  // Experience page links each project to the kind of solution it was on the Services page. To bring
+  // it back: delete the inNav line and remove `sandbox: true` and `unlisted: true` from the files
+  // in content/consulting/projects/ (and content/es/consulting/projects/).
   {
     slug: "consulting/projects",
     kind: "collection",
     space: "consulting",
     numeral: "",
     card: false,
+    inNav: false,
     title: "Projects",
     blurb: "Service design, branding and editorial work",
     art: 4,

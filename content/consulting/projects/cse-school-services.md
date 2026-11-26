@@ -10,6 +10,10 @@ description: "A service redesign of school services for students at UAM Cuajimal
 tags:
   - consulting
   - service-design
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: service
+sandbox: true
+unlisted: true
 ---
 
 A redesign of the experience of school services at UAM Cuajimalpa. The video walks through the result.

@@ -11,6 +11,10 @@ description: "Logo design and event branding for Semana Granados Chapa, and the 
 tags:
   - consulting
   - design
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: brand
+sandbox: true
+unlisted: true
 ---
 
 Logo design and event branding for the Semana Granados Chapa. I also designed the logo of the Archivo Granados Chapa.

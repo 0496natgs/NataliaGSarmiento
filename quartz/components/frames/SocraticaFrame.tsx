@@ -9,7 +9,7 @@ import { SectionNav } from "../sections/SectionNav"
 import { renderSection } from "../sections/SectionLayouts"
 import { SITE_MARQUEE, isSectionSlug, sectionOfSlug, textOf } from "../sections/sectionsConfig"
 import { baseSlug, langOf } from "../sections/i18n"
-import { SpaceLink } from "../sections/SpaceLink"
+import { SiteFooter } from "../sections/SiteFooter"
 import { MARQUEE_PHRASES } from "../socratica/siteContent"
 
 // Fonts. Writing site (F2): Cormorant Garamond for titles and the logo, EB Garamond for reading and
@@ -60,22 +60,28 @@ export const SocraticaFrame: PageFrame = {
             componentData={componentData}
             graph={props.right.find((c) => c.name === "Graph")}
           />
-          <SpaceLink slug={slug} />
+          <SiteFooter slug={slug} />
         </>
       )
     }
+    // The site's own pages end with its footer (SiteFooter), in place of the theme's credit line.
     if (isSectionSlug(slug)) {
       return (
         <>
-          {renderSection(props)}
-          <SpaceLink slug={slug} />
+          {renderSection({ ...props, footer: [] })}
+          <SiteFooter slug={slug} />
         </>
       )
     }
 
     // Tag pages (the chips on every project): the site menu, without the guide's sidebar.
     if (isTagPage(slug)) {
-      return DefaultFrame.render({ ...props, left: [], right: [] })
+      return (
+        <>
+          {DefaultFrame.render({ ...props, left: [], right: [], footer: [] })}
+          <SiteFooter slug={slug} />
+        </>
+      )
     }
 
     const card = cardForSlug(slug)

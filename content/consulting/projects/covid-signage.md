@@ -10,6 +10,10 @@ description: "A wayfinding and wayshowing system for COVID-19 across the UAM Cua
 tags:
   - consulting
   - service-design
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: service
+sandbox: true
+unlisted: true
 ---
 
 A complete signage system for COVID-19, implemented across UAM Cuajimalpa and designed on the COVID-19 Design Toolkit (Version 1.0 US, October 2020) as its base.

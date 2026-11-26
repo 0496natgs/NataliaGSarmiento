@@ -23,7 +23,7 @@ practices:
       - Gestión de programas y proyectos globales
       - Relación con partes interesadas y alineación ejecutiva
       - Liderazgo multifuncional
-featured: [cultura-de-paz, covid-signage, cse-school-services]
+services_photo: /static/photos/rene-rivas/rene-rivas-dji-0088-1.jpg
 tags:
   - consulting
   - behavioral-change

@@ -9,6 +9,10 @@ description: "Identity, microsite and event branding for UAM Cuajimalpa's Cultur
 tags:
   - consulting
   - design
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: brand
+sandbox: true
+unlisted: true
 ---
 
 The Cultura de Paz microsite is a space to find information about the actions for peace that UAM Cuajimalpa carries out with ANUIES, other allied institutions and collaborators.
