@@ -1,19 +1,21 @@
 import { QuartzComponent, QuartzComponentProps } from "../types"
 import { Piece, getPieces } from "./pieces"
-import { LINKEDIN_URL, SITE } from "./sectionsConfig"
-import { Lang, categoryLabel, langOf, t, urlFor } from "./i18n"
-import { WorkCard } from "./WorkCard"
+import { SITE, spaceOfSlug } from "./sectionsConfig"
+import { Lang, langOf, t, urlFor } from "./i18n"
 import { ListRow } from "./ListRow"
 import { Crumbs } from "./Crumbs"
 import { GoArrow } from "./GoArrow"
 import { PhotoCredit } from "./PhotoCredit"
+import { LetsTalk } from "./LetsTalk"
+import { ServicesBand, servicesData, solutionHref } from "./ServicesPage"
 
 /**
- * The consulting space's home (K1 with the K2 hero). An indigo band with the headline, one
+ * The consulting space's home (K1 with the K2 hero, then C1). An indigo band with the headline, one
  * sentence and a photograph by René Rivas under an indigo wash; a "currently" strip taken from the
- * Experience page; the page's own text beside its tagline; three practices; three selected projects;
- * the experience in five lines; and an indigo "Let's talk" band. Everything comes from frontmatter:
- * content/consulting/index.md (headline, intro, hero, tagline, languages, practices, featured) and
+ * Experience page; the page's own text beside its tagline; the Services band, full width over
+ * another of René's photographs; three practices; the experience in five lines; and a lime
+ * "Let's talk" band. Everything comes from frontmatter: content/consulting/index.md (headline,
+ * intro, hero, tagline, languages, practices, services_photo), content/consulting/services.md and
  * content/consulting/experience.md (timeline).
  */
 export function ConsultingProfile({
@@ -35,13 +37,7 @@ export function ConsultingProfile({
     title?: string
     items?: string[]
   }[]
-  const projects = getPieces(componentData.allFiles, "consulting/projects", lang)
-  const featuredSlugs = list(fm.featured)
-  const featured = featuredSlugs.length
-    ? featuredSlugs
-        .map((f) => projects.find((p) => p.slug.endsWith(`consulting/projects/${f}`)))
-        .filter((p): p is Piece => !!p)
-    : projects.slice(0, 3)
+  const services = servicesData(componentData.allFiles, lang)
   const insights = getPieces(componentData.allFiles, "consulting/insights", lang).slice(0, 4)
 
   // The roles, from the Experience page in the same language (English if there is no Spanish one).
@@ -64,8 +60,8 @@ export function ConsultingProfile({
           <h1 class="cpk-title">{str(fm.headline)}</h1>
           {fm.intro !== undefined && <p class="cpk-lede">{str(fm.intro)}</p>}
           <p class="cpk-actions">
-            <a class="cpk-btn is-lime" href="#projects" data-router-ignore>
-              {tt.seeProjects}
+            <a class="cpk-btn is-lime" href={urlFor("consulting/services", lang)}>
+              {tt.seeServices}
             </a>
             <a class="cpk-btn is-ghost" href={urlFor("consulting/experience", lang)}>
               {tt.viewExperience}
@@ -105,6 +101,10 @@ export function ConsultingProfile({
         </div>
       </section>
 
+      {services && (
+        <ServicesBand data={services} lang={lang} photo={str(fm.services_photo) || undefined} />
+      )}
+
       {practices.length > 0 && (
         <section class="cpk-practices">
           {practices.map((p) => (
@@ -117,20 +117,6 @@ export function ConsultingProfile({
               </ul>
             </div>
           ))}
-        </section>
-      )}
-
-      {featured.length > 0 && (
-        <section class="cpk-projects" id="projects">
-          <div class="cpk-head">
-            <h2>{tt.featuredProjects}</h2>
-            <a href={urlFor("consulting/projects", lang)}>{tt.allProjects} →</a>
-          </div>
-          <div class="s-grid s-grid-work">
-            {featured.map((p, i) => (
-              <WorkCard piece={p} index={i} lang={lang} />
-            ))}
-          </div>
         </section>
       )}
 
@@ -168,24 +154,7 @@ export function ConsultingProfile({
         </section>
       )}
 
-      <section class="cpk-cta">
-        <h2>{tt.letsTalk}</h2>
-        <p class="cpk-cta-actions">
-          <a class="cpk-btn is-lime" href={urlFor("contact", lang)}>
-            {tt.writeToMe}
-          </a>
-          <a
-            class="cpk-btn is-ghost"
-            href={LINKEDIN_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-router-ignore
-          >
-            {tt.linkedin}
-            <span class="ext" aria-hidden="true" />
-          </a>
-        </p>
-      </section>
+      <LetsTalk lang={lang} tone="lime" photo={str(fm.talk_photo) || undefined} />
       {footer.map((F) => (
         <F {...componentData} />
       ))}
@@ -201,8 +170,13 @@ interface Role {
   location?: string
   summary?: string
   bullets?: string[]
-  /** Slugs under consulting/projects that belong to this role. */
+  /**
+   * Slugs under consulting/projects that belong to this role. Each one links to the kind of
+   * solution it was on the Services page (`solution:` in the project's file).
+   */
   projects?: string[]
+  /** A case study on another site (e.g. Mi Casa Resource Center on huitzisolutions.io). */
+  case?: { title: string; url: string }
   current?: boolean
 }
 
@@ -229,15 +203,18 @@ function Timeline({
   roles,
   current,
   pieces,
+  solutions = [],
   label,
   lang,
 }: {
   roles: Role[]
   current: string
   pieces: Piece[]
+  solutions?: { id: string; title: string }[]
   label: string
   lang: Lang
 }) {
+  const tt = t(lang)
   return (
     <ol class="tl">
       {roles.map((r, i) => (
@@ -268,23 +245,41 @@ function Timeline({
                 <ul>
                   {r.projects.map((name) => {
                     const piece = pieces.find((p) => p.slug.endsWith(`consulting/projects/${name}`))
-                    if (!piece) return null
+                    const kind = solutions.find((x) => x.id === piece?.solution)
+                    if (!piece || !kind) return null
                     return (
                       <li>
-                        <a class="tl-project" href={piece.href}>
+                        <a class="tl-project" href={solutionHref(kind.id, lang)}>
                           <span class="tl-project-title">
                             {piece.title}
                             <GoArrow />
                           </span>
-                          <span class="tl-project-meta">
-                            {[categoryLabel(piece.category, lang), piece.period ?? piece.year]
-                              .filter(Boolean)
-                              .join(" · ")}
-                          </span>
+                          <span class="tl-project-meta">{kind.title} →</span>
                         </a>
                       </li>
                     )
                   })}
+                </ul>
+              </div>
+            )}
+            {r.case && (
+              <div class="tl-projects">
+                <ul>
+                  <li>
+                    <a
+                      class="tl-project"
+                      href={r.case.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-router-ignore
+                    >
+                      <span class="tl-project-title">
+                        {r.case.title}
+                        <GoArrow external />
+                      </span>
+                      <span class="tl-project-meta">{tt.theCase} ↗</span>
+                    </a>
+                  </li>
                 </ul>
               </div>
             )}
@@ -308,53 +303,65 @@ export function ConsultingPage({
   const fm = componentData.fileData.frontmatter as Record<string, unknown> | undefined
   const lang = langOf(componentData.fileData.slug)
   const es = lang === "es"
+  // Consulting pages (Experience) end with the full-width Let's talk; Contact does not.
+  const talk = spaceOfSlug(componentData.fileData.slug) === "consulting"
   return (
-    <div class="center s-index cp-page">
-      <Crumbs
-        slug={componentData.fileData.slug}
-        title={String(componentData.fileData.frontmatter?.title ?? "")}
-      />
-      <p class="s-eyebrow">{SITE.name}</p>
-      <h1 class="s-index-title">{componentData.fileData.frontmatter?.title}</h1>
-      {Array.isArray(fm?.timeline) ? (
-        <div class="cp-page-body is-timeline">
-          <Timeline
-            roles={fm.timeline as Role[]}
-            current={es ? "Actual" : "Current"}
-            pieces={getPieces(componentData.allFiles, "consulting/projects", lang)}
-            label={t(lang).roleProjects}
-            lang={lang}
-          />
-          {Array.isArray(fm.education) && (
-            <>
-              <h2 class="tl-head">{es ? "Formación" : "Education"}</h2>
-              <Timeline
-                roles={fm.education as Role[]}
-                current=""
-                pieces={[]}
-                label=""
-                lang={lang}
-              />
-            </>
-          )}
-          {fm.languages && (
-            <>
-              <h2 class="tl-head">{es ? "Idiomas" : "Languages"}</h2>
-              <p class="tl-sum">{String(fm.languages)}</p>
-            </>
-          )}
-          <p class="tl-back">
-            <a href={urlFor("consulting", lang)}>← {es ? "Perfil" : "Profile"}</a>
-          </p>
-        </div>
-      ) : (
-        <div class="cp-page-body">
-          <Content {...componentData} />
-        </div>
+    <>
+      <div class={`center s-index cp-page${talk ? " has-talk" : ""}`}>
+        <Crumbs
+          slug={componentData.fileData.slug}
+          title={String(componentData.fileData.frontmatter?.title ?? "")}
+        />
+        <p class="s-eyebrow">{SITE.name}</p>
+        <h1 class="s-index-title">{componentData.fileData.frontmatter?.title}</h1>
+        {Array.isArray(fm?.timeline) ? (
+          <div class="cp-page-body is-timeline">
+            <Timeline
+              roles={fm.timeline as Role[]}
+              current={es ? "Actual" : "Current"}
+              pieces={getPieces(componentData.allFiles, "consulting/projects", lang, true)}
+              solutions={servicesData(componentData.allFiles, lang)?.solutions ?? []}
+              label={t(lang).projectsAndSolutions}
+              lang={lang}
+            />
+            {Array.isArray(fm.education) && (
+              <>
+                <h2 class="tl-head">{es ? "Formación" : "Education"}</h2>
+                <Timeline
+                  roles={fm.education as Role[]}
+                  current=""
+                  pieces={[]}
+                  label=""
+                  lang={lang}
+                />
+              </>
+            )}
+            {fm.languages && (
+              <>
+                <h2 class="tl-head">{es ? "Idiomas" : "Languages"}</h2>
+                <p class="tl-sum">{String(fm.languages)}</p>
+              </>
+            )}
+            <p class="tl-back">
+              <a href={urlFor("consulting", lang)}>← {es ? "Perfil" : "Profile"}</a>
+            </p>
+          </div>
+        ) : (
+          <div class="cp-page-body">
+            <Content {...componentData} />
+          </div>
+        )}
+        {footer.map((F) => (
+          <F {...componentData} />
+        ))}
+      </div>
+      {talk && (
+        <LetsTalk
+          lang={lang}
+          tone="lime"
+          photo={fm?.talk_photo ? String(fm.talk_photo) : undefined}
+        />
       )}
-      {footer.map((F) => (
-        <F {...componentData} />
-      ))}
-    </div>
+    </>
   )
 }

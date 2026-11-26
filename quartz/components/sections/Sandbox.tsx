@@ -1,7 +1,7 @@
 import { QuartzComponent, QuartzComponentProps } from "../types"
-import { getPieces } from "./pieces"
+import { getPieces, isSandbox } from "./pieces"
 import { SECTIONS, SITE, textOf } from "./sectionsConfig"
-import { Lang, langOf, t, urlFor } from "./i18n"
+import { Lang, baseSlug, langOf, t, urlFor } from "./i18n"
 import { Crumbs } from "./Crumbs"
 import { PostsList } from "./PostsList"
 
@@ -38,6 +38,17 @@ export function SandboxPage({
       getPieces(componentData.allFiles, s.slug, lang, true),
     ])
     .filter(([, pieces]) => pieces.length > 0)
+  // Whole sections kept here (their list pages, with filters): Photo & Video, consulting Projects.
+  const lists = SECTIONS.filter(
+    (s) =>
+      s.kind === "collection" &&
+      componentData.allFiles.some(
+        (f) =>
+          langOf(f.slug) === lang &&
+          [s.slug, `${s.slug}/index`].includes(baseSlug(f.slug)) &&
+          isSandbox(f),
+      ),
+  )
   return (
     <div class="center s-index cp-page sandbox-page">
       <Crumbs slug={slug} title={String(componentData.fileData.frontmatter?.title ?? "")} />
@@ -46,6 +57,13 @@ export function SandboxPage({
       <div class="cp-page-body">
         <Content {...componentData} />
       </div>
+      {lists.length > 0 && (
+        <p class="sandbox-lists">
+          {lists.map((l) => (
+            <a href={urlFor(l.slug, lang)}>{textOf(l, lang).title} →</a>
+          ))}
+        </p>
+      )}
       {groups.length > 0 ? (
         <PostsList pieces={groups.flatMap(([, pieces]) => pieces)} lang={lang} groups={groups} />
       ) : (

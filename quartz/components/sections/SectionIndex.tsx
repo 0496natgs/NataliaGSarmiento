@@ -1,5 +1,6 @@
 import { QuartzComponent, QuartzComponentProps } from "../types"
-import { getPieces } from "./pieces"
+import { getPieces, isSandbox } from "./pieces"
+import { SandboxNote } from "./Sandbox"
 import { SectionDef, SITE, textOf } from "./sectionsConfig"
 import { langOf, t } from "./i18n"
 import { Filters } from "./Filters"
@@ -26,12 +27,16 @@ export function SectionIndex({
 }) {
   const lang = langOf(componentData.fileData.slug)
   const tt = t(lang)
-  const pieces = getPieces(componentData.allFiles, section.slug, lang)
+  // A section kept in the sandbox (Photo & Video, consulting Projects) still works at its address,
+  // with its sandbox pieces, filters and views, for testing.
+  const sandbox = isSandbox(componentData.fileData)
+  const pieces = getPieces(componentData.allFiles, section.slug, lang, sandbox)
   // Writing and Work: a List view (the default) and a Grid view.
   const hasViews = (section.grid === "tiles" || section.grid === "work") && pieces.length > 0
   return (
     <div class={`center s-index s-index-${section.grid}`}>
       {/* Title on the left and the page's text on the right on a desktop; stacked on tablets and phones. */}
+      {sandbox && <SandboxNote lang={lang} />}
       <div class="s-index-head">
         <div class="s-index-head-main">
           <Crumbs slug={componentData.fileData.slug} />

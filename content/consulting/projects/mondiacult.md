@@ -9,6 +9,10 @@ description: "Visual identity, posters, programs and badges for UAM Cuajimalpa's
 tags:
   - consulting
   - design
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: brand
+sandbox: true
+unlisted: true
 ---
 
 Design for the international seminar _Cultural diversity and media_, UAM Cuajimalpa's side event at MONDIACULT 2022, the UNESCO world conference on cultural policies, held in Mexico City on September 26, 2022.

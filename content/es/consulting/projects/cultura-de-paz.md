@@ -10,6 +10,9 @@ tags:
   - consulting
   - design
 unlisted: true
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: brand
+sandbox: true
 ---
 
 El micrositio Cultura de Paz es un espacio para encontrar información sobre las acciones por la paz que la UAM Cuajimalpa realiza con la ANUIES, otras instituciones aliadas y colaboradores.

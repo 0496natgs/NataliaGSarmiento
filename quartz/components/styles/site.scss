@@ -1223,26 +1223,6 @@ body[data-slug$="consulting/projects/index"] .s-work-media.has-cover {
 }
 
 /* ---------- link to the other space ---------- */
-.space-link {
-  margin: 3rem 0 1.5rem;
-  text-align: center;
-  font-family: $mono;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  color: var(--gray);
-
-  a {
-    margin-left: 0.4rem;
-    color: var(--dark);
-    background: none;
-    border-bottom: 1px solid var(--tertiary);
-    text-decoration: none;
-
-    &:hover {
-      color: var(--tertiary);
-    }
-  }
-}
 
 // Photos on a visual-notes event page: one note per row, large enough to read.
 body[data-slug^="visual-notes/"],
@@ -1816,12 +1796,6 @@ article a:hover,
 // ---------- contact ----------
 .contact-actions {
   margin: 1.6rem 0;
-}
-
-// ---------- footer line ----------
-.space-link-more {
-  display: block;
-  margin-top: 0.5rem;
 }
 
 // ---------- the menu's search ----------
@@ -2515,7 +2489,7 @@ $cpk-wide: 1160px;
 
 #quartz-body .cp.cpk {
   max-width: none !important;
-  padding: 0 0 1rem !important;
+  padding: 0 !important;
 }
 
 // The page is capped at 1500px; on the consulting home the indigo band runs edge to edge on any
@@ -2525,7 +2499,7 @@ $cpk-wide: 1160px;
 }
 
 #quartz-body .cpk {
-  > section:not(.cpk-hero):not(.cpk-cta) {
+  > section:not(.cpk-hero):not(.is-bleed) {
     max-width: $cpk-wide;
     margin-left: auto;
     margin-right: auto;
@@ -2537,8 +2511,7 @@ $cpk-wide: 1160px;
   // Section headings only (not the project cards' titles, which are h2s too).
   .cpk-head h2,
   .cpk-exp > h2,
-  .cpk-practice h2,
-  .cpk-cta h2 {
+  .cpk-practice h2 {
     margin: 0;
     font-family: var(--title-font);
     font-weight: 300;
@@ -2793,7 +2766,6 @@ $cpk-wide: 1160px;
     }
   }
 
-  .cpk-projects,
   .cpk-insights {
     margin-top: clamp(3.5rem, 7vw, 5.5rem);
     scroll-margin-top: 90px;
@@ -2851,39 +2823,6 @@ $cpk-wide: 1160px;
     color: var(--secondary);
   }
 
-  // Let's talk: an indigo band with the lime button.
-  .cpk-cta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    max-width: $cpk-wide - 80px;
-    margin: clamp(3.5rem, 7vw, 5.5rem) auto 3rem;
-    padding: 2.6rem 3rem;
-    box-sizing: border-box;
-    background: $cpk-indigo;
-
-    h2 {
-      color: #fcfcfc;
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-    }
-  }
-
-  .cpk-cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 0;
-  }
-
-  @media all and (max-width: 1240px) {
-    .cpk-cta {
-      margin-left: 40px;
-      margin-right: 40px;
-    }
-  }
-
   @media all and (max-width: 860px) {
     .cpk-hero-inner,
     .cpk-about,
@@ -2914,7 +2853,7 @@ $cpk-wide: 1160px;
   }
 
   @media all and (max-width: 640px) {
-    > section:not(.cpk-hero):not(.cpk-cta) {
+    > section:not(.cpk-hero):not(.is-bleed) {
       padding-left: 16px;
       padding-right: 16px;
     }
@@ -2925,12 +2864,6 @@ $cpk-wide: 1160px;
 
     .cpk-credit {
       right: 16px;
-    }
-
-    .cpk-cta {
-      margin-left: 16px;
-      margin-right: 16px;
-      padding: 2rem 1.4rem;
     }
   }
 }
@@ -3384,4 +3317,1379 @@ body[data-slug^="consulting/"] .s-work:hover .s-work-title,
 body[data-slug="es/consulting"] .s-work:hover .s-work-title,
 body[data-slug^="es/consulting/"] .s-work:hover .s-work-title {
   text-decoration-color: #c1e401;
+}
+
+/* ---------- full-width bands on the consulting site ---------- */
+// A page with a full-width Let's talk (Experience) runs edge to edge like the Profile; its column
+// keeps its own width.
+#quartz-root.page:has(.talk) {
+  max-width: none;
+}
+
+$band-gutter: max(40px, calc((100% - #{$cpk-wide}) / 2 + 40px));
+
+// Let's talk: René Rivas's fountain in black and white under a lime (or ink) wash. Anchored on
+// #quartz-body so its buttons win over the consulting pages' plain-link rule.
+#quartz-body .talk {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin: clamp(3.5rem, 7vw, 5.5rem) 0 0;
+  padding: clamp(4rem, 8vw, 6.25rem) $band-gutter clamp(3.75rem, 7vw, 5.75rem);
+  background: #c1e401;
+  color: #17130f;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      90deg,
+      rgba(193, 228, 1, 0.93),
+      rgba(193, 228, 1, 0.86) 50%,
+      rgba(193, 228, 1, 0.78)
+    );
+  }
+
+  &.is-ink {
+    background: #17130f;
+    color: #fcfcfc;
+
+    &::after {
+      background: linear-gradient(
+        90deg,
+        rgba(23, 19, 15, 0.9),
+        rgba(23, 19, 15, 0.78) 50%,
+        rgba(23, 19, 15, 0.66)
+      );
+    }
+  }
+
+  .talk-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    border-radius: 0;
+    filter: grayscale(1) contrast(1.1) brightness(1.05);
+  }
+
+  .talk-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem 2.5rem;
+  }
+
+  .talk-title {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(3rem, 7.5vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: inherit;
+  }
+
+  .talk-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+  }
+
+  .talk-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.95rem 1.6rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-family: var(--ui-font);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+
+    &.is-solid {
+      background: #17130f;
+      color: #fcfcfc;
+
+      &:hover {
+        background: #0a0773;
+        color: #fcfcfc;
+      }
+    }
+
+    &.is-ghost {
+      border-color: #17130f;
+      background: transparent;
+      color: #17130f;
+
+      &:hover {
+        background: #17130f;
+        color: #fcfcfc;
+      }
+    }
+  }
+
+  &.is-ink .talk-btn {
+    &.is-solid {
+      background: #c1e401;
+      color: #17130f;
+
+      &:hover {
+        background: #fcfcfc;
+        color: #17130f;
+      }
+    }
+
+    &.is-ghost {
+      border-color: rgba(252, 252, 252, 0.6);
+      color: #fcfcfc;
+
+      &:hover {
+        border-color: #fcfcfc;
+        background: rgba(252, 252, 252, 0.08);
+        color: #fcfcfc;
+      }
+    }
+  }
+
+  .talk-credit {
+    position: absolute;
+    right: max(16px, calc((100% - #{$cpk-wide}) / 2 + 40px));
+    bottom: 14px;
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 12.5px;
+    color: inherit;
+    opacity: 0.72;
+
+    a {
+      color: inherit;
+      background: none;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  @media all and (max-width: 640px) {
+    padding: 3.25rem 16px 3.5rem;
+
+    .talk-credit {
+      right: 16px;
+    }
+  }
+}
+
+// The Experience page's column ends where the band starts.
+#quartz-body .s-index.has-talk {
+  padding-bottom: 0;
+}
+
+/* ---------- the method loop (Services page and the Profile's Services band) ---------- */
+.svc-loop {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 460 / 330;
+
+  svg {
+    position: absolute;
+    left: 0;
+    top: 4.5%;
+    width: 100%;
+    height: 90.9%;
+    overflow: visible;
+  }
+
+  path {
+    stroke: #a7aed9;
+    stroke-width: 2;
+  }
+
+  .svc-dot {
+    fill: #0a0773;
+    stroke: #fcfcfc;
+    stroke-width: 1.5;
+
+    &.d1 {
+      fill: #c1e401;
+      stroke: none;
+    }
+  }
+
+  .svc-dot-n {
+    font-family: var(--ui-font);
+    font-size: 14px;
+    fill: #fcfcfc;
+
+    &.n1 {
+      fill: #17130f;
+    }
+  }
+
+  .svc-lb {
+    position: absolute;
+    transform: translateX(-50%);
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(1.05rem, 2vw, 1.5rem);
+    line-height: 1;
+    color: #fcfcfc;
+    white-space: nowrap;
+
+    &.l1 {
+      left: 23.9%;
+      top: 0;
+    }
+    &.l3 {
+      left: 76.1%;
+      top: 0;
+    }
+    &.l4 {
+      left: 23.9%;
+      top: 84%;
+    }
+    &.l2 {
+      left: 76.1%;
+      top: 84%;
+    }
+  }
+
+  // On the Services page the dots light up in turn and the names are buttons.
+  &.is-interactive {
+    .svc-dot {
+      fill: #fcfcfc;
+      stroke: none;
+      animation: svc-dot 16s infinite both;
+    }
+
+    .svc-dot-n {
+      fill: #0a0773;
+    }
+
+    label.svc-lb {
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #c1e401;
+      }
+    }
+  }
+}
+
+@keyframes svc-cycle {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  3% {
+    opacity: 1;
+    transform: none;
+  }
+  22% {
+    opacity: 1;
+    transform: none;
+  }
+  25% {
+    opacity: 0;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes svc-dot {
+  0%,
+  25%,
+  100% {
+    fill: #fcfcfc;
+  }
+  3%,
+  22% {
+    fill: #c1e401;
+  }
+}
+
+@keyframes svc-tab {
+  0%,
+  25%,
+  100% {
+    border-color: transparent;
+    color: #5f5a52;
+  }
+  3%,
+  22% {
+    border-color: #c1e401;
+    color: #17130f;
+  }
+}
+
+/* ---------- consulting Profile: the Services band (C1) ---------- */
+#quartz-body .cpk .cpk-svc {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin-top: clamp(3.5rem, 7vw, 5.25rem);
+  padding: clamp(4rem, 7vw, 5.5rem) $band-gutter clamp(4rem, 6.5vw, 4.75rem);
+  background: #0a0773;
+  color: #fcfcfc;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      90deg,
+      rgba(10, 7, 115, 0.9),
+      rgba(10, 7, 115, 0.8) 48%,
+      rgba(10, 7, 115, 0.7)
+    );
+  }
+
+  .cpk-svc-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    border-radius: 0;
+    filter: grayscale(1) contrast(1.15) brightness(1.04);
+  }
+
+  .cpk-svc-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+    gap: 2.5rem 5rem;
+  }
+
+  .cpk-svc-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cpk-svc-eyebrow {
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 14px;
+    color: #c1e401;
+  }
+
+  .cpk-svc-title {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(2.4rem, 4.4vw, 3.25rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: #fcfcfc;
+  }
+
+  .cpk-svc-sub {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.2rem, 1.9vw, 1.45rem);
+    line-height: 1.3;
+    color: #e9e8f4;
+  }
+
+  .svc-loop {
+    max-width: 440px;
+    margin: 0.4rem 0 0;
+  }
+
+  .cpk-svc-more {
+    display: inline-block;
+    font-family: var(--ui-font);
+    font-weight: 500;
+    font-size: 14px;
+    color: #c1e401;
+    background: none;
+    text-decoration: none;
+
+    &:hover {
+      color: #c1e401;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
+  .cpk-svc-lead {
+    margin: 0 0 0.9rem;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    line-height: 1.3;
+    color: #fcfcfc;
+  }
+
+  .cpk-svc-list {
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid rgba(252, 252, 252, 0.28);
+
+    li {
+      margin: 0;
+      border-top: 1px solid rgba(252, 252, 252, 0.28);
+
+      &:first-child {
+        border-top-color: rgba(252, 252, 252, 0.75);
+      }
+    }
+  }
+
+  .cpk-svc-row {
+    display: block;
+    padding: 0.85rem 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(1.3rem, 2.1vw, 1.6rem);
+    line-height: 1.2;
+    color: #fcfcfc;
+    background: none;
+    text-decoration: none;
+    transition: transform 0.2s ease-in;
+
+    &:hover,
+    &:focus-visible {
+      transform: translateX(8px);
+      color: #fcfcfc;
+
+      .s-go {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  .cpk-svc-credit {
+    position: absolute;
+    right: max(16px, calc((100% - #{$cpk-wide}) / 2 + 40px));
+    bottom: 14px;
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 12.5px;
+    color: rgba(252, 252, 252, 0.72);
+
+    a {
+      color: inherit;
+      background: none;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  @media all and (max-width: 860px) {
+    .cpk-svc-inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media all and (max-width: 640px) {
+    padding: 3.25rem 16px 3.75rem;
+
+    .cpk-svc-credit {
+      right: 16px;
+    }
+  }
+}
+
+/* ---------- consulting: the Services page (S4) ---------- */
+#quartz-body .svc {
+  // The four steps are radio buttons: the loop's names and the tabs are their labels.
+  .svc-st {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .svc-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: clamp(3.5rem, 7vw, 5.25rem) $band-gutter clamp(3.25rem, 6vw, 4.5rem);
+    background: #0a0773;
+    color: #fcfcfc;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        90deg,
+        rgba(10, 7, 115, 0.9),
+        rgba(10, 7, 115, 0.72) 52%,
+        rgba(10, 7, 115, 0.82)
+      );
+    }
+  }
+
+  .svc-hero-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    border-radius: 0;
+    filter: grayscale(1) contrast(1.15);
+  }
+
+  .svc-hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 540px) minmax(0, 470px);
+    justify-content: space-between;
+    align-items: center;
+    gap: 2.5rem 4rem;
+  }
+
+  .svc-hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .svc-eyebrow {
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 14px;
+    color: #c9cbeb;
+  }
+
+  .svc-title {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(2.6rem, 5.6vw, 4.1rem);
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: #fcfcfc;
+  }
+
+  .svc-sub {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+    line-height: 1.25;
+    color: #e9e8f4;
+  }
+
+  .svc-intro {
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 1.03rem;
+    line-height: 1.6;
+    color: #e9e8f4;
+  }
+
+  .svc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0.3rem 0 0;
+  }
+
+  .svc-hint {
+    margin: 0.6rem 0 0;
+    text-align: center;
+    font-family: var(--ui-font);
+    font-size: 13px;
+    color: #c9cbeb;
+  }
+
+  .svc-credit {
+    position: absolute;
+    right: max(16px, calc((100% - #{$cpk-wide}) / 2 + 40px));
+    bottom: 14px;
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 12.5px;
+    color: rgba(252, 252, 252, 0.72);
+
+    a {
+      color: inherit;
+      background: none;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  // How I work: the text that follows the loop.
+  .svc-how {
+    padding: clamp(2.5rem, 5vw, 2.9rem) $band-gutter clamp(2.5rem, 5vw, 3.1rem);
+    background: #ffffff;
+    border-bottom: 1px solid var(--lightgray);
+    scroll-margin-top: 70px;
+  }
+
+  .svc-how-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem 2rem;
+    margin-bottom: 1.7rem;
+
+    h2 {
+      margin: 0;
+      font-family: var(--title-font);
+      font-weight: 300;
+      font-size: clamp(2rem, 3.6vw, 2.75rem);
+      line-height: 1.05;
+      color: var(--dark);
+    }
+  }
+
+  .svc-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+  }
+
+  .svc-tab {
+    padding-bottom: 4px;
+    border-bottom: 3px solid transparent;
+    font-family: var(--ui-font);
+    font-size: 16px;
+    color: #5f5a52;
+    cursor: pointer;
+    animation: svc-tab 16s infinite both;
+  }
+
+  .svc-panels {
+    display: grid;
+  }
+
+  .svc-panel {
+    grid-area: 1 / 1;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 1.25rem 3rem;
+    opacity: 0;
+    animation: svc-cycle 16s infinite both;
+  }
+
+  .svc-panel-num {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .svc-n {
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(4rem, 8vw, 5.75rem);
+    line-height: 0.9;
+    color: #0a0773;
+  }
+
+  .svc-panel-name {
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(2rem, 3.6vw, 2.6rem);
+    line-height: 1;
+    color: var(--dark);
+  }
+
+  .svc-panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .svc-panel-title {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    line-height: 1.15;
+    color: var(--dark);
+  }
+
+  .svc-panel-text {
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 17px;
+    line-height: 1.6;
+    color: #3d3832;
+
+    strong {
+      font-weight: 500;
+      color: var(--dark);
+    }
+  }
+
+  .svc-panel-tools {
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 13.5px;
+    color: #0a0773;
+  }
+
+  .svc-note {
+    margin: 1.4rem 0 0;
+    font-family: var(--ui-font);
+    font-size: 15px;
+    line-height: 1.6;
+    color: #3d3832;
+  }
+
+  // Each step four seconds in turn; the pointer on the method pauses it; a chosen step stays.
+  .p2,
+  .d2,
+  .t2 {
+    animation-delay: 4s;
+  }
+  .p3,
+  .d3,
+  .t3 {
+    animation-delay: 8s;
+  }
+  .p4,
+  .d4,
+  .t4 {
+    animation-delay: 12s;
+  }
+
+  .svc-proc:hover {
+    .svc-panel,
+    .svc-dot,
+    .svc-tab {
+      animation-play-state: paused;
+    }
+  }
+
+  .svc-proc:has(.svc-st:checked) {
+    .svc-panel,
+    .svc-dot,
+    .svc-tab {
+      animation: none;
+    }
+
+    .svc-panel {
+      opacity: 0;
+    }
+  }
+
+  @for $i from 1 through 4 {
+    .svc-proc:has(#svc-st#{$i}:checked) {
+      .p#{$i} {
+        opacity: 1;
+      }
+
+      .svc-dot.d#{$i} {
+        fill: #c1e401;
+      }
+
+      .t#{$i} {
+        border-color: #c1e401;
+        color: #17130f;
+      }
+    }
+
+    .svc-proc:has(#svc-st#{$i}:focus-visible) {
+      .t#{$i},
+      .svc-lb.l#{$i} {
+        outline: 2px solid #c1e401;
+        outline-offset: 3px;
+      }
+    }
+  }
+
+  // Behavior change in organizations, with the nested brackets.
+  .svc-org {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 500px);
+    align-items: center;
+    gap: 2.5rem 4rem;
+    margin-top: clamp(3.5rem, 7vw, 5rem);
+
+    h2 {
+      margin: 0 0 1.1rem;
+      font-family: var(--title-font);
+      font-weight: 300;
+      font-size: clamp(2.2rem, 4vw, 3.1rem);
+      line-height: 1.02;
+      color: var(--dark);
+    }
+  }
+
+  .svc-org-text p {
+    margin: 0 0 1rem;
+    font-family: var(--ui-font);
+    font-size: 17px;
+    line-height: 1.65;
+    color: #3d3832;
+
+    &.svc-kicker {
+      margin-bottom: 1rem;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #0a0773;
+    }
+  }
+
+  .svc-level {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 0 0 24px;
+    border-top: 1px solid #0a0773;
+    border-left: 1px solid #0a0773;
+
+    .svc-level {
+      margin-top: 24px;
+    }
+
+    &.is-core {
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0 6px 24px;
+
+      .svc-level-name {
+        color: var(--dark);
+      }
+    }
+  }
+
+  .svc-level-name {
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 2.4vw, 1.85rem);
+    line-height: 1;
+    color: #0a0773;
+  }
+
+  .svc-level-items {
+    font-family: var(--ui-font);
+    font-size: 14px;
+    color: #3d3832;
+  }
+
+  .svc-core-dot {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #c1e401;
+  }
+
+  // Wicked problems: a tame problem beside the problem map.
+  .svc-wicked {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    margin-top: clamp(3.5rem, 7vw, 5rem);
+    padding-top: 22px;
+    border-top: 1px solid var(--dark);
+  }
+
+  .svc-wicked-head {
+    display: grid;
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    align-items: start;
+    gap: 1.5rem 3.5rem;
+
+    h2 {
+      margin: 0 0 0.9rem;
+      font-family: var(--title-font);
+      font-weight: 300;
+      font-size: clamp(2.2rem, 4vw, 3.1rem);
+      line-height: 1;
+      color: var(--dark);
+    }
+  }
+
+  .svc-def {
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #5f5a52;
+  }
+
+  .svc-statement {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+    line-height: 1.25;
+    color: var(--dark);
+  }
+
+  .svc-compare {
+    display: grid;
+    grid-template-columns: minmax(0, 280px) 1px minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem 2.75rem;
+  }
+
+  .svc-tame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+
+    svg {
+      width: 100%;
+      max-width: 260px;
+      height: auto;
+    }
+  }
+
+  .svc-rule {
+    align-self: stretch;
+    min-height: 200px;
+    background: var(--lightgray);
+  }
+
+  .svc-wild {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .svc-compare-title {
+    margin: 0;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    color: var(--dark);
+  }
+
+  .svc-compare-cap {
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 15px;
+    line-height: 1.55;
+    color: #3d3832;
+  }
+
+  .svc-map {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+  }
+
+  .svc-map-n text {
+    font-family: var(--ui-font);
+    font-size: 11px;
+    fill: #c1272d;
+  }
+
+  .svc-map-t text,
+  .svc-map-c {
+    font-family: var(--ui-font);
+    font-size: 12px;
+    fill: #17130f;
+  }
+
+  .svc-map-s text {
+    font-family: var(--ui-font);
+    font-size: 10.5px;
+    fill: #3d3832;
+  }
+
+  .svc-map-child {
+    font-family: var(--title-font);
+    font-size: 18px;
+    fill: #fcfcfc;
+  }
+
+  .svc-map-foot {
+    display: grid;
+    grid-template-columns: minmax(0, 324px) minmax(0, 1fr);
+    gap: 1rem 2.75rem;
+  }
+
+  .svc-map-cap {
+    margin: 0;
+    font-family: var(--ui-font);
+    font-size: 13px;
+    line-height: 1.55;
+    color: #5f5a52;
+  }
+
+  .svc-quote {
+    margin: 0;
+    padding: 0 0 0 14px;
+    border: 0;
+    border-left: 2px solid #c1e401;
+    background: none;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.5;
+    color: #3d3832;
+  }
+
+  // What the solution can be: the lime arrow and the line on hover; each row has an address.
+  .svc-sols {
+    margin-top: clamp(3.5rem, 7vw, 5rem);
+  }
+
+  .svc-sols h2 {
+    margin: 0 0 1.1rem;
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(2.1rem, 3.8vw, 2.9rem);
+    line-height: 1.05;
+    color: var(--dark);
+  }
+
+  .svc-sol-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .svc-sol {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    align-items: center;
+    gap: 0.4rem 1.5rem;
+    margin: 0;
+    padding: 18px 0;
+    border-top: 1px solid var(--lightgray);
+    scroll-margin-top: 90px;
+    transition: transform 0.2s ease-in;
+
+    &:first-child {
+      border-top-color: var(--dark);
+    }
+
+    &:last-child {
+      border-bottom: 1px solid var(--lightgray);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 0;
+      height: 1px;
+      background: var(--dark);
+      transition: width 0.35s ease;
+    }
+
+    &:hover {
+      transform: translateX(8px);
+
+      &::after {
+        width: 100%;
+      }
+
+      .s-go {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    // Arriving from the Profile or Experience: the row is marked in lime.
+    &:target,
+    &.is-target {
+      background: linear-gradient(90deg, rgba(193, 228, 1, 0.3), rgba(193, 228, 1, 0) 75%);
+    }
+  }
+
+  .svc-sol-title {
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    line-height: 1.05;
+    color: var(--dark);
+  }
+
+  .svc-sol-ex {
+    font-family: var(--ui-font);
+    font-size: 15px;
+    line-height: 1.45;
+    color: #3d3832;
+  }
+
+  @media all and (max-width: 1000px) {
+    .svc-hero-inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .svc-hero-loop {
+      width: min(100%, 440px);
+      margin: 0 auto;
+    }
+  }
+
+  @media all and (max-width: 860px) {
+    .svc-panel,
+    .svc-org,
+    .svc-wicked-head,
+    .svc-map-foot,
+    .svc-sol {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .svc-panel-num {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.8rem;
+    }
+
+    .svc-compare {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .svc-rule {
+      min-height: 0;
+      height: 1px;
+    }
+
+    .svc-tame {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  @media all and (max-width: 640px) {
+    .svc-hero {
+      padding: 3rem 16px 3.5rem;
+    }
+
+    .svc-how {
+      padding: 2.25rem 16px 2.5rem;
+    }
+
+    .svc-credit {
+      right: 16px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #quartz-body .svc {
+    .svc-panel,
+    .svc-tab,
+    .svc-dot {
+      animation: none;
+    }
+
+    .svc-proc:not(:has(.svc-st:checked)) {
+      .p1 {
+        opacity: 1;
+      }
+
+      .svc-dot.d1 {
+        fill: #c1e401;
+      }
+
+      .t1 {
+        border-color: #c1e401;
+        color: #17130f;
+      }
+    }
+  }
+}
+
+/* ---------- the footer of every page (SiteFooter) ---------- */
+// Ink on the writing site, indigo on the consulting site. The band reaches both edges of the
+// screen even on pages whose column is narrower (the shadow paints it without widening the page).
+.site-foot {
+  position: relative;
+  margin-top: 3.5rem;
+  background: #17130f;
+  color: #fcfcfc;
+  box-shadow: 0 0 0 100vmax #17130f;
+  clip-path: inset(0 -100vmax);
+
+  &.is-consulting {
+    background: #0a0773;
+    box-shadow: 0 0 0 100vmax #0a0773;
+  }
+}
+
+// After a full-width band the footer follows straight on.
+.talk + .site-foot,
+#quartz-body:has(> .cp.cpk) > .site-foot {
+  margin-top: 0;
+}
+
+// On pages with side columns, a row of its own under all of them (after the grid's last line, so
+// on phones it also comes after the sidebar that drops below the text).
+#quartz-body > .site-foot {
+  grid-column: 1 / -1;
+  grid-row: -1 / span 1;
+}
+
+.site-foot-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "brand social"
+    "links copy";
+  align-items: center;
+  gap: 2.5rem 0;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 3.5rem 40px 1.75rem;
+  box-sizing: border-box;
+}
+
+.site-foot-brand {
+  grid-area: brand;
+}
+
+.site-foot-name {
+  font-family: var(--title-font);
+  font-weight: 300;
+  font-size: clamp(1.7rem, 3vw, 2.25rem);
+  line-height: 1;
+  color: #fcfcfc;
+  background: none;
+  text-decoration: none;
+
+  &:hover {
+    color: #c1e401;
+  }
+}
+
+.site-foot-tag {
+  margin: 0.5rem 0 0;
+  font-family: var(--ui-font);
+  font-size: 14px;
+  color: rgba(252, 252, 252, 0.7);
+}
+
+.site-foot-social {
+  grid-area: social;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+  }
+}
+
+.site-foot-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  border-radius: 50%;
+  color: #fcfcfc;
+  background: none;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+
+  svg {
+    display: block;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: #c1e401;
+    background: #c1e401;
+    color: #17130f;
+  }
+}
+
+.site-foot-links,
+.site-foot-copy {
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(252, 252, 252, 0.2);
+  font-family: var(--ui-font);
+}
+
+.site-foot-links {
+  grid-area: links;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  font-size: 14px;
+
+  a {
+    font-weight: 400;
+    color: #fcfcfc;
+    background: none;
+    text-decoration: none;
+
+    &:hover {
+      color: #c1e401;
+    }
+  }
+}
+
+.site-foot-copy {
+  grid-area: copy;
+  font-size: 13px;
+  text-align: right;
+  color: rgba(252, 252, 252, 0.6);
+}
+
+@media all and (max-width: 640px) {
+  .site-foot-inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "brand"
+      "social"
+      "links"
+      "copy";
+    gap: 1.6rem;
+    padding: 2.75rem 16px 1.5rem;
+  }
+
+  .site-foot-copy {
+    padding-top: 0;
+    border-top: 0;
+    text-align: left;
+  }
+}
+
+// /sandbox: links to the whole sections kept there.
+.sandbox-lists {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0 0 2rem;
+  font-family: var(--ui-font);
+  font-size: 15px;
 }

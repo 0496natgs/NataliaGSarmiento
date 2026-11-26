@@ -28,6 +28,8 @@ export interface Piece {
   issue?: string
   /** Genre id (see GENRES in sectionsConfig.ts): flash, poetry, essays, fiction, visual-notes. */
   genre?: string
+  /** For consulting projects: the kind of solution it was (an id in services.md's `solutions`). */
+  solution?: string
   /** Manual position (1 = first). Pieces with an order come before those sorted by date. */
   order?: number
   /** Extra images (e.g. a gallery of visual notes); each becomes a tile in photo grids. */
@@ -141,6 +143,7 @@ export function getPieces(
         year: fm.year ? String(fm.year) : undefined,
         period: fm.period ? String(fm.period) : undefined,
         role: fm.role ? String(fm.role) : undefined,
+        solution: fm.solution ? String(fm.solution) : undefined,
         publication: fm.publication ? String(fm.publication) : undefined,
         issue: fm.issue ? String(fm.issue) : undefined,
         order: typeof fm.order === "number" ? fm.order : undefined,

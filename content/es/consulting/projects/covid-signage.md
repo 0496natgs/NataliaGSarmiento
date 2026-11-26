@@ -11,6 +11,9 @@ tags:
   - consulting
   - service-design
 unlisted: true
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: service
+sandbox: true
 ---
 
 Un sistema completo de señalética para COVID-19, implementado en la UAM Cuajimalpa y diseñado sobre el COVID-19 Design Toolkit (versión 1.0 US, octubre de 2020).

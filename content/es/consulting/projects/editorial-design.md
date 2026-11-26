@@ -10,6 +10,9 @@ tags:
   - consulting
   - design
 unlisted: true
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: brand
+sandbox: true
 ---
 
 Diseño de la portada de _Revolución y Diseño: Discusiones en torno a procesos sociales de transformación que derivan en diseño_, libro coordinado por Aarón José Caballero Quiroz.

@@ -14,6 +14,7 @@ import { SiteSearch } from "./SiteSearch"
 import { FILTER_JS } from "./Filters"
 import { SHARE_JS } from "./ShareBar"
 import { SIDENOTES_JS } from "./Sidenotes"
+import { SVC_TARGET_JS } from "./ServicesPage"
 
 // Scripts the pages rely on. They live in the menu, which is on every page, so they are loaded
 // once whichever page the visitor lands on and keep working when pages change without a reload.
@@ -27,7 +28,7 @@ if(!c&&y>120)n.classList.add("is-compact");else if(c&&y<24)n.classList.remove("i
 window.addEventListener("scroll",function(){if(!busy){busy=true;requestAnimationFrame(function(){busy=false;f()})}},{passive:true});
 document.addEventListener("nav",f);f()}`
 
-const PAGE_SCRIPTS = [FILTER_JS, SHARE_JS, SIDENOTES_JS, NAV_COMPACT_JS].join(";\n")
+const PAGE_SCRIPTS = [FILTER_JS, SHARE_JS, SIDENOTES_JS, NAV_COMPACT_JS, SVC_TARGET_JS].join(";\n")
 import { Lang, baseSlug, langOf, t, urlFor } from "./i18n"
 
 /** The name with the full stop after the G in lime green. */

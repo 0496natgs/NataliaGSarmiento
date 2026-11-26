@@ -8,6 +8,7 @@ import { SITE, sectionOfSlug, textOf } from "./sectionsConfig"
 import { AboutFacts } from "./AboutFacts"
 import { ProjectGallery } from "./ProjectGallery"
 import { ConsultingPage, ConsultingProfile } from "./ConsultingLayouts"
+import { ConsultingServices } from "./ServicesPage"
 import { categoryLabel, langOf, t } from "./i18n"
 import { Crumbs } from "./Crumbs"
 import { ShareBar } from "./ShareBar"
@@ -134,6 +135,10 @@ export function renderSection(props: PageFrameProps) {
 
   if (isPageSection(slug) && section.slug === "consulting") {
     return <ConsultingProfile componentData={componentData} Content={Content} footer={footer} />
+  }
+
+  if (isPageSection(slug) && section.slug === "consulting/services") {
+    return <ConsultingServices componentData={componentData} Content={Content} footer={footer} />
   }
 
   if (isPageSection(slug) && section.slug === "sandbox") {

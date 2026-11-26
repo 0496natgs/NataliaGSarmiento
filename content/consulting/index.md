@@ -26,8 +26,9 @@ practices:
       - Global Program & Project Management
       - Stakeholder Engagement & Executive Alignment
       - Cross-Functional Leadership
-# The three projects shown large (file names in consulting/projects).
-featured: [cultura-de-paz, covid-signage, cse-school-services]
+# The photograph behind the Services band (René Rivas: people skating, seen from above). Its words
+# come from the Services page (content/consulting/services.md).
+services_photo: /static/photos/rene-rivas/rene-rivas-dji-0088-1.jpg
 tags:
   - consulting
   - behavioral-change

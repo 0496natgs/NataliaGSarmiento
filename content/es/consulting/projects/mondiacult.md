@@ -10,6 +10,9 @@ tags:
   - consulting
   - design
 unlisted: true
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: brand
+sandbox: true
 ---
 
 Diseño del seminario internacional _Diversidad cultural y medios de comunicación_, evento paralelo de la UAM Cuajimalpa en MONDIACULT 2022, la conferencia mundial de la UNESCO sobre políticas culturales, realizado en la Ciudad de México el 26 de septiembre de 2022.

@@ -11,6 +11,9 @@ tags:
   - consulting
   - service-design
 unlisted: true
+# The kind of solution it was: its row on the Services page (an id in services.md).
+solution: service
+sandbox: true
 ---
 
 Un rediseño de la experiencia de los servicios escolares en la UAM Cuajimalpa. El video recorre el resultado.
