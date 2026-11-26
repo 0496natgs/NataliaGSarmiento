@@ -147,6 +147,12 @@ export function SectionNav({ fileData, allFiles }: QuartzComponentProps) {
             <Roll text={textOf(s, lang).title} />
           </a>
         ))}
+        {/* The writing site links to the consulting site, as the consulting menu links back ("Writing →"). */}
+        {space === "writer" && (
+          <a class="nav-link nav-to-space" href={urlFor("consulting", lang)}>
+            <Roll text={`${lang === "es" ? "Consultoría" : "Consulting"} →`} />
+          </a>
+        )}
         <span class="nav-end">
           <SiteSearch lang={lang} />
           <a class="nav-link" href={urlFor("contact", lang)}>
